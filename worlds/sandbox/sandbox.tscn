@@ -1,0 +1,168 @@
+[gd_scene load_steps=10 format=3 uid="uid://dgstknibpdjy2"]
+
+[ext_resource type="Material" uid="uid://dkhdvrxgv28oy" path="res://shared/planar_world_materials/planar_dirt.tres" id="1_rk1vy"]
+[ext_resource type="PackedScene" uid="uid://gqbptuxk3psx" path="res://shared/props/lamp_post.tscn" id="1_ycfd3"]
+[ext_resource type="PackedScene" uid="uid://jxhx2nsd1txk" path="res://actors/player/player_avatar.tscn" id="1_ynxeg"]
+[ext_resource type="PackedScene" uid="uid://d2bjr3e6k6btu" path="res://actors/mobs/fodder/mob_fodder.tscn" id="2_hsy7u"]
+[ext_resource type="Material" uid="uid://cufqf4wfv2ka5" path="res://shared/planar_world_materials/planar_grass.tres" id="3_gqb0w"]
+
+[sub_resource type="Environment" id="Environment_y4m2e"]
+background_mode = 1
+background_energy_multiplier = 0.0
+ambient_light_source = 2
+ambient_light_energy = 0.1
+tonemap_mode = 1
+glow_enabled = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_1hh84"]
+flip_faces = true
+radius = 500.0
+height = 1000.0
+radial_segments = 16
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g8oq0"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0.321569, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6f348"]
+albedo_color = Color(0.305882, 0.305882, 0.305882, 1)
+
+[node name="Sandbox" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_y4m2e")
+
+[node name="spawn_proxies" type="Node3D" parent="."]
+
+[node name="dynamic" type="Node3D" parent="."]
+
+[node name="player_avatar" parent="dynamic" instance=ExtResource("1_ynxeg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="MobFodder" parent="dynamic" instance=ExtResource("2_hsy7u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="geometry" type="Node3D" parent="."]
+
+[node name="skybox" type="Node3D" parent="geometry"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="geometry/skybox"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, 0.934326, 7.5, 45.8772)
+size = Vector3(24.4009, 10, 9.24561)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="geometry/skybox"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, -29.0657, 7.5, 45.8772)
+size = Vector3(24.4009, 10, 9.24561)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="geometry/skybox"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, -29.0657, 7.5, 15.8772)
+size = Vector3(24.4009, 10, 9.24561)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="geometry/skybox"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, -29.0657, 7.5, -25.1228)
+size = Vector3(24.4009, 10, 9.24561)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="geometry/skybox"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, -0.0656738, 7.5, -25.1228)
+size = Vector3(24.4009, 10, 9.24561)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="geometry/skybox"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, 28.9343, 7.5, -10.1228)
+size = Vector3(24.4009, 10, 9.24561)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="geometry/skybox"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, 14.9343, 7.5, 24.8772)
+size = Vector3(24.4009, 10, 9.24561)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="geometry/skybox"]
+mesh = SubResource("SphereMesh_1hh84")
+surface_material_override/0 = SubResource("StandardMaterial3D_g8oq0")
+
+[node name="hull" type="Node3D" parent="geometry"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="geometry/hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+material_override = ExtResource("1_rk1vy")
+use_collision = true
+size = Vector3(18, 1, 4)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="geometry/hull"]
+transform = Transform3D(1, -6.04246e-05, 0.000150949, 6.04246e-05, 1, 0.000158252, -0.000150949, -0.000158252, 1, 0, -0.6, 6)
+material_override = ExtResource("1_rk1vy")
+use_collision = true
+size = Vector3(4, 1, 8)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="geometry/hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, -6)
+material_override = ExtResource("1_rk1vy")
+use_collision = true
+size = Vector3(4, 1, 8)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="geometry/hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -0.5, -6)
+use_collision = true
+size = Vector3(7, 1, 8)
+material = ExtResource("3_gqb0w")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="geometry/hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -0.5, 6)
+use_collision = true
+size = Vector3(7, 1, 8)
+material = ExtResource("3_gqb0w")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="geometry/hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, -0.5, -6)
+use_collision = true
+size = Vector3(7, 1, 8)
+material = ExtResource("3_gqb0w")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="geometry/hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, -0.5, 6)
+use_collision = true
+size = Vector3(7, 1, 8)
+material = ExtResource("3_gqb0w")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="geometry/hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 1.5, 0)
+use_collision = true
+size = Vector3(1, 4, 20)
+material = SubResource("StandardMaterial3D_6f348")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="geometry/hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 1.5, 0)
+use_collision = true
+size = Vector3(1, 4, 20)
+material = SubResource("StandardMaterial3D_6f348")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="geometry/hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10.5)
+use_collision = true
+size = Vector3(20, 4, 1)
+material = SubResource("StandardMaterial3D_6f348")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="geometry/hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 10.5)
+use_collision = true
+size = Vector3(20, 4, 1)
+material = SubResource("StandardMaterial3D_6f348")
+
+[node name="props" type="Node3D" parent="geometry"]
+
+[node name="lamp_post" parent="geometry/props" instance=ExtResource("1_ycfd3")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 1.5, -8)
+
+[node name="lamp_post2" parent="geometry/props" instance=ExtResource("1_ycfd3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.5, -3)
+
+[node name="lamp_post3" parent="geometry/props" instance=ExtResource("1_ycfd3")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -7, 1.5, 3)
+
+[node name="lamp_post5" parent="geometry/props" instance=ExtResource("1_ycfd3")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -7, 1.5, 3)
+
+[node name="lamp_post4" parent="geometry/props" instance=ExtResource("1_ycfd3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 1.5, 8)
+
+[node name="lamp_post6" parent="geometry/props" instance=ExtResource("1_ycfd3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.3, 0)
