@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0cf3w4to35r6"]
+
+[ext_resource type="BoxMesh" uid="uid://cf27r0ymk15t3" path="res://shared/primitives/card_shape.tres" id="1_3yhcc"]
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+mesh = ExtResource("1_3yhcc")

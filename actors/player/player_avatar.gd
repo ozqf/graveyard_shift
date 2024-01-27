@@ -1,10 +1,10 @@
 extends CharacterBody3D
 
 const RUN_SPEED = 7.0
-const ACCELERATION_GROUND:float = 200
+const ACCELERATION_GROUND:float = 250
 const ACCELERATION_AIR:float = 25
-const JUMP_SPEED:float = 10
-const FRICTION_FLOOR:float = 0.9
+const JUMP_SPEED:float = 7
+const FRICTION_FLOOR:float = 0.8
 const MOUSE_RELATIVE_SENSITIVITY:float = 0.003
 
 @onready var _head:Node3D = $body/head
@@ -66,7 +66,7 @@ func _process(delta):
 	# vertical
 	if is_on_floor():
 		if inputDir.y > 0:
-			self.velocity.y = 10.0
+			self.velocity.y = JUMP_SPEED
 	else:
 		# +y is up so gravity strength is negative when applied. 
 		self.velocity += Vector3(0, -_gravity, 0) * delta

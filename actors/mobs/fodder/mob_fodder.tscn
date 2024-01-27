@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2bjr3e6k6btu"]
+[gd_scene load_steps=5 format=3 uid="uid://d2bjr3e6k6btu"]
 
 [ext_resource type="Script" path="res://actors/mobs/mob_base.gd" id="1_7s6g3"]
 
@@ -10,6 +10,9 @@ height = 1.6
 radial_segments = 16
 rings = 1
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_54hq1"]
+height = 1.6
+
 [node name="MobFodder" type="CharacterBody3D"]
 script = ExtResource("1_7s6g3")
 
@@ -20,3 +23,11 @@ shape = SubResource("CapsuleShape3D_8eudg")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 mesh = SubResource("CapsuleMesh_4c3fu")
+
+[node name="hitbox" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("CylinderShape3D_54hq1")

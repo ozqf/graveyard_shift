@@ -1,6 +1,11 @@
 extends Node
 
+# worlds
 var _sandboxScene = preload("res://worlds/sandbox/sandbox.tscn")
+
+# gfx
+var _impactBulletWall = preload("res://gfx/impacts/gfx_impact_bullet_wall.tscn")
+
 @onready var _worldRoot:Node3D = $world
 @onready var _mainMenu:MainMenu = $main_menu
 
@@ -36,6 +41,9 @@ func set_player_input_on(flag:bool) -> void:
 func get_player_input_on() -> bool:
 	return _playerInputOn
 
+func get_actor_root() -> Node3D:
+	return _worldRoot
+
 ###################################################################
 # Mouse claims
 ###################################################################
@@ -61,3 +69,13 @@ func remove_mouse_claim(claimant:Node) -> void:
 	if i >= 0:
 		_mouseClaims.remove_at(i)
 	_refresh_mouse_claims()
+
+###################################################################
+# gfx
+###################################################################
+func gfx_spawn_bullet_wall_impact(pos:Vector3, forward:Vector3) -> Node3D:
+	var gfx:Node3D = _impactBulletWall.instantiate()
+	_worldRoot.add_child(gfx)
+	gfx.global_position = pos
+	ZqfUtils.look_at_safe(gfx, pos + forward)
+	return gfx
