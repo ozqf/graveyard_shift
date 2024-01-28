@@ -1,0 +1,69 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1n0g1vyaqgv0"]
+
+[ext_resource type="Material" uid="uid://dkhdvrxgv28oy" path="res://shared/planar_world_materials/planar_dirt.tres" id="1_u5udn"]
+[ext_resource type="Material" uid="uid://cufqf4wfv2ka5" path="res://shared/planar_world_materials/planar_grass.tres" id="2_rvhrv"]
+[ext_resource type="PackedScene" uid="uid://gqbptuxk3psx" path="res://shared/props/lamp_post.tscn" id="3_6f2k8"]
+
+[node name="quadrangle" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+material_override = ExtResource("1_u5udn")
+use_collision = true
+size = Vector3(18, 1, 4)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, -6.04246e-05, 0.000150949, 6.04246e-05, 1, 0.000158252, -0.000150949, -0.000158252, 1, 0, -0.6, 6)
+material_override = ExtResource("1_u5udn")
+use_collision = true
+size = Vector3(4, 1, 8)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, -6)
+material_override = ExtResource("1_u5udn")
+use_collision = true
+size = Vector3(4, 1, 8)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -0.5, -6)
+use_collision = true
+size = Vector3(7, 1, 8)
+material = ExtResource("2_rvhrv")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -0.5, 6)
+use_collision = true
+size = Vector3(7, 1, 8)
+material = ExtResource("2_rvhrv")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, -0.5, -6)
+use_collision = true
+size = Vector3(7, 1, 8)
+material = ExtResource("2_rvhrv")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, -0.5, 6)
+use_collision = true
+size = Vector3(7, 1, 8)
+material = ExtResource("2_rvhrv")
+
+[node name="props" type="Node3D" parent="."]
+
+[node name="lamp_post" parent="props" instance=ExtResource("3_6f2k8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 1.5, -8)
+
+[node name="lamp_post2" parent="props" instance=ExtResource("3_6f2k8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.5, -3)
+
+[node name="lamp_post3" parent="props" instance=ExtResource("3_6f2k8")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -7, 1.5, 3)
+
+[node name="lamp_post5" parent="props" instance=ExtResource("3_6f2k8")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -7, 1.5, 3)
+
+[node name="lamp_post4" parent="props" instance=ExtResource("3_6f2k8")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 1.5, 8)
+
+[node name="lamp_post6" parent="props" instance=ExtResource("3_6f2k8")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.3, 0)

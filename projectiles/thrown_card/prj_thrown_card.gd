@@ -6,7 +6,15 @@ var velocity:Vector3 = Vector3()
 var _time:float = 0.0
 
 func _ready():
-	pass # Replace with function body.
+	$Area3D.connect("area_entered", _on_touched_area)
+	$Area3D.connect("body_entered", _on_touched_body)
+	pass
+
+func _on_touched_body(_body:Node3D) -> void:
+	queue_free()
+
+func _on_touched_area(_area:Area3D) -> void:
+	queue_free()
 
 func get_launch_info() -> ProjectileLaunchInfo:
 	return _launchInfo

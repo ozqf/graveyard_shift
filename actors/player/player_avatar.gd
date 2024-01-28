@@ -8,6 +8,7 @@ const FRICTION_FLOOR:float = 0.8
 const MOUSE_RELATIVE_SENSITIVITY:float = 0.003
 
 @onready var _head:Node3D = $body/head
+@onready var _playerInput:PlayerInput = $PlayerInput
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var _gravity:float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -19,9 +20,10 @@ func _process(delta):
 	if !Game.get_player_input_on():
 		return
 	
-	var atk1:bool = Input.is_action_pressed("attack_1")
-	var atk2:bool = Input.is_action_pressed("attack_2")
-	_head.tick(delta, atk1, atk2)
+	_playerInput.attack1 = Input.is_action_pressed("attack_1")
+	_playerInput.attack2 = Input.is_action_pressed("attack_2")
+	_playerInput.style = Input.is_action_pressed("style")
+	_head.tick(delta, _playerInput)
 	
 	var inputDir:Vector3 = Vector3()
 	inputDir.x = Input.get_axis("move_left", "move_right")

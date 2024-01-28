@@ -1,5 +1,5 @@
 extends Button
-class_name CustomButton
+class_name ZqfButton
 
 signal custom_pressed(button)
 

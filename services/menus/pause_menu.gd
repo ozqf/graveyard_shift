@@ -1,5 +1,5 @@
 extends Control
-class_name MainMenu
+class_name PauseMenu
 
 var _on:bool = false
 

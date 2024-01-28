@@ -5,6 +5,9 @@ extends Node
 func _ready() -> void:
 	_animator.connect("animation_finished", _on_anim_finished)
 
+func play_spin_forward() -> void:
+	_animator.play("style_spin")
+
 func play_fire() -> void:
 	_animator.play("fire")
 

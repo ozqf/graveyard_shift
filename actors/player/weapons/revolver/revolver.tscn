@@ -1,35 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://crwqrfv1anvfu"]
+[gd_scene load_steps=8 format=3 uid="uid://crwqrfv1anvfu"]
 
 [ext_resource type="Script" path="res://actors/player/weapons/revolver/revolver_model.gd" id="1_8i5ss"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_eim0y"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_oenwy"]
-
-[sub_resource type="Animation" id="Animation_srjlu"]
-resource_name = "idle"
-loop_mode = 1
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("root")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
-tracks/1/type = "rotation_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("root")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
-tracks/2/type = "scale_3d"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("root")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = PackedFloat32Array(0, 1, 1, 1, 1)
 
 [sub_resource type="Animation" id="Animation_i3ibh"]
 resource_name = "fire"
@@ -56,10 +31,62 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.3, 1, 1, 1, 1)
 
+[sub_resource type="Animation" id="Animation_srjlu"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("root")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("root")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/2/type = "scale_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("root")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_a1vnl"]
+resource_name = "style_spin"
+length = 0.5
+step = 0.05
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("root")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.1, 1, 0, 0.0655142, 0.0832666, 0.15, 1, 0, -0.000781849, -0.00284623, 0.2, 1, 0, -0.000781849, -0.00284623, 0.25, 1, 0, -0.000781849, -0.00284623, 0.3, 1, 0, -0.000781849, -0.00284623, 0.35, 1, 0, 0, 0)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("root")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.1, 1, 0.169848, 0, 0, 0.98547, 0.15, 1, -0.221982, 0, 0, 0.975051, 0.2, 1, -0.688829, 0, 0, 0.724924, 0.25, 1, 0.999992, 0, 0, -0.00387449, 0.3, 1, 0.708765, 0, 0, 0.705445, 0.35, 1, 0, 0, 0, 1)
+tracks/2/type = "scale_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("root")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.35, 1, 1, 1, 1)
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k8tuk"]
 _data = {
 "fire": SubResource("Animation_i3ibh"),
-"idle": SubResource("Animation_srjlu")
+"idle": SubResource("Animation_srjlu"),
+"style_spin": SubResource("Animation_a1vnl")
 }
 
 [node name="revolver" type="Node3D"]

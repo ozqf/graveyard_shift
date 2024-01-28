@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://dyfc6f1c83i8x"]
+
+[ext_resource type="Script" path="res://zqf/zqf_timed_cull.gd" id="1_34bgs"]
+[ext_resource type="Script" path="res://zqf/zqf_emit_on_ready.gd" id="2_57fsl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g06pc"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.94902, 0, 0, 1)
+metallic = 1.0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_i08k2"]
+colors = PackedColorArray(0.969137, 0.969137, 0.969137, 1, 0.29219, 0.29219, 0.29219, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dwanx"]
+gradient = SubResource("Gradient_i08k2")
+
+[sub_resource type="Curve" id="Curve_m0i7w"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_cks2m"]
+curve = SubResource("Curve_m0i7w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2w3ba"]
+direction = Vector3(0, 0, -1)
+spread = 35.0
+initial_velocity_min = 0.05
+initial_velocity_max = 6.0
+gravity = Vector3(0, -5, 0)
+scale_curve = SubResource("CurveTexture_cks2m")
+color_ramp = SubResource("GradientTexture1D_dwanx")
+
+[sub_resource type="QuadMesh" id="QuadMesh_g25bg"]
+size = Vector2(0.1, 0.1)
+
+[node name="GfxImpactBulletWall" type="Node3D"]
+script = ExtResource("1_34bgs")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_g06pc")
+amount = 16
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_2w3ba")
+draw_pass_1 = SubResource("QuadMesh_g25bg")
+script = ExtResource("2_57fsl")

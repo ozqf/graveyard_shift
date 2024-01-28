@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://da6xymokf6ku5"]
+
+[ext_resource type="Material" uid="uid://dkhdvrxgv28oy" path="res://shared/planar_world_materials/planar_dirt.tres" id="1_rouiv"]
+[ext_resource type="Material" uid="uid://dwhlab8dqmqnm" path="res://shared/planar_world_materials/planar_stone.tres" id="2_xw7t5"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cibi4"]
+material = ExtResource("1_rouiv")
+size = Vector2(1000, 1000)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fti8p"]
+material = ExtResource("2_xw7t5")
+top_radius = 30.0
+bottom_radius = 52.0
+height = 16.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_nkams"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2xnim"]
+material = ExtResource("2_xw7t5")
+top_radius = 80.0
+bottom_radius = 100.0
+height = 100.0
+
+[node name="town_hill_skybox" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_cibi4")
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
+
+[node name="hill" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -195)
+mesh = SubResource("CylinderMesh_fti8p")
+skeleton = NodePath("../..")
+
+[node name="cross" type="Node3D" parent="hill"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1, 8, 27)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="hill/cross"]
+transform = Transform3D(0.3, 0, 0, 0, 3, 0, 0, 0, 0.6, 0, 1.5, 0)
+mesh = SubResource("BoxMesh_nkams")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="hill/cross"]
+transform = Transform3D(1.55, 0, 0, 0, 0.18, 0, 0, 0, 0.6, 0, 2.1, 0)
+mesh = SubResource("BoxMesh_nkams")
+skeleton = NodePath("../../../..")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2.5, -5.5)
+size = Vector3(5, 5, 10)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2.5, -18.5)
+size = Vector3(5, 5, 10)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2.5, -33.5)
+size = Vector3(5, 5, 10)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.5, -5.5)
+size = Vector3(5, 5, 10)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.5, -18.5)
+size = Vector3(5, 5, 10)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.5, -33.5)
+size = Vector3(5, 5, 10)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -163, 25, 387)
+mesh = SubResource("CylinderMesh_2xnim")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -373, 25, -20)
+mesh = SubResource("CylinderMesh_2xnim")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 414, 25, 300)
+mesh = SubResource("CylinderMesh_2xnim")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 202, 25, -461)
+mesh = SubResource("CylinderMesh_2xnim")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240, 46, -383)
+mesh = SubResource("CylinderMesh_2xnim")

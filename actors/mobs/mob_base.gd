@@ -1,11 +1,19 @@
 extends Node
 
+var teamId:int = Game.TEAM_ID_ENEMY
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var _health:float = 100.0
+var _dead:bool = false
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func hit(_hitInfo:HitInfo) -> int:
+	if !Game.is_hit_valid(_hitInfo.teamId, teamId):
+		return Game.HIT_RESPONSE_WHIFF
+	if _dead:
+		return Game.HIT_RESPONSE_WHIFF
+	_health -= _hitInfo.damage
+	if _health <= 0.0:
+		self.queue_free()
+		return _hitInfo.damage
+	
+	
+	return _hitInfo.damage

@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bj81ojl7tfi2r"]
+
+[ext_resource type="PackedScene" uid="uid://da6xymokf6ku5" path="res://shared/sky/town_hill_skybox.tscn" id="1_p11bk"]
+[ext_resource type="PackedScene" uid="uid://bbp3hdh3bxrd8" path="res://services/menus/title_menu.tscn" id="1_t8e5v"]
+
+[sub_resource type="Environment" id="Environment_l6hki"]
+background_mode = 1
+background_color = Color(0.572549, 0.952941, 1, 1)
+
+[node name="Title" type="Node3D"]
+
+[node name="town_hill_skybox" parent="." instance=ExtResource("1_p11bk")]
+
+[node name="TitleMenu" parent="." instance=ExtResource("1_t8e5v")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l6hki")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 0, 19, 0)
+light_color = Color(1, 1, 0.219608, 1)
+shadow_enabled = true
+metadata/_edit_lock_ = true

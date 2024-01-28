@@ -26,10 +26,10 @@ point_count = 2
 curve = SubResource("Curve_tq1cl")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1wygd"]
-direction = Vector3(0, 0, 1)
-spread = 118.235
+direction = Vector3(0, 0, -1)
+spread = 52.912
 initial_velocity_min = 0.1
-initial_velocity_max = 2.0
+initial_velocity_max = 4.0
 gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_a8vqo")
 color_ramp = SubResource("GradientTexture1D_lb4ac")

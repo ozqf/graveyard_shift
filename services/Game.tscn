@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://services/game.gd" id="1_mbhd1"]
 [ext_resource type="Script" path="res://zqf/zqf_fps_label.gd" id="2_ho4ok"]
-[ext_resource type="PackedScene" uid="uid://fej6gfuptb8a" path="res://services/main_menu.tscn" id="2_q88cg"]
+[ext_resource type="PackedScene" uid="uid://fej6gfuptb8a" path="res://services/menus/pause_menu.tscn" id="3_ewotx"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_mbhd1")
@@ -16,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="debug_ui"]
 layout_mode = 0
@@ -24,27 +25,4 @@ offset_bottom = 23.0
 text = "FPS LABEL"
 script = ExtResource("2_ho4ok")
 
-[node name="main_menu" parent="." instance=ExtResource("2_q88cg")]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-metadata/_edit_lock_ = true
-
-[node name="Label" type="Label" parent="main_menu"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.48
-anchor_top = 0.142
-anchor_right = 0.48
-anchor_bottom = 0.142
-offset_left = -128.0
-offset_top = 0.0999985
-offset_right = 128.0
-offset_bottom = 63.1
-text = "PAUSED"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="PauseMenu" parent="." instance=ExtResource("3_ewotx")]
