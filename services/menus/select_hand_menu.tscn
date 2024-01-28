@@ -1,0 +1,221 @@
+[gd_scene load_steps=4 format=3 uid="uid://juy8havrgtxe"]
+
+[ext_resource type="Script" path="res://zqf/zqf_button.gd" id="1_2swv8"]
+[ext_resource type="Script" path="res://services/menus/select_hand_menu.gd" id="1_i2qi1"]
+[ext_resource type="PackedScene" uid="uid://b4sxownw6xju6" path="res://shared/ui/cards/ui_card.tscn" id="3_ymol0"]
+
+[node name="SelectHandMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i2qi1")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.284
+offset_bottom = -71.8
+text = "SELECT YOUR HAND"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -58.0
+offset_right = -24.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Play"
+script = ExtResource("1_2swv8")
+
+[node name="i_feel_lucky" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -58.0
+offset_right = 192.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "I feel lucky"
+script = ExtResource("1_2swv8")
+
+[node name="selected" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = 8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ui_card" parent="selected" instance=ExtResource("3_ymol0")]
+layout_mode = 1
+anchor_left = 0.48
+anchor_top = 0.533
+anchor_right = 0.48
+anchor_bottom = 0.533
+offset_left = -264.0
+offset_top = -202.0
+offset_right = -184.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ui_card2" parent="selected" instance=ExtResource("3_ymol0")]
+layout_mode = 1
+anchor_left = 0.48
+anchor_top = 0.533
+anchor_right = 0.48
+anchor_bottom = 0.533
+offset_left = -152.0
+offset_top = -202.0
+offset_right = -72.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ui_card3" parent="selected" instance=ExtResource("3_ymol0")]
+layout_mode = 1
+anchor_left = 0.48
+anchor_top = 0.533
+anchor_right = 0.48
+anchor_bottom = 0.533
+offset_left = -40.0
+offset_top = -202.0
+offset_right = 40.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ui_card4" parent="selected" instance=ExtResource("3_ymol0")]
+layout_mode = 1
+anchor_left = 0.48
+anchor_top = 0.533
+anchor_right = 0.48
+anchor_bottom = 0.533
+offset_left = 72.0
+offset_top = -202.0
+offset_right = 152.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ui_card5" parent="selected" instance=ExtResource("3_ymol0")]
+layout_mode = 1
+anchor_left = 0.48
+anchor_top = 0.533
+anchor_right = 0.48
+anchor_bottom = 0.533
+offset_left = 184.0
+offset_top = -202.0
+offset_right = 264.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.142
+anchor_right = 1.0
+anchor_bottom = 0.48
+offset_top = 0.0999985
+offset_bottom = -1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ui_card" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card2" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card3" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card4" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card5" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card6" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card7" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card8" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card9" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card10" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card11" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card12" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card13" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card14" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card15" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card16" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card17" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card18" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card19" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2
+
+[node name="ui_card20" parent="Panel/ScrollContainer/HBoxContainer" instance=ExtResource("3_ymol0")]
+layout_mode = 2

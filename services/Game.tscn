@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://06ehbr57yo5c"]
+[gd_scene load_steps=5 format=3 uid="uid://06ehbr57yo5c"]
 
 [ext_resource type="Script" path="res://services/game.gd" id="1_mbhd1"]
 [ext_resource type="Script" path="res://zqf/zqf_fps_label.gd" id="2_ho4ok"]
 [ext_resource type="PackedScene" uid="uid://fej6gfuptb8a" path="res://services/menus/pause_menu.tscn" id="3_ewotx"]
+[ext_resource type="PackedScene" uid="uid://juy8havrgtxe" path="res://services/menus/select_hand_menu.tscn" id="3_pj2cx"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_mbhd1")
@@ -24,5 +25,7 @@ offset_right = 128.0
 offset_bottom = 23.0
 text = "FPS LABEL"
 script = ExtResource("2_ho4ok")
+
+[node name="SelectHandMenu" parent="." instance=ExtResource("3_pj2cx")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_ewotx")]

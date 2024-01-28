@@ -24,6 +24,7 @@ Game="*res://services/Game.tscn"
 window/size/viewport_width=800
 window/size/viewport_height=450
 window/stretch/mode="viewport"
+window/vsync/vsync_mode=0
 
 [input]
 

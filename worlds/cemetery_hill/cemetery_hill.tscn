@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://jxhx2nsd1txk" path="res://actors/player/player_avatar.tscn" id="1_ynxeg"]
 [ext_resource type="PackedScene" uid="uid://d2bjr3e6k6btu" path="res://actors/mobs/fodder/mob_fodder.tscn" id="2_hsy7u"]
 [ext_resource type="PackedScene" uid="uid://da6xymokf6ku5" path="res://shared/sky/town_hill_skybox.tscn" id="3_hea0o"]
-[ext_resource type="PackedScene" uid="uid://d1n0g1vyaqgv0" path="res://worlds/sandbox/components/quadrangle.tscn" id="4_28ett"]
+[ext_resource type="PackedScene" uid="uid://d1n0g1vyaqgv0" path="res://worlds/cemetery_hill/components/quadrangle.tscn" id="4_28ett"]
 
 [sub_resource type="Environment" id="Environment_y4m2e"]
 background_mode = 1

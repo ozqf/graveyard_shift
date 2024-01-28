@@ -16,43 +16,46 @@ enum GameState {
 	Startup,
 	Title,
 	Pregame,
-	Game,
+	Play,
 	Postgame
 }
 
 # worlds
-var _sandboxScene = preload("res://worlds/sandbox/sandbox.tscn")
+var _cemeteryHillScene = preload("res://worlds/cemetery_hill/cemetery_hill.tscn")
 var _titleScene = preload("res://worlds/title/title.tscn")
 
 # gfx
 var _impactBulletWall = preload("res://gfx/impacts/gfx_impact_bullet_wall.tscn")
 
 @onready var _worldRoot:Node3D = $world
-@onready var _mainMenu:PauseMenu = $PauseMenu
+@onready var _pauseMenu:PauseMenu = $PauseMenu
+@onready var _selectHandMenu = $SelectHandMenu
 
 var _playerInputOn:bool = false
 var _gameState:GameState = GameState.Startup
 
 func _ready():
-	var world = _sandboxScene.instantiate()
-	#var world = _titleScene.instantiate()
-	_worldRoot.add_child(world)
+	Engine.max_fps = 120
+	goto_title()
 	
 	_playerInputOn = true
-	_mainMenu.set_on(false)
-
-func _process(delta):
-	pass
+	_pauseMenu.set_on(false)
 
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("ui_cancel"):
+	var pausableState:bool = true
+	if _gameState == GameState.Startup:
+		pausableState = false
+	if _gameState == GameState.Title:
+		pausableState = false
+	
+	if pausableState && Input.is_action_just_pressed("ui_cancel"):
 		# toggle menu
-		if _mainMenu.get_on():
+		if _pauseMenu.get_on():
 			_playerInputOn = true
-			_mainMenu.set_on(false)
+			_pauseMenu.set_on(false)
 		else:
 			_playerInputOn = false
-			_mainMenu.set_on(true)
+			_pauseMenu.set_on(true)
 		pass
 
 func set_player_input_on(flag:bool) -> void:
@@ -63,20 +66,38 @@ func set_player_input_on(flag:bool) -> void:
 		add_mouse_claim(self)
 
 func get_player_input_on() -> bool:
-	return _playerInputOn
+	return _playerInputOn && _gameState == GameState.Play
 
 func get_actor_root() -> Node3D:
 	return _worldRoot
+
+func remove_current_world() -> void:
+	for child in _worldRoot.get_children():
+		child.queue_free()
 
 ###################################################################
 # Game State
 ###################################################################
 
 func goto_title() -> void:
-	pass
+	_gameState = GameState.Title
+	remove_current_world()
+	_selectHandMenu.visible = false
+	var world = _titleScene.instantiate()
+	_worldRoot.add_child(world)
 
 func goto_start_game() -> void:
-	pass
+	_gameState = GameState.Pregame
+	remove_current_world()
+	add_mouse_claim(_selectHandMenu)
+	_selectHandMenu.visible = true
+	var world = _cemeteryHillScene.instantiate()
+	_worldRoot.add_child(world)
+
+func goto_playing() -> void:
+	remove_mouse_claim(_selectHandMenu)
+	_selectHandMenu.visible = false
+	_gameState = GameState.Play
 
 ###################################################################
 # Mouse claims
