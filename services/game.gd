@@ -1,5 +1,8 @@
 extends Node3D
 
+const GROUP_PLAYER_EVENTS:String = "player_events"
+const FN_PLAYER_EVENT_HUD_STATUS:String = "player_event_hud_status"
+
 # any positive number is damage inflicted
 const HIT_RESPONSE_DAMAGE_DONE:int = 1
 # yes you hit me, but did no damage

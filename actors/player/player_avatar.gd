@@ -7,14 +7,25 @@ const JUMP_SPEED:float = 7
 const FRICTION_FLOOR:float = 0.8
 const MOUSE_RELATIVE_SENSITIVITY:float = 0.003
 
-@onready var _head:Node3D = $body/head
+@onready var _head:PlayerAttack = $body/head
 @onready var _playerInput:PlayerInput = $PlayerInput
+@onready var _hudStatus:HudStatus = $HudStatus
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var _gravity:float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+var _health:float = 100.0
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _physics_process(_delta:float) -> void:
+	_hudStatus.health = _health
+	_head.write_hud_status(_hudStatus)
+	var grp:String = Game.GROUP_PLAYER_EVENTS
+	var fn:String = Game.FN_PLAYER_EVENT_HUD_STATUS
+	get_tree().call_group(grp, fn, _hudStatus)
+	pass
 
 func _process(delta):
 	if !Game.get_player_input_on():

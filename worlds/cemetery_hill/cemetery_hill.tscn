@@ -7,11 +7,11 @@
 
 [sub_resource type="Environment" id="Environment_y4m2e"]
 background_mode = 1
-background_color = Color(0, 0, 1, 1)
-background_energy_multiplier = 0.3
+background_color = Color(0, 0, 0.462745, 1)
+background_energy_multiplier = 0.1
 ambient_light_source = 2
 ambient_light_color = Color(0, 0, 0.470588, 1)
-ambient_light_energy = 0.2
+ambient_light_energy = 0.0
 tonemap_mode = 1
 glow_enabled = true
 
@@ -39,10 +39,10 @@ environment = SubResource("Environment_y4m2e")
 [node name="dynamic" type="Node3D" parent="."]
 
 [node name="player_avatar" parent="dynamic" instance=ExtResource("1_ynxeg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 16)
 
 [node name="MobFodder" parent="dynamic" instance=ExtResource("2_hsy7u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 7)
 
 [node name="geometry" type="Node3D" parent="."]
 
@@ -145,3 +145,8 @@ collision_layer = 32
 collision_mask = 32
 size = Vector3(38, 24, 1)
 material = SubResource("StandardMaterial3D_6f348")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 4.06858, 0)
+light_color = Color(0.27451, 0.490196, 1, 1)
+light_energy = 0.1

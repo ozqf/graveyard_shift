@@ -1,4 +1,5 @@
 extends Node
+class_name PlayerAttack
 
 var _prjThrownCard = preload("res://projectiles/thrown_card/prj_thrown_card.tscn")
 
@@ -10,8 +11,13 @@ var _prjThrownCard = preload("res://projectiles/thrown_card/prj_thrown_card.tscn
 
 @onready var _revolverHit:HitInfo = $revolver_hit
 
+var shots:int = 6
+
 func _ready() -> void:
 	_revolverHit.teamId = Game.TEAM_ID_PLAYER
+
+func write_hud_status(target:HudStatus) -> void:
+	target.bullets = shots
 
 func _process(delta):
 	pass

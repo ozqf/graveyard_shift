@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2bjr3e6k6btu"]
+[gd_scene load_steps=9 format=3 uid="uid://d2bjr3e6k6btu"]
 
 [ext_resource type="Script" path="res://actors/mobs/mob_base.gd" id="1_7s6g3"]
 [ext_resource type="Script" path="res://actors/hit_delegate.gd" id="2_ejt4b"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8eudg"]
 height = 1.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8rptx"]
+albedo_color = Color(0.266667, 0.266667, 0.266667, 1)
+metallic_specular = 0.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4c3fu"]
 height = 1.6
@@ -38,6 +42,7 @@ shape = SubResource("CapsuleShape3D_8eudg")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+material_override = SubResource("StandardMaterial3D_8rptx")
 mesh = SubResource("CapsuleMesh_4c3fu")
 skeleton = NodePath("../..")
 
