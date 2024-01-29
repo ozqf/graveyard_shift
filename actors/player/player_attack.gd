@@ -19,9 +19,6 @@ func _ready() -> void:
 func write_hud_status(target:HudStatus) -> void:
 	target.bullets = shots
 
-func _process(delta):
-	pass
-
 func _throw_card() -> void:
 	var prj = _prjThrownCard.instantiate()
 	Game.get_actor_root().add_child(prj)
@@ -39,11 +36,12 @@ func _tick_revolver(_delta:float, input:PlayerInput) -> void:
 		_revolver.play_fire()
 		var victim = _aimRay.get_collider()
 		if victim !=  null:
-			var pos:Vector3 = _aimRay.get_collision_point()
+			_revolverHit.direction = -_aimRay.global_transform.basis.z
+			_revolverHit.position = _aimRay.get_collision_point()
 			var normal:Vector3 = _aimRay.get_collision_normal()
 			var result:int = Game.try_hit(victim, _revolverHit)
 			if result == Game.HIT_RESPONSE_WHIFF:
-				Game.gfx_spawn_bullet_wall_impact(pos, normal)
+				Game.gfx_spawn_bullet_wall_impact(_revolverHit.position, normal)
 		return
 	
 	if input.style:

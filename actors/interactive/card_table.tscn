@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://k1xduaoslud3"]
+
+[ext_resource type="Script" path="res://actors/interactive/card_table.gd" id="1_n7spn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sflim"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vh867"]
+
+[node name="StaticBody3D" type="StaticBody3D"]
+collision_layer = 65
+script = ExtResource("1_n7spn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_sflim")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_vh867")
+skeleton = NodePath("")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5, 0)
+light_color = Color(0.843137, 0.835294, 0.196078, 1)
+light_energy = 2.0
+shadow_enabled = true
+spot_range = 10.0
+spot_angle = 25.0

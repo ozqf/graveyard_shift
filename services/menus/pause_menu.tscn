@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://fej6gfuptb8a"]
+[gd_scene load_steps=3 format=3 uid="uid://fej6gfuptb8a"]
 
 [ext_resource type="Script" path="res://services/menus/pause_menu.gd" id="1_7vnt4"]
+[ext_resource type="Script" path="res://zqf/zqf_button.gd" id="2_vbijh"]
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -10,6 +11,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7vnt4")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.780392)
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -27,3 +39,49 @@ grow_vertical = 2
 text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="back_to_game" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.853
+anchor_right = 0.5
+anchor_bottom = 0.853
+offset_left = -144.0
+offset_top = -79.85
+offset_right = 144.0
+offset_bottom = -48.85
+text = "Back to Game"
+script = ExtResource("2_vbijh")
+metadata/_edit_lock_ = true
+
+[node name="to_settings" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.853
+anchor_right = 0.5
+anchor_bottom = 0.853
+offset_left = -144.0
+offset_top = -31.85
+offset_right = 144.0
+offset_bottom = -0.850006
+text = "Settings"
+script = ExtResource("2_vbijh")
+metadata/_edit_lock_ = true
+
+[node name="back_to_title" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.853
+anchor_right = 0.5
+anchor_bottom = 0.853
+offset_left = -144.0
+offset_top = 16.15
+offset_right = 144.0
+offset_bottom = 47.15
+text = "Back to Title"
+script = ExtResource("2_vbijh")
+metadata/_edit_lock_ = true

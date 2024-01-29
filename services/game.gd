@@ -1,7 +1,16 @@
 extends Node3D
+class_name Gam
 
 const GROUP_PLAYER_EVENTS:String = "player_events"
+# params: status:HudStatus
 const FN_PLAYER_EVENT_HUD_STATUS:String = "player_event_hud_status"
+
+const GROUP_GAME_EVENTS:String = "game_events"
+# params: newState:GameState, prevState:GameState
+const FN_GAME_EVENT_STATE_CHANGE:String = "game_event_state_change"
+
+# card_table_spawns
+const GROUP_NAME_CARD_TABLE_SPAWNS:String = "card_table_spawns"
 
 # any positive number is damage inflicted
 const HIT_RESPONSE_DAMAGE_DONE:int = 1
@@ -29,6 +38,9 @@ var _titleScene = preload("res://worlds/title/title.tscn")
 
 # gfx
 var _impactBulletWall = preload("res://gfx/impacts/gfx_impact_bullet_wall.tscn")
+var _impactBulletBlood = preload("res://gfx/impacts/gfx_impact_bullet_blood.tscn")
+
+var _cardTableScene = preload("res://actors/interactive/card_table.tscn")
 
 @onready var _worldRoot:Node3D = $world
 @onready var _pauseMenu:PauseMenu = $PauseMenu
@@ -69,7 +81,8 @@ func set_player_input_on(flag:bool) -> void:
 		add_mouse_claim(self)
 
 func get_player_input_on() -> bool:
-	return _playerInputOn && _gameState == GameState.Play
+	return !has_mouse_claims()
+	#return _playerInputOn && _gameState == GameState.Play
 
 func get_actor_root() -> Node3D:
 	return _worldRoot
@@ -82,25 +95,52 @@ func remove_current_world() -> void:
 # Game State
 ###################################################################
 
+func change_state(newState:GameState) -> void:
+	var prevState:GameState = _gameState
+	_gameState = newState
+
+	var grp:String = GROUP_GAME_EVENTS
+	var fn:String = FN_GAME_EVENT_STATE_CHANGE
+	get_tree().call_group(grp, fn, _gameState, prevState)
+
 func goto_title() -> void:
-	_gameState = GameState.Title
+	change_state(GameState.Title)
 	remove_current_world()
+	_pauseMenu.set_on(false)
 	_selectHandMenu.visible = false
 	var world = _titleScene.instantiate()
 	_worldRoot.add_child(world)
 
 func goto_start_game() -> void:
-	_gameState = GameState.Pregame
+	change_state(GameState.Pregame)
+	_playerInputOn = true
 	remove_current_world()
-	add_mouse_claim(_selectHandMenu)
-	_selectHandMenu.visible = true
+	_selectHandMenu.visible = false
 	var world = _cemeteryHillScene.instantiate()
 	_worldRoot.add_child(world)
 
+	var pos:Vector3 = Vector3()
+	var tablePoints = get_tree().get_nodes_in_group(GROUP_NAME_CARD_TABLE_SPAWNS)
+	if tablePoints.size() > 0:
+		pos = tablePoints[0].global_position
+
+	var table = _cardTableScene.instantiate()
+	_worldRoot.add_child(table)
+	table.global_position = pos
+
+func goto_select_hand() -> void:
+	_selectHandMenu.on()
+
 func goto_playing() -> void:
-	remove_mouse_claim(_selectHandMenu)
 	_selectHandMenu.visible = false
-	_gameState = GameState.Play
+	change_state(GameState.Play)
+
+func resume_game() -> void:
+	_playerInputOn = true
+	_pauseMenu.set_on(false)
+
+func exit_to_desktop() -> void:
+	get_tree().quit()
 
 ###################################################################
 # Mouse claims
@@ -149,9 +189,16 @@ func try_hit(victim, _hitInfo:HitInfo) -> int:
 ###################################################################
 # gfx
 ###################################################################
-func gfx_spawn_bullet_wall_impact(pos:Vector3, forward:Vector3) -> Node3D:
-	var gfx:Node3D = _impactBulletWall.instantiate()
+
+func _spawn_gfx(prefabType, pos:Vector3, forward:Vector3) -> Node3D:
+	var gfx:Node3D = prefabType.instantiate()
 	_worldRoot.add_child(gfx)
 	gfx.global_position = pos
 	ZqfUtils.look_at_safe(gfx, pos + forward)
 	return gfx
+
+func gfx_spawn_bullet_wall_impact(pos:Vector3, forward:Vector3) -> Node3D:
+	return _spawn_gfx(_impactBulletWall, pos, forward)
+
+func gfx_spawn_bullet_blood_impact(pos:Vector3, forward:Vector3) -> Node3D:
+	return _spawn_gfx(_impactBulletBlood, pos, forward)

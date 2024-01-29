@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbjm3jh3bqypj"]
+
+[ext_resource type="Script" path="res://actors/info/point_actor.gd" id="1_5b0pn"]
+[ext_resource type="PackedScene" uid="uid://d4mfw2qco28n0" path="res://shared/widgets/point_actor_widget.tscn" id="2_ibd64"]
+
+[node name="PointActor" type="Node3D"]
+script = ExtResource("1_5b0pn")
+
+[node name="PointActorWidget" parent="." instance=ExtResource("2_ibd64")]

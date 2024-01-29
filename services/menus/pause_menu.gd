@@ -1,6 +1,10 @@
 extends Control
 class_name PauseMenu
 
+@onready var _backToGame:ZqfButton = $back_to_game
+@onready var _toSettings:ZqfButton = $to_settings
+@onready var _backToTitle:ZqfButton = $back_to_title
+
 var _on:bool = false
 
 func get_on() -> bool:
@@ -14,11 +18,16 @@ func set_on(flag:bool) -> void:
 	else:
 		Game.remove_mouse_claim(self)
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	_backToGame.connect("custom_pressed", _on_button_pressed)
+	_toSettings.connect("custom_pressed", _on_button_pressed)
+	_backToTitle.connect("custom_pressed", _on_button_pressed)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _on_button_pressed(_button) -> void:
+	if _button == _backToGame:
+		Game.resume_game()
+	elif _button == _toSettings:
+		pass
+	elif _button == _backToTitle:
+		Game.goto_title()
 	pass

@@ -10,6 +10,7 @@ const MOUSE_RELATIVE_SENSITIVITY:float = 0.003
 @onready var _head:PlayerAttack = $body/head
 @onready var _playerInput:PlayerInput = $PlayerInput
 @onready var _hudStatus:HudStatus = $HudStatus
+@onready var _interactArea:Area3D = $interactable_sensor
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var _gravity:float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -18,6 +19,20 @@ var _health:float = 100.0
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	_interactArea.connect("area_entered", _on_interactable_area_entered)
+	_interactArea.connect("body_entered", _on_interactable_body_entered)
+
+func _on_interactable_area_entered(_area:Area3D) -> void:
+	_on_interactable_body_entered(_area)
+
+func _on_interactable_body_entered(node:Node) -> void:
+	print("Saw interactable body")
+	if node.has_method("get_interactable_info"):
+		var info = node.get_interactable_info()
+		if info.type == "card_table":
+			Game.goto_select_hand()
+		if node.has_method("interactable_used"):
+			node.interactable_used()
 
 func _physics_process(_delta:float) -> void:
 	_hudStatus.health = _health

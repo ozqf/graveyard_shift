@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://jxhx2nsd1txk"]
+[gd_scene load_steps=12 format=3 uid="uid://jxhx2nsd1txk"]
 
 [ext_resource type="Script" path="res://actors/player/player_avatar.gd" id="1_6id4k"]
 [ext_resource type="Script" path="res://actors/player/actor_input.gd" id="2_3pek4"]
@@ -10,13 +10,25 @@
 [ext_resource type="Script" path="res://actors/player/hud.gd" id="7_wrhai"]
 [ext_resource type="Script" path="res://actors/player/hud_status.gd" id="9_e0ene"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_reovu"]
+size = Vector3(1.2, 1.8, 1.2)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3rhlu"]
 height = 1.8
 
 [node name="player_avatar" type="CharacterBody3D"]
+collision_layer = 2
 collision_mask = 33
 floor_snap_length = 0.2
 script = ExtResource("1_6id4k")
+
+[node name="interactable_sensor" type="Area3D" parent="."]
+collision_layer = 128
+collision_mask = 64
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interactable_sensor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("BoxShape3D_reovu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)

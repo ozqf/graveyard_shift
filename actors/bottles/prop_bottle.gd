@@ -1,8 +1,8 @@
-extends Node
+extends Area3D
 
 var teamId:int = Game.TEAM_ID_ENEMY
 
-var _health:float = 100.0
+var _health:float = 1.0
 var _dead:bool = false
 
 func hit(_hitInfo:HitInfo) -> int:

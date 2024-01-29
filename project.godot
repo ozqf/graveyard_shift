@@ -118,6 +118,8 @@ reload={
 3d_physics/layer_4="projectiles"
 3d_physics/layer_5="trigger"
 3d_physics/layer_6="player_barrier"
+3d_physics/layer_7="interactable"
+3d_physics/layer_8="sensor"
 
 [physics]
 
