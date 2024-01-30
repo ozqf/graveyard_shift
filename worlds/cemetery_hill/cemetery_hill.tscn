@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dgstknibpdjy2"]
+[gd_scene load_steps=14 format=3 uid="uid://dgstknibpdjy2"]
 
 [ext_resource type="Environment" uid="uid://djwtu755ducri" path="res://env/env_night.tres" id="1_5hryt"]
 [ext_resource type="Environment" uid="uid://dxolikeel0em7" path="res://env/env_magic_hour.tres" id="1_b5jcq"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://d1n0g1vyaqgv0" path="res://worlds/cemetery_hill/components/quadrangle.tscn" id="4_28ett"]
 [ext_resource type="PackedScene" uid="uid://3gsj0l5wp4gp" path="res://actors/bottles/red_bottle.tscn" id="5_kjp55"]
 [ext_resource type="PackedScene" uid="uid://bbjm3jh3bqypj" path="res://actors/info/point_actor.tscn" id="9_ige4d"]
+[ext_resource type="PackedScene" uid="uid://dpgocdevx8q0q" path="res://actors/info/arena_actor.tscn" id="10_qlsst"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1hh84"]
 flip_faces = true
@@ -179,3 +180,20 @@ groupName = "card_table_spawns"
 [node name="PointActor3" parent="card_table_points" instance=ExtResource("9_ige4d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
 groupName = "card_table_spawns"
+
+[node name="arenas" type="Node3D" parent="."]
+
+[node name="ArenaActor" parent="arenas" instance=ExtResource("10_qlsst")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="PointActor" parent="arenas/ArenaActor" instance=ExtResource("9_ige4d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -2, -14)
+
+[node name="PointActor2" parent="arenas/ArenaActor" instance=ExtResource("9_ige4d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -2, -14)
+
+[node name="PointActor3" parent="arenas/ArenaActor" instance=ExtResource("9_ige4d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -2, 14)
+
+[node name="PointActor4" parent="arenas/ArenaActor" instance=ExtResource("9_ige4d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -2, 14)

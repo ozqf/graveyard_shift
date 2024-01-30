@@ -9,8 +9,9 @@ const GROUP_GAME_EVENTS:String = "game_events"
 # params: newState:GameState, prevState:GameState
 const FN_GAME_EVENT_STATE_CHANGE:String = "game_event_state_change"
 
-# card_table_spawns
 const GROUP_NAME_CARD_TABLE_SPAWNS:String = "card_table_spawns"
+
+const GROUP_NAME_ARENAS:String = "arenas"
 
 # any positive number is damage inflicted
 const HIT_RESPONSE_DAMAGE_DONE:int = 1
@@ -119,6 +120,17 @@ func goto_start_game() -> void:
 	var world = _cemeteryHillScene.instantiate()
 	_worldRoot.add_child(world)
 
+	_place_new_card_table()
+
+func goto_select_hand() -> void:
+	_selectHandMenu.on()
+
+func goto_playing() -> void:
+	_selectHandMenu.visible = false
+	change_state(GameState.Play)
+	start_next_arena()
+
+func _place_new_card_table() -> void:
 	var pos:Vector3 = Vector3()
 	var tablePoints = get_tree().get_nodes_in_group(GROUP_NAME_CARD_TABLE_SPAWNS)
 	if tablePoints.size() > 0:
@@ -128,12 +140,16 @@ func goto_start_game() -> void:
 	_worldRoot.add_child(table)
 	table.global_position = pos
 
-func goto_select_hand() -> void:
-	_selectHandMenu.on()
+func start_next_arena() -> void:
+	var arenas = get_tree().get_nodes_in_group(GROUP_NAME_ARENAS)
+	if arenas.size() == 0:
+		print("Eek - no arenas found")
+		return
+	arenas[0].start()
+	pass
 
-func goto_playing() -> void:
-	_selectHandMenu.visible = false
-	change_state(GameState.Play)
+func arena_finished() -> void:
+	_place_new_card_table()
 
 func resume_game() -> void:
 	_playerInputOn = true

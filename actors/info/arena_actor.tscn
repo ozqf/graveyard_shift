@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpgocdevx8q0q"]
+
+[ext_resource type="Script" path="res://actors/info/arena_actor.gd" id="1_ies3m"]
+[ext_resource type="PackedScene" uid="uid://d4mfw2qco28n0" path="res://shared/widgets/point_actor_widget.tscn" id="1_qs2s8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fhhbx"]
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+
+[node name="ArenaActor" type="Node3D"]
+script = ExtResource("1_ies3m")
+
+[node name="PointActorWidget" parent="." instance=ExtResource("1_qs2s8")]
+
+[node name="MeshInstance3D" parent="PointActorWidget" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_fhhbx")
+
+[editable path="PointActorWidget"]
