@@ -8,6 +8,17 @@ var _activeMobs:Dictionary = {}
 
 func _ready():
 	add_to_group(Game.GROUP_NAME_ARENAS)
+	add_to_group(Game.GROUP_GAME_EVENTS)
+
+func game_event_mob_died(_mob, _tag:String) -> void:
+	if !_activeMobs.has(_tag):
+		print("Mob death not of interest to arena")
+		return
+	
+	_activeMobs.erase(_tag)
+	var s:int = _activeMobs.size()
+	print("Arena has " + str(s) + " mobs left")
+	pass
 
 func start() -> void:
 	_spawnNodes = self.get_children()

@@ -11,7 +11,18 @@ var _dead:bool = false
 var uuid:String = ""
 
 func _ready() -> void:
+	print("Mob ready")
 	uuid = UUID.v4()
+
+func die() -> void:
+	if _dead:
+		return
+	var grp:String = Game.GROUP_GAME_EVENTS
+	var fn:String = Game.FN_GAME_EVENT_MOB_DIED
+	get_tree().call_group(grp, fn, self, _launchInfo.tag)
+	_dead = true
+	self.queue_free()
+	pass
 
 func hit(_hitInfo:HitInfo) -> int:
 	if !Game.is_hit_valid(_hitInfo.teamId, teamId):
@@ -22,7 +33,7 @@ func hit(_hitInfo:HitInfo) -> int:
 	_health -= _hitInfo.damage
 	
 	if _health <= 0.0:
-		self.queue_free()
+		die()
 		return _hitInfo.damage
 	else:
 		var gfxForward:Vector3 = -_hitInfo.direction

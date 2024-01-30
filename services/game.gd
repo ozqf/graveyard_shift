@@ -8,6 +8,8 @@ const FN_PLAYER_EVENT_HUD_STATUS:String = "player_event_hud_status"
 const GROUP_GAME_EVENTS:String = "game_events"
 # params: newState:GameState, prevState:GameState
 const FN_GAME_EVENT_STATE_CHANGE:String = "game_event_state_change"
+# params: mob:Node, tag:String
+const FN_GAME_EVENT_MOB_DIED:String = "game_event_mob_died"
 
 const GROUP_NAME_CARD_TABLE_SPAWNS:String = "card_table_spawns"
 
