@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2bjr3e6k6btu"]
+[gd_scene load_steps=12 format=3 uid="uid://d2bjr3e6k6btu"]
 
 [ext_resource type="Script" path="res://actors/mobs/fodder/mob_fodder.gd" id="1_3q3jo"]
 [ext_resource type="Script" path="res://actors/hit_delegate.gd" id="2_ejt4b"]
+[ext_resource type="PackedScene" uid="uid://b4nspvk6vbpi4" path="res://actors/mobs/shot_wind_up.tscn" id="2_p3pju"]
 [ext_resource type="Script" path="res://actors/mobs/mob_launch_info.gd" id="3_7xpdg"]
+[ext_resource type="Script" path="res://zqf/zqf_nav_agent.gd" id="5_v7rfw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8eudg"]
 height = 1.6
@@ -58,6 +60,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.245828, 1.32115, -0.303917
 mesh = SubResource("SphereMesh_0iv33")
 surface_material_override/0 = SubResource("StandardMaterial3D_dfocm")
 
+[node name="ShotWindUp" parent="model" instance=ExtResource("2_p3pju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474152, 0.861788, -0.318139)
+
 [node name="hitbox" type="Area3D" parent="."]
 collision_layer = 4
 collision_mask = 4
@@ -69,3 +74,6 @@ shape = SubResource("CylinderShape3D_54hq1")
 
 [node name="MobLaunchInfo" type="Node" parent="."]
 script = ExtResource("3_7xpdg")
+
+[node name="ZqfNavAgent" type="NavigationAgent3D" parent="."]
+script = ExtResource("5_v7rfw")

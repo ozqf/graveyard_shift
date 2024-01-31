@@ -1,10 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://crwqrfv1anvfu"]
+[gd_scene load_steps=12 format=3 uid="uid://crwqrfv1anvfu"]
 
 [ext_resource type="Script" path="res://actors/player/weapons/revolver/revolver_model.gd" id="1_8i5ss"]
+[ext_resource type="Script" path="res://zqf/zqf_timed_hide.gd" id="2_w8vps"]
+[ext_resource type="Material" uid="uid://bliret7l6ulxi" path="res://actors/player/weapons/revolver/muzzle_flash_mat.tres" id="3_inxsq"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_eim0y"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_oenwy"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_jp6cu"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_moaeq"]
+top_radius = 0.001
+bottom_radius = 0.05
+height = 0.3
+radial_segments = 4
+rings = 1
 
 [sub_resource type="Animation" id="Animation_i3ibh"]
 resource_name = "fire"
@@ -95,19 +108,63 @@ script = ExtResource("1_8i5ss")
 [node name="root" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="root"]
-transform = Transform3D(-0.1, 0, 0, 0, 0.1, -4.37114e-08, 0, 8.74228e-09, 0.5, 0, 0.1, -0.3)
+transform = Transform3D(-0.05, 0, 0, 0, 0.05, -7.54979e-08, 0, 7.54979e-09, 0.5, 0, 0.161141, -0.3)
+mesh = SubResource("BoxMesh_eim0y")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="root"]
+transform = Transform3D(-0.025, 0, 0, 0, 0.025, -7.54979e-08, 0, 3.7749e-09, 0.5, 0, 0.124553, -0.162116)
 mesh = SubResource("BoxMesh_eim0y")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="root"]
-transform = Transform3D(-0.2, 0, 0, 0, 4.37114e-09, 0.2, 0, -0.1, 8.74228e-09, 0, 0.05, -1.49012e-08)
+transform = Transform3D(-0.16, 0, 0, 0, 4.01408e-09, 0.16, 0, -0.0918314, 6.99382e-09, 0, 0.109911, -1.49012e-08)
 mesh = SubResource("CylinderMesh_oenwy")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="root"]
-transform = Transform3D(-0.1, 0, 0, 0, 0.237554, 0.0860365, 0, -0.166337, 0.122873, 0, -0.1, 0.1)
+transform = Transform3D(-0.05, 0, 0, 0, 0.237554, 0.0573576, 0, -0.166337, 0.0819152, 0, 0.0338088, 0.132261)
 mesh = SubResource("BoxMesh_eim0y")
 skeleton = NodePath("../..")
+
+[node name="muzzle_flash_small" type="Node3D" parent="root"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.159446, -0.546004)
+visible = false
+script = ExtResource("2_w8vps")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="root/muzzle_flash_small"]
+mesh = SubResource("SphereMesh_jp6cu")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_inxsq")
+
+[node name="muzzle_flash_cross" type="Node3D" parent="root"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.159446, -0.546004)
+visible = false
+script = ExtResource("2_w8vps")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="root/muzzle_flash_cross"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.151464, 0)
+mesh = SubResource("CylinderMesh_moaeq")
+skeleton = NodePath("../../muzzle_flash_small/MeshInstance3D5")
+surface_material_override/0 = ExtResource("3_inxsq")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="root/muzzle_flash_cross"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.151419, -0.000412077, 0)
+mesh = SubResource("CylinderMesh_moaeq")
+skeleton = NodePath("../../muzzle_flash_small/MeshInstance3D5")
+surface_material_override/0 = ExtResource("3_inxsq")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="root/muzzle_flash_cross"]
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, -0.00713043, -0.1769, 0)
+mesh = SubResource("CylinderMesh_moaeq")
+skeleton = NodePath("../../muzzle_flash_small/MeshInstance3D5")
+surface_material_override/0 = ExtResource("3_inxsq")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="root/muzzle_flash_cross"]
+transform = Transform3D(1.31134e-07, -1, 0, 1, 1.31134e-07, 0, 0, 0, 1, -0.141597, -0.000419348, 0)
+mesh = SubResource("CylinderMesh_moaeq")
+skeleton = NodePath("../../muzzle_flash_small/MeshInstance3D5")
+surface_material_override/0 = ExtResource("3_inxsq")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

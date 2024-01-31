@@ -6,8 +6,10 @@ var _prjThrownCard = preload("res://projectiles/thrown_card/prj_thrown_card.tscn
 @onready var _aimRay:RayCast3D = $aim_ray
 @onready var _leftTimer:Timer = $left_timer
 @onready var _rightTimer:Timer = $right_timer
-@onready var _revolver = $hands/left/revolver
+@onready var _revolver = $hands/right/revolver
+
 @onready var _rightHand:Node3D = $hands/right
+@onready var _leftHand:Node3D = $hands/left
 
 @onready var _revolverHit:HitInfo = $revolver_hit
 
@@ -23,8 +25,8 @@ func _throw_card() -> void:
 	var prj = _prjThrownCard.instantiate()
 	Game.get_actor_root().add_child(prj)
 	var info:ProjectileLaunchInfo = prj.get_launch_info()
-	info.origin = _rightHand.global_position
-	info.forward = -_rightHand.global_transform.basis.z
+	info.origin = _leftHand.global_position
+	info.forward = -_leftHand.global_transform.basis.z
 	prj.launch()
 	pass
 

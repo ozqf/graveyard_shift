@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dgstknibpdjy2"]
+[gd_scene load_steps=18 format=3 uid="uid://dgstknibpdjy2"]
 
 [ext_resource type="Environment" uid="uid://djwtu755ducri" path="res://env/env_night.tres" id="1_5hryt"]
 [ext_resource type="Environment" uid="uid://dxolikeel0em7" path="res://env/env_magic_hour.tres" id="1_b5jcq"]
@@ -10,6 +10,25 @@
 [ext_resource type="PackedScene" uid="uid://3gsj0l5wp4gp" path="res://actors/bottles/red_bottle.tscn" id="5_kjp55"]
 [ext_resource type="PackedScene" uid="uid://bbjm3jh3bqypj" path="res://actors/info/point_actor.tscn" id="9_ige4d"]
 [ext_resource type="PackedScene" uid="uid://dpgocdevx8q0q" path="res://actors/info/arena_actor.tscn" id="10_qlsst"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_opi5l"]
+density = 0.1
+albedo = Color(0.662745, 0.819608, 1, 1)
+height_falloff = 1e-05
+edge_fade = 1e-05
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_30k6u"]
+emission_shape_scale = Vector3(40, 1, 40)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sa3yd"]
+size = Vector3(0.02, 0.3, 0.02)
 
 [sub_resource type="SphereMesh" id="SphereMesh_1hh84"]
 flip_faces = true
@@ -30,6 +49,39 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Arr
 albedo_color = Color(0.305882, 0.305882, 0.305882, 1)
 
 [node name="Sandbox" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_5hryt")
+script = ExtResource("2_knawy")
+duskEnvironment = ExtResource("1_b5jcq")
+nightEnvironment = ExtResource("1_5hryt")
+
+[node name="moonlight" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 4.06858, 0)
+visible = false
+light_color = Color(0.27451, 0.490196, 1, 1)
+light_energy = 0.05
+shadow_enabled = true
+
+[node name="setting_sun" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 4.06858, 0)
+light_color = Color(0.784314, 0.537255, 0.756863, 1)
+light_energy = 0.1
+shadow_enabled = true
+
+[node name="FogVolume" type="FogVolume" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+visible = false
+size = Vector3(138, 35, 111)
+material = SubResource("FogMaterial_opi5l")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 39, 0)
+amount = 2048
+lifetime = 4.0
+visibility_aabb = AABB(-24, -65, -30, 48, 130, 60)
+process_material = SubResource("ParticleProcessMaterial_30k6u")
+draw_pass_1 = SubResource("BoxMesh_sa3yd")
 
 [node name="skybox" type="Node3D" parent="."]
 metadata/_edit_lock_ = true
@@ -137,25 +189,6 @@ collision_layer = 32
 collision_mask = 32
 size = Vector3(38, 24, 1)
 material = SubResource("StandardMaterial3D_6f348")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("1_b5jcq")
-script = ExtResource("2_knawy")
-duskEnvironment = ExtResource("1_b5jcq")
-nightEnvironment = ExtResource("1_5hryt")
-
-[node name="moonlight" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 4.06858, 0)
-visible = false
-light_color = Color(0.27451, 0.490196, 1, 1)
-light_energy = 0.05
-shadow_enabled = true
-
-[node name="setting_sun" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 4.06858, 0)
-light_color = Color(0.784314, 0.537255, 0.756863, 1)
-light_energy = 0.1
-shadow_enabled = true
 
 [node name="spawn_proxies" type="Node3D" parent="."]
 

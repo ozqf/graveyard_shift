@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4nspvk6vbpi4"]
+
+[ext_resource type="Script" path="res://actors/mobs/shot_wind_up.gd" id="1_2fwsy"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_mipgy"]
+radial_segments = 16
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rek0h"]
+albedo_color = Color(1, 0.737255, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.556863, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_ijbwt"]
+inner_radius = 0.8
+rings = 16
+ring_segments = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5ycd"]
+shading_mode = 0
+
+[node name="ShotWindUp" type="Node3D"]
+script = ExtResource("1_2fwsy")
+
+[node name="core" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_mipgy")
+surface_material_override/0 = SubResource("StandardMaterial3D_rek0h")
+
+[node name="timing_aura" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.98023e-08, 0)
+mesh = SubResource("TorusMesh_ijbwt")
+surface_material_override/0 = SubResource("StandardMaterial3D_f5ycd")
