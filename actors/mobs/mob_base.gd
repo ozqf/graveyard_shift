@@ -1,7 +1,9 @@
-extends Node
+extends CharacterBody3D
 class_name MobBase
 
 @onready var _launchInfo:MobLaunchInfo = $MobLaunchInfo
+@onready var _navAgent:ZqfNavAgent = $ZqfNavAgent
+@onready var _thinkInfo:MobThinkInfo = $MobThinkInfo
 
 var teamId:int = Game.TEAM_ID_ENEMY
 
@@ -46,3 +48,35 @@ func get_launch_info() -> MobLaunchInfo:
 
 func launch() -> void:
 	pass
+
+func _refresh_think_info() -> void:
+	_thinkInfo.targetInfo = Game.get_player_target()
+	if _thinkInfo.targetInfo == null || !_thinkInfo.targetInfo.isValid:
+		_thinkInfo.hasTarget = false
+		return
+	_thinkInfo.hasTarget = true
+	var from:Vector3 = self.global_position
+	var to:Vector3 = _thinkInfo.targetInfo.footPosition
+	_thinkInfo.distToTargetSqrTrue = from.distance_squared_to(to)
+	
+	# calc flat distance
+	to.y = from.y
+	_thinkInfo.distToTargetSqrFlat = from.distance_squared_to(to)
+
+func _look_toward_flat(to:Vector3) -> void:
+	var from:Vector3 = self.global_position
+	var d:Vector2 = Vector2(-(to.x - from.x), (to.z - from.z))
+	self.rotation.y = d.angle() + (PI * 0.5)
+
+func _physics_process(_delta:float) -> void:
+	_refresh_think_info()
+	if !_thinkInfo.hasTarget:
+		return
+	if _thinkInfo.distToTargetSqrFlat < 12:
+		return
+	_navAgent.set_move_target(_thinkInfo.targetInfo.footPosition)
+	_look_toward_flat(_thinkInfo.targetInfo.footPosition)
+	_navAgent.physics_tick(_delta)
+	#print("nav vel " + str(_navAgent.velocity))
+	self.velocity = _navAgent.velocity
+	move_and_slide()

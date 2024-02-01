@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://jxhx2nsd1txk"]
+[gd_scene load_steps=13 format=3 uid="uid://jxhx2nsd1txk"]
 
 [ext_resource type="Script" path="res://actors/player/player_avatar.gd" id="1_6id4k"]
 [ext_resource type="Script" path="res://actors/player/actor_input.gd" id="2_3pek4"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://actors/player/player_input.gd" id="7_64av8"]
 [ext_resource type="Script" path="res://actors/player/hud.gd" id="7_wrhai"]
 [ext_resource type="Script" path="res://actors/player/hud_status.gd" id="9_e0ene"]
+[ext_resource type="Script" path="res://actors/target_info.gd" id="10_bklb5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_reovu"]
 size = Vector3(1.2, 1.8, 1.2)
@@ -201,3 +202,6 @@ script = ExtResource("7_64av8")
 
 [node name="HudStatus" type="Node" parent="."]
 script = ExtResource("9_e0ene")
+
+[node name="TargetInfo" type="Node" parent="."]
+script = ExtResource("10_bklb5")

@@ -1,6 +1,8 @@
 extends Node3D
 class_name Gam
 
+const GROUP_PLAYER_ACTORS:String = "player_actors"
+
 const GROUP_PLAYER_EVENTS:String = "player_events"
 # params: status:HudStatus
 const FN_PLAYER_EVENT_HUD_STATUS:String = "player_event_hud_status"
@@ -48,6 +50,7 @@ var _cardTableScene = preload("res://actors/interactive/card_table.tscn")
 @onready var _worldRoot:Node3D = $world
 @onready var _pauseMenu:PauseMenu = $PauseMenu
 @onready var _selectHandMenu = $SelectHandMenu
+@onready var _emptyTargetInfo:TargetInfo = $empty_target_info
 
 var _playerInputOn:bool = false
 var _gameState:GameState = GameState.Startup
@@ -203,6 +206,12 @@ func try_hit(victim, _hitInfo:HitInfo) -> int:
 	if victim.has_method("hit"):
 		return victim.hit(_hitInfo)
 	return HIT_RESPONSE_WHIFF
+
+func get_player_target() -> TargetInfo:
+	var node = get_tree().get_first_node_in_group(Game.GROUP_PLAYER_ACTORS)
+	if node == null:
+		return _emptyTargetInfo
+	return node.get_target_info() as TargetInfo
 
 ###################################################################
 # gfx

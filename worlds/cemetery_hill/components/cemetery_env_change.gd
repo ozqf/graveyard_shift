@@ -14,7 +14,7 @@ func _ready():
 func game_event_state_change(newState:Gam.GameState, prevState:Gam.GameState) -> void:
 	match newState:
 		Gam.GameState.Play:
-			_fogVolume.visible = true
+			_fogVolume.visible = false
 			_moonlight.visible = true
 			_settingSun.visible = false
 			

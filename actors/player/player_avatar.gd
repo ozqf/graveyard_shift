@@ -11,6 +11,7 @@ const MOUSE_RELATIVE_SENSITIVITY:float = 0.003
 @onready var _playerInput:PlayerInput = $PlayerInput
 @onready var _hudStatus:HudStatus = $HudStatus
 @onready var _interactArea:Area3D = $interactable_sensor
+@onready var _selfTargetingInfo:TargetInfo = $TargetInfo
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var _gravity:float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -18,6 +19,7 @@ var _gravity:float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _health:float = 100.0
 
 func _ready():
+	self.add_to_group(Game.GROUP_PLAYER_ACTORS)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_interactArea.connect("area_entered", _on_interactable_area_entered)
 	_interactArea.connect("body_entered", _on_interactable_body_entered)
@@ -34,12 +36,22 @@ func _on_interactable_body_entered(node:Node) -> void:
 		if node.has_method("interactable_used"):
 			node.interactable_used()
 
+func get_target_info() -> TargetInfo:
+	return _selfTargetingInfo
+
+func _refresh_self_target_info() -> void:
+	_selfTargetingInfo.isValid = true
+	_selfTargetingInfo.footPosition = self.global_position
+	_selfTargetingInfo.headPosition = self._head.global_position
+
 func _physics_process(_delta:float) -> void:
 	_hudStatus.health = _health
 	_head.write_hud_status(_hudStatus)
 	var grp:String = Game.GROUP_PLAYER_EVENTS
 	var fn:String = Game.FN_PLAYER_EVENT_HUD_STATUS
 	get_tree().call_group(grp, fn, _hudStatus)
+	
+	_refresh_self_target_info()
 	pass
 
 func _process(delta):
