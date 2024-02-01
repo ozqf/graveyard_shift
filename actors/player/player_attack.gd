@@ -14,12 +14,15 @@ var _prjThrownCard = preload("res://projectiles/thrown_card/prj_thrown_card.tscn
 @onready var _revolverHit:HitInfo = $revolver_hit
 
 var shots:int = 6
+var _superShotWeight:float = 0.0
 
 func _ready() -> void:
 	_revolverHit.teamId = Game.TEAM_ID_PLAYER
+	_revolver.connect("round_was_chambered", _on_round_was_chambered)
 
 func write_hud_status(target:HudStatus) -> void:
 	target.bullets = shots
+	target.superShotWeight = _superShotWeight
 
 func _throw_card() -> void:
 	var prj = _prjThrownCard.instantiate()
@@ -28,14 +31,16 @@ func _throw_card() -> void:
 	info.origin = _leftHand.global_position
 	info.forward = -_leftHand.global_transform.basis.z
 	prj.launch()
-	pass
+
+func _on_round_was_chambered() -> void:
+	_superShotWeight = 1
+	if shots < 6:
+		shots += 1
 
 func _tick_revolver(_delta:float, input:PlayerInput) -> void:
-	if !_revolver.is_ready():
-		return
-	
-	if input.attack1:
-		_revolver.play_fire()
+	if input.attack1Tap && shots > 0:
+		shots -= 1
+		_revolver.play_fire(_superShotWeight)
 		var victim = _aimRay.get_collider()
 		if victim !=  null:
 			_revolverHit.direction = -_aimRay.global_transform.basis.z
@@ -44,13 +49,19 @@ func _tick_revolver(_delta:float, input:PlayerInput) -> void:
 			var result:int = Game.try_hit(victim, _revolverHit)
 			if result == Game.HIT_RESPONSE_WHIFF:
 				Game.gfx_spawn_bullet_wall_impact(_revolverHit.position, normal)
+			else:
+				_superShotWeight = 1
 		return
 	
-	if input.style:
+	if _revolver.is_ready() && (input.style || shots < 6):
 		_revolver.play_spin_forward()
 		return
 
 func tick(_delta:float, input:PlayerInput) -> void:
+	_superShotWeight -= _delta
+	if _superShotWeight < 0.0:
+		_superShotWeight = 0.0
+	
 	_tick_revolver(_delta, input)
 	
 	if input.attack2 && _rightTimer.is_stopped():

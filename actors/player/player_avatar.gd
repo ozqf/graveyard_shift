@@ -60,6 +60,8 @@ func _process(delta):
 	
 	_playerInput.attack1 = Input.is_action_pressed("attack_1")
 	_playerInput.attack2 = Input.is_action_pressed("attack_2")
+	_playerInput.attack1Tap = Input.is_action_just_pressed("attack_1")
+	_playerInput.attack2Tap = Input.is_action_just_pressed("attack_2")
 	_playerInput.style = Input.is_action_pressed("style")
 	_head.tick(delta, _playerInput)
 	

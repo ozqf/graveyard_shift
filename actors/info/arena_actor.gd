@@ -7,6 +7,7 @@ var _spawnNodes = []
 var _activeMobs:Dictionary = {}
 
 func _ready():
+	self.visible = false
 	add_to_group(Game.GROUP_NAME_ARENAS)
 	add_to_group(Game.GROUP_GAME_EVENTS)
 

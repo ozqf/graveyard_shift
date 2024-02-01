@@ -3,6 +3,7 @@ extends WorldEnvironment
 @onready var _moonlight:DirectionalLight3D = $moonlight
 @onready var _settingSun:DirectionalLight3D = $setting_sun
 @onready var _fogVolume:FogVolume = $FogVolume
+@onready var _rain:GPUParticles3D = $rain
 
 @export var duskEnvironment:Environment = null
 @export var nightEnvironment:Environment = null
@@ -11,16 +12,19 @@ func _ready():
 	_fogVolume.visible = false
 	add_to_group(Game.GROUP_GAME_EVENTS)
 
-func game_event_state_change(newState:Gam.GameState, prevState:Gam.GameState) -> void:
+func game_event_state_change(newState:GameService.GameState, prevState:GameService.GameState) -> void:
 	match newState:
-		Gam.GameState.Play:
+		GameService.GameState.Play:
 			_fogVolume.visible = false
 			_moonlight.visible = true
 			_settingSun.visible = false
-			
 			environment = nightEnvironment
+			_rain.emitting = true
+			ZqfTaggedLight.broadcast_change(get_tree(), "lamp_posts", "lamp_post", true)
 		_:
 			_fogVolume.visible = false
-			_moonlight.visible = true
-			_settingSun.visible = false
+			_moonlight.visible = false
+			_settingSun.visible = true
 			environment = duskEnvironment
+			_rain.emitting = false
+			ZqfTaggedLight.broadcast_change(get_tree(), "lamp_posts", "lamp_post", false)

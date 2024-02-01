@@ -3,7 +3,7 @@
 [resource]
 background_mode = 1
 background_color = Color(1, 0.607843, 0.768627, 1)
-background_energy_multiplier = 0.54
+background_energy_multiplier = 0.7
 ambient_light_source = 2
 ambient_light_color = Color(0.00392157, 0.192157, 0.839216, 1)
 ambient_light_energy = 0.19

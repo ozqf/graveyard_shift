@@ -1,5 +1,5 @@
 extends Node3D
-class_name Gam
+class_name GameService
 
 const GROUP_PLAYER_ACTORS:String = "player_actors"
 
@@ -118,7 +118,6 @@ func goto_title() -> void:
 	_worldRoot.add_child(world)
 
 func goto_start_game() -> void:
-	change_state(GameState.Pregame)
 	_playerInputOn = true
 	remove_current_world()
 	_selectHandMenu.visible = false
@@ -126,6 +125,7 @@ func goto_start_game() -> void:
 	_worldRoot.add_child(world)
 
 	_place_new_card_table()
+	change_state(GameState.Pregame)
 
 func goto_select_hand() -> void:
 	_selectHandMenu.on()

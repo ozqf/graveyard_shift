@@ -1,10 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://jxhx2nsd1txk"]
+[gd_scene load_steps=15 format=3 uid="uid://jxhx2nsd1txk"]
 
 [ext_resource type="Script" path="res://actors/player/player_avatar.gd" id="1_6id4k"]
 [ext_resource type="Script" path="res://actors/player/actor_input.gd" id="2_3pek4"]
 [ext_resource type="Script" path="res://actors/player/player_attack.gd" id="2_flvnq"]
 [ext_resource type="PackedScene" uid="uid://crwqrfv1anvfu" path="res://actors/player/weapons/revolver/revolver.tscn" id="3_b7idq"]
-[ext_resource type="PackedScene" uid="uid://d0cf3w4to35r6" path="res://shared/primitives/card_mesh.tscn" id="4_r081x"]
+[ext_resource type="PackedScene" uid="uid://dhh8b27hcce7e" path="res://actors/player/card_hand_models.tscn" id="3_w477c"]
 [ext_resource type="Script" path="res://actors/hit_info.gd" id="5_1as3p"]
 [ext_resource type="Script" path="res://actors/player/player_input.gd" id="7_64av8"]
 [ext_resource type="Script" path="res://actors/player/hud.gd" id="7_wrhai"]
@@ -16,6 +16,12 @@ size = Vector3(1.2, 1.8, 1.2)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3rhlu"]
 height = 1.8
+
+[sub_resource type="Gradient" id="Gradient_6dk3d"]
+colors = PackedColorArray(0, 0, 0, 1, 0.362829, 0.362829, 0.362829, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_atj3i"]
+gradient = SubResource("Gradient_6dk3d")
 
 [node name="player_avatar" type="CharacterBody3D"]
 collision_layer = 2
@@ -62,16 +68,9 @@ collide_with_areas = true
 [node name="left" type="Node3D" parent="body/head/hands"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.17, -0.1, -0.143)
 
-[node name="cards" type="Node3D" parent="body/head/hands/left"]
-metadata/_edit_lock_ = true
-
-[node name="MeshInstance3D" parent="body/head/hands/left/cards" instance=ExtResource("4_r081x")]
-
-[node name="MeshInstance3D2" parent="body/head/hands/left/cards" instance=ExtResource("4_r081x")]
-transform = Transform3D(0.976859, -0.213883, 0, 0.213883, 0.976859, 0, 0, 0, 1, -0.16226, -0.028589, -0.020388)
-
-[node name="MeshInstance3D3" parent="body/head/hands/left/cards" instance=ExtResource("4_r081x")]
-transform = Transform3D(0.933687, 0.358091, 0, -0.358091, 0.933687, 0, 0, 0, 1, 0.143897, -0.0213492, 0)
+[node name="cards" parent="body/head/hands/left" instance=ExtResource("3_w477c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0441046, 0)
+visible = false
 
 [node name="right" type="Node3D" parent="body/head/hands"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.128109, -0.1, -0.129188)
@@ -135,21 +134,17 @@ metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="hud/tarot_status"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -160.0
 offset_top = -130.0
-grow_horizontal = 0
+offset_right = 160.0
 grow_vertical = 0
 text = "1 - Card in slot 1
 2 - Card in slot 2
 3 - Card in slot 3
 4 - Card in slot 4
 5 - Card in slot 5"
-horizontal_alignment = 2
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
@@ -167,6 +162,16 @@ grow_horizontal = 2
 grow_vertical = 0
 metadata/_edit_lock_ = true
 
+[node name="super_shot_percentage" type="TextureProgressBar" parent="hud/bullets"]
+layout_mode = 0
+offset_left = -27.0
+offset_top = -24.0
+offset_right = 37.0
+offset_bottom = 40.0
+value = 35.0
+fill_mode = 4
+texture_progress = SubResource("GradientTexture2D_atj3i")
+
 [node name="Label" type="Label" parent="hud/bullets"]
 layout_mode = 0
 offset_left = -60.0
@@ -180,11 +185,14 @@ justification_flags = 162
 
 [node name="health" type="Control" parent="hud"]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -40.0
 offset_top = -40.0
-offset_right = 40.0
+grow_horizontal = 0
 grow_vertical = 0
 
 [node name="Label" type="Label" parent="hud/health"]

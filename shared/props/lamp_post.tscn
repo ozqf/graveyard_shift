@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://gqbptuxk3psx"]
+[gd_scene load_steps=2 format=3 uid="uid://gqbptuxk3psx"]
+
+[ext_resource type="Script" path="res://zqf/zqf_tagged_light.gd" id="1_sjbmr"]
 
 [node name="lamp_post" type="CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -11,3 +13,6 @@ light_color = Color(1, 0.847059, 0.0784314, 1)
 shadow_enabled = true
 omni_range = 8.0
 omni_attenuation = 1.93187
+script = ExtResource("1_sjbmr")
+subGroup = "lamp_posts"
+tag = "lamp_post"
