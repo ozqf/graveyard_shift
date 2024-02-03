@@ -161,8 +161,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -10)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7, 1.2, 0)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(1, 3, 15)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -170,8 +168,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7, 1.2, -6)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(1, 3, 5)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -179,8 +175,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7, 1.2, 5)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(1, 3, 5)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -188,8 +182,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3, 1.2, -6)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(1, 3, 5)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -197,8 +189,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3, 1.2, 5)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(1, 3, 5)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -206,8 +196,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3, 1.2, 0)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(1, 3, 15)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -215,8 +203,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8, 1.2, 12)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(6, 3, 1)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -224,8 +210,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 1.2, 12)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(5, 3, 1)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -233,8 +217,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8, 1.2, -12)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(6, 3, 1)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -242,8 +224,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.8, 1.2, 0)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(6, 3, 1)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -251,8 +231,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2, 1.2, 0)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(6, 3, 1)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -260,8 +238,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 1.2, -17.5)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(1, 3, 4)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -269,8 +245,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 1.2, 17.5)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(1, 3, 4)
 material = SubResource("StandardMaterial3D_6f348")
 
@@ -278,8 +252,6 @@ material = SubResource("StandardMaterial3D_6f348")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 1.2, -12)
 cast_shadow = 0
 use_collision = true
-collision_layer = 32
-collision_mask = 32
 size = Vector3(5, 3, 1)
 material = SubResource("StandardMaterial3D_6f348")
 

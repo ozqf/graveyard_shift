@@ -23,7 +23,7 @@ func game_event_mob_died(_mob, _tag:String) -> void:
 
 func start() -> void:
 	_spawnNodes = self.get_children()
-	var i:int = 10
+	var i:int = 1
 
 	while i > 0:
 		var node = _spawnNodes[i % _spawnNodes.size()]

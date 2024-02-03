@@ -18,6 +18,8 @@ var _gravity:float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var _health:float = 100.0
 
+var _cheatNoTarget:bool = false
+
 func _ready():
 	self.add_to_group(Game.GROUP_PLAYER_ACTORS)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -40,6 +42,10 @@ func get_target_info() -> TargetInfo:
 	return _selfTargetingInfo
 
 func _refresh_self_target_info() -> void:
+	if _cheatNoTarget:
+		_selfTargetingInfo.isValid = false
+		return
+	
 	_selfTargetingInfo.isValid = true
 	_selfTargetingInfo.footPosition = self.global_position
 	_selfTargetingInfo.headPosition = self._head.global_position

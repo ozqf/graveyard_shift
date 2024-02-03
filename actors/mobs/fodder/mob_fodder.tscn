@@ -60,8 +60,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.245828, 1.32115, -0.303917
 mesh = SubResource("SphereMesh_0iv33")
 surface_material_override/0 = SubResource("StandardMaterial3D_dfocm")
 
-[node name="ShotWindUp" parent="model" instance=ExtResource("2_p3pju")]
+[node name="attack_source" type="RayCast3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474152, 0.861788, -0.318139)
+target_position = Vector3(0, 0, -10)
+
+[node name="ShotWindUp" parent="model/attack_source" instance=ExtResource("2_p3pju")]
 
 [node name="hitbox" type="Area3D" parent="."]
 collision_layer = 4
@@ -78,6 +81,11 @@ script = ExtResource("3_7xpdg")
 [node name="ZqfNavAgent" type="NavigationAgent3D" parent="."]
 path_height_offset = 0.1
 script = ExtResource("5_v7rfw")
+moveSpeed = 3.0
 
 [node name="MobThinkInfo" type="Node" parent="."]
 script = ExtResource("6_6grei")
+
+[node name="mob_base_think_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true

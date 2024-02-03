@@ -1,11 +1,23 @@
 extends CharacterBody3D
 class_name MobBase
 
+enum MobBaseState {
+	Idle,
+	Hunting,
+	Dazed,
+	Stunned,
+	Dying,
+	Dead
+}
+
 @onready var _launchInfo:MobLaunchInfo = $MobLaunchInfo
 @onready var _navAgent:ZqfNavAgent = $ZqfNavAgent
 @onready var _thinkInfo:MobThinkInfo = $MobThinkInfo
+@onready var _mobBaseThinkTimer:Timer = $mob_base_think_timer
 
 var teamId:int = Game.TEAM_ID_ENEMY
+
+var _baseState:MobBaseState = MobBaseState.Idle
 
 var _health:float = 100.0
 var _dead:bool = false
@@ -15,6 +27,8 @@ var uuid:String = ""
 func _ready() -> void:
 	print("Mob ready")
 	uuid = UUID.v4()
+	_mobBaseThinkTimer.connect("timeout", _on_think_timout)
+	_mobBaseThinkTimer.start()
 
 func die() -> void:
 	if _dead:
@@ -51,9 +65,11 @@ func launch() -> void:
 
 func _refresh_think_info() -> void:
 	_thinkInfo.targetInfo = Game.get_player_target()
+	
 	if _thinkInfo.targetInfo == null || !_thinkInfo.targetInfo.isValid:
 		_thinkInfo.hasTarget = false
 		return
+	
 	_thinkInfo.hasTarget = true
 	var from:Vector3 = self.global_position
 	var to:Vector3 = _thinkInfo.targetInfo.footPosition
@@ -70,13 +86,90 @@ func _look_toward_flat(to:Vector3) -> void:
 
 func _physics_process(_delta:float) -> void:
 	_refresh_think_info()
-	if !_thinkInfo.hasTarget:
-		return
-	if _thinkInfo.distToTargetSqrFlat < 12:
-		return
+	match _baseState:
+		MobBaseState.Hunting:
+			if !_thinkInfo.hasTarget:
+				_change_base_state(MobBaseState.Idle)
+				return
+			_tick_hunt(_delta)
+		MobBaseState.Idle:
+			_tick_idle(_delta)
+		_:
+			_change_base_state(MobBaseState.Idle)
+
+#################################################################################
+# Utility functions
+#################################################################################
+
+func _approach_move_target(_delta:float) -> void:
 	_navAgent.set_move_target(_thinkInfo.targetInfo.footPosition)
 	_look_toward_flat(_thinkInfo.targetInfo.footPosition)
 	_navAgent.physics_tick(_delta)
-	#print("nav vel " + str(_navAgent.velocity))
 	self.velocity = _navAgent.velocity
 	move_and_slide()
+
+func _update_targeting_ray(ray:RayCast3D, target:Vector3) -> void:
+	ZqfUtils.look_at_safe(ray, target)
+	var dist:float = ray.global_position.distance_to(target)
+	ray.target_position = Vector3(0, 0, -dist)
+
+#################################################################################
+# State
+#################################################################################
+
+func _change_base_state(newBaseState:MobBaseState) -> void:
+	#var _prevState:MobBaseState = _baseState
+	_baseState = newBaseState
+	match _baseState:
+		MobBaseState.Hunting:
+			_mobBaseThinkTimer.start(0.5)
+			_mobBaseThinkTimer.paused = false
+		MobBaseState.Idle:
+			_mobBaseThinkTimer.start(0.5)
+			_mobBaseThinkTimer.paused = false
+
+func _on_think_timout() -> void:
+	match _baseState:
+		MobBaseState.Hunting:
+			_tock_hunt()
+		MobBaseState.Idle:
+			_tock_idle()
+
+#################################################################################
+# Tick
+#################################################################################
+
+func _tick_idle(_delta:float) -> void:
+	pass
+
+func _tick_hunt(_delta:float) -> void:
+	pass
+	# if !_thinkInfo.hasTarget:
+	# 	_change_base_state(MobBaseState.Idle)
+	# 	return
+	
+	# if _thinkInfo.distToTargetSqrFlat < 12:
+	# 	_look_toward_flat(_thinkInfo.targetInfo.footPosition)
+	# 	return
+	
+	# _approach_move_target(_delta)
+
+#################################################################################
+# Tock
+#################################################################################
+
+func _tock_idle() -> void:
+	if _thinkInfo.hasTarget:
+		_change_base_state(MobBaseState.Hunting)
+		return
+	_mobBaseThinkTimer.start(0.5)
+	_mobBaseThinkTimer.paused = false
+
+func _tock_hunt() -> void:
+	#_mobBaseThinkTimer.start(0.5)
+	#_mobBaseThinkTimer.paused = false
+	#if !_attackSource.is_colliding():
+	#	print("Mob can see player")
+	#else:
+	#	print("Mob cannot see player")
+	pass
