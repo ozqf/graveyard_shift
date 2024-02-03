@@ -10,6 +10,13 @@ enum MobBaseState {
 	Dead
 }
 
+enum MobHuntState {
+	Chase,
+	WindUp,
+	Action,
+	WindDown
+}
+
 @onready var _launchInfo:MobLaunchInfo = $MobLaunchInfo
 @onready var _navAgent:ZqfNavAgent = $ZqfNavAgent
 @onready var _thinkInfo:MobThinkInfo = $MobThinkInfo
@@ -18,6 +25,7 @@ enum MobBaseState {
 var teamId:int = Game.TEAM_ID_ENEMY
 
 var _baseState:MobBaseState = MobBaseState.Idle
+var _huntState:MobHuntState = MobHuntState.Chase
 
 var _health:float = 100.0
 var _dead:bool = false

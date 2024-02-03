@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b4nspvk6vbpi4"]
+[gd_scene load_steps=7 format=3 uid="uid://b4nspvk6vbpi4"]
 
 [ext_resource type="Script" path="res://actors/mobs/shot_wind_up.gd" id="1_2fwsy"]
 
@@ -19,10 +19,15 @@ ring_segments = 4
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5ycd"]
 shading_mode = 0
 
-[node name="ShotWindUp" type="Node3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_g1h1b"]
+
+[node name="ShotWindUp" type="Area3D"]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_2fwsy")
 
 [node name="core" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("SphereMesh_mipgy")
 surface_material_override/0 = SubResource("StandardMaterial3D_rek0h")
 
@@ -30,3 +35,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_rek0h")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.98023e-08, 0)
 mesh = SubResource("TorusMesh_ijbwt")
 surface_material_override/0 = SubResource("StandardMaterial3D_f5ycd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_g1h1b")
+disabled = true

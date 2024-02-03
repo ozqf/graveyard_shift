@@ -88,4 +88,3 @@ script = ExtResource("6_6grei")
 
 [node name="mob_base_think_timer" type="Timer" parent="."]
 wait_time = 0.5
-one_shot = true

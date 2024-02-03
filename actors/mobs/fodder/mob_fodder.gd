@@ -1,21 +1,58 @@
 extends MobBase
 
+var _prjEnemyBullet = preload("res://projectiles/enemy_bullet/prj_enemy_bullet.tscn")
+
 @onready var _attackSource:RayCast3D = $model/attack_source
+@onready var _shotWindUp = $model/attack_source/ShotWindUp
 
 func _ready() -> void:
 	super._ready()
 	_health = 30
+	_shotWindUp.connect("WindUpHit", _on_windup_hit)
+
+func _on_windup_hit(_windUpInstance, _weight:float) -> void:
+	print("You got me partner!!")
+
+func _fire_bullet(origin:Node3D) -> void:
+	var prj = _prjEnemyBullet.instantiate()
+	Game.get_actor_root().add_child(prj)
+	var info:ProjectileLaunchInfo = prj.get_launch_info()
+	info.origin = origin.global_position
+	info.forward = -origin.global_transform.basis.z
+	prj.launch()
 
 func _tick_hunt(_delta:float) -> void:
-	_look_toward_flat(_thinkInfo.targetInfo.footPosition)
-	_update_targeting_ray(_attackSource, _thinkInfo.targetInfo.headPosition)
-	_approach_move_target(_delta)
+	match _huntState:
+		MobBase.MobHuntState.Chase:
+			_look_toward_flat(_thinkInfo.targetInfo.footPosition)
+			_update_targeting_ray(_attackSource, _thinkInfo.targetInfo.headPosition)
+			_approach_move_target(_delta)
+		MobBase.MobHuntState.WindUp:
+			_look_toward_flat(_thinkInfo.targetInfo.footPosition)
+			_update_targeting_ray(_attackSource, _thinkInfo.targetInfo.headPosition)
 	pass
 
 func _tock_hunt() -> void:
-	_mobBaseThinkTimer.start(0.5)
-	_mobBaseThinkTimer.paused = false
-	if !_attackSource.is_colliding():
-		print("Mob can see player")
-	else:
-		print("Mob cannot see player")
+	match _huntState:
+		MobBase.MobHuntState.Chase:
+			var thinkTime:float = 0.25
+			if !_attackSource.is_colliding():
+				# begin windup
+				_huntState = MobBase.MobHuntState.WindUp
+				print("Mob can see player")
+				thinkTime = 0.5
+				_shotWindUp.run(thinkTime)
+			_mobBaseThinkTimer.start(thinkTime)
+		MobBase.MobHuntState.WindUp:
+			# perform action
+			_fire_bullet(_attackSource)
+			_huntState = MobBase.MobHuntState.Action
+			_mobBaseThinkTimer.start(0.5)
+		MobBase.MobHuntState.Action:
+			# completed action, enter recovery
+			_huntState = MobBase.MobHuntState.WindDown
+			_mobBaseThinkTimer.start(0.5)
+		MobBase.MobHuntState.WindDown:
+			_mobBaseThinkTimer.start(2)
+			_huntState = MobBase.MobHuntState.Chase
+

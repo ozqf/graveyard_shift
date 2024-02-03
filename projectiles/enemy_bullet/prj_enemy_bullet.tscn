@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0q1x171saglv"]
+
+[ext_resource type="Script" path="res://projectiles/enemy_bullet/prj_enemy_bullet.gd" id="1_dn0dc"]
+[ext_resource type="Script" path="res://projectiles/projectile_launch_info.gd" id="1_yaft6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q5gc0"]
+radius = 0.25
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_v54nh"]
+top_radius = 0.1
+bottom_radius = 0.2
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_meuw7"]
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 2.0
+
+[node name="PrjEnemyBullet" type="Area3D"]
+script = ExtResource("1_dn0dc")
+
+[node name="ProjectileLaunchInfo" type="Node" parent="."]
+script = ExtResource("1_yaft6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_q5gc0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_v54nh")
+surface_material_override/0 = SubResource("StandardMaterial3D_meuw7")

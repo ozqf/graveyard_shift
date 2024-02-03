@@ -1,12 +1,27 @@
-extends Node3D
+extends Area3D
+class_name ShotWindUp
+
+signal WindUpHit(shotWindUpInstance, weight)
 
 @onready var _core:MeshInstance3D = $core
 @onready var _timingAura:MeshInstance3D = $timing_aura
+@onready var _shape:CollisionShape3D = $CollisionShape3D
 
-var _time:float = 0.0
+var teamId:int = Game.TEAM_ID_ENEMY
+
+var _tick:float = 0.0
+var _duration:float = 0.5
 
 func _ready():
-	pass
+	off()
+
+func run(duration:float) -> void:
+	_shape.disabled = false
+	_duration = duration
+	_tick = 0.0
+	self.visible = true
+	self.set_process(true)
+	_refresh(0)
 
 func _refresh(weight:float) -> void:
 	var coreScale:Vector3 = Vector3.ZERO.lerp(Vector3.ONE, weight)
@@ -15,10 +30,29 @@ func _refresh(weight:float) -> void:
 	_timingAura.scale = timingScale
 	pass
 
+func hit(hitInfo:HitInfo) -> int:
+	if !Game.is_hit_valid(hitInfo.teamId, teamId):
+		return Game.HIT_RESPONSE_WHIFF
+	off()
+	self.emit_signal("WindUpHit", self, _tick / _duration)
+	return hitInfo.damage
+
+func off() -> void:
+	_shape.disabled = true
+	self.visible = false
+	self.set_process(false)
+
 func _process(delta):
-	_time += (delta * 4)
-	var s:float = sin(_time)
-	s += 1
-	s /= 2
-	_refresh(s)
+	_tick += delta
+	if _tick > _duration:
+		_shape.disabled = false
+		self.visible = false
+		self.set_process(false)
+		return
+	_refresh(_tick / _duration)
+	#_tick += (delta * 4)
+	#var s:float = sin(_tick)
+	#s += 1
+	#s /= 2
+	#_refresh(s)
 	pass

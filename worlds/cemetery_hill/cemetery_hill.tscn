@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dgstknibpdjy2"]
+[gd_scene load_steps=18 format=3 uid="uid://dgstknibpdjy2"]
 
 [ext_resource type="Environment" uid="uid://djwtu755ducri" path="res://env/env_night.tres" id="1_5hryt"]
 [ext_resource type="Environment" uid="uid://dxolikeel0em7" path="res://env/env_magic_hour.tres" id="1_b5jcq"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d1n0g1vyaqgv0" path="res://worlds/cemetery_hill/components/quadrangle.tscn" id="4_28ett"]
 [ext_resource type="PackedScene" uid="uid://3gsj0l5wp4gp" path="res://actors/bottles/red_bottle.tscn" id="5_kjp55"]
 [ext_resource type="PackedScene" uid="uid://bbjm3jh3bqypj" path="res://actors/info/point_actor.tscn" id="9_ige4d"]
+[ext_resource type="PackedScene" uid="uid://d2bjr3e6k6btu" path="res://actors/mobs/fodder/mob_fodder.tscn" id="10_2bwu5"]
 [ext_resource type="PackedScene" uid="uid://dpgocdevx8q0q" path="res://actors/info/arena_actor.tscn" id="10_qlsst"]
 
 [sub_resource type="FogMaterial" id="FogMaterial_opi5l"]
@@ -340,3 +341,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -2, 14)
 
 [node name="PointActor4" parent="arenas/ArenaActor" instance=ExtResource("9_ige4d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -2, 14)
+
+[node name="MobFodder" parent="." instance=ExtResource("10_2bwu5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 16)
