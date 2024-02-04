@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://deo10u5ymlojg"]
+
+[resource]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.94902, 0, 0, 1)
+metallic = 1.0
+emission_enabled = true
+emission = Color(0.631373, 0, 0, 1)
+emission_energy_multiplier = 0.2
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false

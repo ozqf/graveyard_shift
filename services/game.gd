@@ -44,6 +44,8 @@ var _titleScene = preload("res://worlds/title/title.tscn")
 # gfx
 var _impactBulletWall = preload("res://gfx/impacts/gfx_impact_bullet_wall.tscn")
 var _impactBulletBlood = preload("res://gfx/impacts/gfx_impact_bullet_blood.tscn")
+var _popQuickdrawCancel = preload("res://gfx/explosions/gfx_pop_quickdraw_counter.tscn")
+var _impactPopBlood = preload("res://gfx/impacts/gfx_impact_pop_blood.tscn")
 
 var _cardTableScene = preload("res://actors/interactive/card_table.tscn")
 
@@ -229,3 +231,9 @@ func gfx_spawn_bullet_wall_impact(pos:Vector3, forward:Vector3) -> Node3D:
 
 func gfx_spawn_bullet_blood_impact(pos:Vector3, forward:Vector3) -> Node3D:
 	return _spawn_gfx(_impactBulletBlood, pos, forward)
+
+func gfx_spawn_pop_blood_impact(pos:Vector3, forward:Vector3) -> Node3D:
+	return _spawn_gfx(_impactPopBlood, pos, forward)
+
+func gfx_spawn_quickdraw_cancel(pos:Vector3) -> Node3D:
+	return _spawn_gfx(_popQuickdrawCancel, pos, Vector3.FORWARD)

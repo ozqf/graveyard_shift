@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://chmjrel34d64y"]
+
+[ext_resource type="Script" path="res://zqf/zqf_timed_cull.gd" id="1_he6qf"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_c1nhb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bawr3"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="Animation" id="Animation_16oeh"]
+resource_name = "pop"
+step = 0.05
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.05, 1, 2, 2, 2, 0.3, 1, 0, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m5ucu"]
+_data = {
+"pop": SubResource("Animation_16oeh")
+}
+
+[node name="GfxPopQuickdrawCounter" type="Node3D"]
+script = ExtResource("1_he6qf")
+tick = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+mesh = SubResource("SphereMesh_c1nhb")
+surface_material_override/0 = SubResource("StandardMaterial3D_bawr3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m5ucu")
+}
+autoplay = "pop"

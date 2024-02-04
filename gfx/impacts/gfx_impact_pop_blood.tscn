@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dyfc6f1c83i8x"]
+[gd_scene load_steps=10 format=3 uid="uid://ddtsvl70h3p5e"]
 
-[ext_resource type="Script" path="res://zqf/zqf_timed_cull.gd" id="1_34bgs"]
-[ext_resource type="Script" path="res://zqf/zqf_emit_on_ready.gd" id="2_57fsl"]
-[ext_resource type="Material" uid="uid://deo10u5ymlojg" path="res://gfx/impacts/mat_impact_bullet_blood.tres" id="2_piqke"]
+[ext_resource type="Script" path="res://zqf/zqf_timed_cull.gd" id="1_fwvac"]
+[ext_resource type="Material" uid="uid://deo10u5ymlojg" path="res://gfx/impacts/mat_impact_bullet_blood.tres" id="2_okcsu"]
+[ext_resource type="Script" path="res://zqf/zqf_emit_on_ready.gd" id="3_8jtnx"]
 
 [sub_resource type="Gradient" id="Gradient_i08k2"]
 colors = PackedColorArray(0.969137, 0.969137, 0.969137, 1, 0.29219, 0.29219, 0.29219, 1)
@@ -17,9 +17,9 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_cks2m"]
 curve = SubResource("Curve_m0i7w")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2w3ba"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_if8xy"]
 direction = Vector3(0, 0, -1)
-spread = 35.0
+spread = 100.0
 initial_velocity_min = 0.05
 initial_velocity_max = 6.0
 gravity = Vector3(0, -5, 0)
@@ -29,13 +29,14 @@ color_ramp = SubResource("GradientTexture1D_dwanx")
 [sub_resource type="QuadMesh" id="QuadMesh_g25bg"]
 size = Vector2(0.1, 0.1)
 
-[node name="GfxImpactBulletBlood" type="Node3D"]
-script = ExtResource("1_34bgs")
+[node name="GfxImpactPopBlood" type="Node3D"]
+script = ExtResource("1_fwvac")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-material_override = ExtResource("2_piqke")
-amount = 64
+material_override = ExtResource("2_okcsu")
+amount = 128
+lifetime = 2.0
 explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_2w3ba")
+process_material = SubResource("ParticleProcessMaterial_if8xy")
 draw_pass_1 = SubResource("QuadMesh_g25bg")
-script = ExtResource("2_57fsl")
+script = ExtResource("3_8jtnx")

@@ -79,6 +79,7 @@ func _refresh_think_info() -> void:
 		return
 	
 	_thinkInfo.hasTarget = true
+
 	var from:Vector3 = self.global_position
 	var to:Vector3 = _thinkInfo.targetInfo.footPosition
 	_thinkInfo.distToTargetSqrTrue = from.distance_squared_to(to)
@@ -120,6 +121,7 @@ func _update_targeting_ray(ray:RayCast3D, target:Vector3) -> void:
 	ZqfUtils.look_at_safe(ray, target)
 	var dist:float = ray.global_position.distance_to(target)
 	ray.target_position = Vector3(0, 0, -dist)
+	_thinkInfo.hasLineOfSight = !ray.is_colliding()
 
 #################################################################################
 # State

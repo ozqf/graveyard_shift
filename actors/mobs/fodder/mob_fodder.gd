@@ -7,11 +7,19 @@ var _prjEnemyBullet = preload("res://projectiles/enemy_bullet/prj_enemy_bullet.t
 
 func _ready() -> void:
 	super._ready()
-	_health = 30
+	_health = 40
 	_shotWindUp.connect("WindUpHit", _on_windup_hit)
 
 func _on_windup_hit(_windUpInstance, _weight:float) -> void:
-	print("You got me partner!!")
+	if _huntState == MobBase.MobHuntState.WindUp:
+		print("Interupt weight " + str(_weight))
+		var popGfx:Node3D = Game.gfx_spawn_quickdraw_cancel(_windUpInstance.global_position)
+		_huntState = MobBase.MobHuntState.WindDown
+		_mobBaseThinkTimer.start(1.0)
+		if _weight >= 0.75:
+			popGfx.scale = Vector3(3, 3, 3)
+			Game.gfx_spawn_pop_blood_impact(_windUpInstance.global_position, _windUpInstance.global_transform.basis.x)
+			die()
 
 func _fire_bullet(origin:Node3D) -> void:
 	var prj = _prjEnemyBullet.instantiate()
@@ -26,7 +34,10 @@ func _tick_hunt(_delta:float) -> void:
 		MobBase.MobHuntState.Chase:
 			_look_toward_flat(_thinkInfo.targetInfo.footPosition)
 			_update_targeting_ray(_attackSource, _thinkInfo.targetInfo.headPosition)
-			_approach_move_target(_delta)
+
+			if !_thinkInfo.hasLineOfSight || _thinkInfo.distToTargetSqrFlat > (20 * 20):
+				_approach_move_target(_delta)
+		
 		MobBase.MobHuntState.WindUp:
 			_look_toward_flat(_thinkInfo.targetInfo.footPosition)
 			_update_targeting_ray(_attackSource, _thinkInfo.targetInfo.headPosition)

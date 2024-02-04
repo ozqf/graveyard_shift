@@ -16,4 +16,9 @@ script = ExtResource("1_ies3m")
 [node name="MeshInstance3D" parent="PointActorWidget" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_fhhbx")
 
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="spawn_points" type="Node3D" parent="."]
+
 [editable path="PointActorWidget"]

@@ -330,17 +330,20 @@ groupName = "card_table_spawns"
 [node name="ArenaActor" parent="arenas" instance=ExtResource("10_qlsst")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="PointActor" parent="arenas/ArenaActor" instance=ExtResource("9_ige4d")]
+[node name="PointActor" parent="arenas/ArenaActor/spawn_points" index="0" instance=ExtResource("9_ige4d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -2, -14)
 
-[node name="PointActor2" parent="arenas/ArenaActor" instance=ExtResource("9_ige4d")]
+[node name="PointActor2" parent="arenas/ArenaActor/spawn_points" index="1" instance=ExtResource("9_ige4d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -2, -14)
 
-[node name="PointActor3" parent="arenas/ArenaActor" instance=ExtResource("9_ige4d")]
+[node name="PointActor3" parent="arenas/ArenaActor/spawn_points" index="2" instance=ExtResource("9_ige4d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -2, 14)
 
-[node name="PointActor4" parent="arenas/ArenaActor" instance=ExtResource("9_ige4d")]
+[node name="PointActor4" parent="arenas/ArenaActor/spawn_points" index="3" instance=ExtResource("9_ige4d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -2, 14)
 
 [node name="MobFodder" parent="." instance=ExtResource("10_2bwu5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 16)
+
+[editable path="arenas/ArenaActor"]
+[editable path="arenas/ArenaActor/PointActorWidget"]
