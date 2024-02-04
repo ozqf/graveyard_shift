@@ -1,6 +1,10 @@
 extends Node
 class_name PlayerAttack
 
+# sounds
+var _sndPistolFire = preload("res://shared/sounds/weapons/pistol_fire.wav")
+
+# projectiles
 var _prjThrownCard = preload("res://projectiles/thrown_card/prj_thrown_card.tscn")
 
 @onready var _aimRay:RayCast3D = $aim_ray
@@ -40,6 +44,7 @@ func _on_round_was_chambered() -> void:
 func _tick_revolver(_delta:float, input:PlayerInput) -> void:
 	if input.attack1Tap && shots > 0:
 		shots -= 1
+		GameAudio.play_pistol_fire(self.global_position)
 		_revolver.play_fire(_superShotWeight)
 		var victim = _aimRay.get_collider()
 		if victim !=  null:

@@ -17,11 +17,14 @@ func _on_windup_hit(_windUpInstance, _weight:float) -> void:
 		_huntState = MobBase.MobHuntState.WindDown
 		_mobBaseThinkTimer.start(1.0)
 		if _weight >= 0.75:
+			GameAudio.play_headshot(_attackSource.global_position)
+			GameAudio.play_snappy_explosion(_attackSource.global_position)
 			popGfx.scale = Vector3(3, 3, 3)
 			Game.gfx_spawn_pop_blood_impact(_windUpInstance.global_position, _windUpInstance.global_transform.basis.x)
 			die()
 
 func _fire_bullet(origin:Node3D) -> void:
+	GameAudio.play_pistol_fire(origin.global_position)
 	var prj = _prjEnemyBullet.instantiate()
 	Game.get_actor_root().add_child(prj)
 	var info:ProjectileLaunchInfo = prj.get_launch_info()
@@ -64,6 +67,6 @@ func _tock_hunt() -> void:
 			_huntState = MobBase.MobHuntState.WindDown
 			_mobBaseThinkTimer.start(0.5)
 		MobBase.MobHuntState.WindDown:
-			_mobBaseThinkTimer.start(2)
+			_mobBaseThinkTimer.start(1.5)
 			_huntState = MobBase.MobHuntState.Chase
 

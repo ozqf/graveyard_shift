@@ -6,8 +6,8 @@ var velocity:Vector3 = Vector3()
 var _time:float = 0.0
 
 func _ready():
-	#self.connect("area_entered", _on_touched_area)
-	#self.connect("body_entered", _on_touched_body)
+	self.connect("area_entered", _on_touched_area)
+	self.connect("body_entered", _on_touched_body)
 	pass
 
 func _on_touched_body(_body:Node3D) -> void:

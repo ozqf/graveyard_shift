@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dc31he4l4spk1"]
+
+[ext_resource type="Script" path="res://services/audio/quick_audio_player_3d.gd" id="1_rkhos"]
+
+[node name="QuickAudioPlayer3d" type="AudioStreamPlayer3D"]
+autoplay = true
+script = ExtResource("1_rkhos")
