@@ -23,6 +23,10 @@ const HIT_RESPONSE_DAMAGE_DONE:int = 1
 const HIT_RESPONSE_WHIFF:int = 0
 # you hit, and should just vanish.
 const HIT_RESPONSE_ABSORB:int = -1
+# you hit yourself
+const HIT_RESPONSE_SELF_HIT:int = -2
+# you hit a team mate
+const HIT_RESPONSE_TEAM_MATE:int = -3
 
 const TEAM_ID_FREE_AGENT:int = 0
 const TEAM_ID_ENEMY:int = 1

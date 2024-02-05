@@ -63,6 +63,11 @@ target_position = Vector3(0, 0, -1000)
 collision_mask = 5
 collide_with_areas = true
 
+[node name="taunt_ray" type="RayCast3D" parent="body/head"]
+target_position = Vector3(0, 0, -1000)
+collision_mask = 2
+collide_with_areas = true
+
 [node name="hands" type="Node3D" parent="body/head"]
 
 [node name="left" type="Node3D" parent="body/head/hands"]

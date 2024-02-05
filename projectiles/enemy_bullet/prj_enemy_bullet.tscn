@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0q1x171saglv"]
+[gd_scene load_steps=7 format=3 uid="uid://c0q1x171saglv"]
 
 [ext_resource type="Script" path="res://projectiles/enemy_bullet/prj_enemy_bullet.gd" id="1_dn0dc"]
 [ext_resource type="Script" path="res://projectiles/projectile_launch_info.gd" id="1_yaft6"]
+[ext_resource type="Script" path="res://actors/hit_info.gd" id="3_nhh6h"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q5gc0"]
 radius = 0.25
@@ -32,3 +33,6 @@ shape = SubResource("SphereShape3D_q5gc0")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("CylinderMesh_v54nh")
 surface_material_override/0 = SubResource("StandardMaterial3D_meuw7")
+
+[node name="HitInfo" type="Node" parent="."]
+script = ExtResource("3_nhh6h")

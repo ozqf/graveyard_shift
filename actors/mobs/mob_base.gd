@@ -49,6 +49,8 @@ func die() -> void:
 	pass
 
 func hit(_hitInfo:HitInfo) -> int:
+	if _hitInfo.sourceId == uuid:
+		return Game.HIT_RESPONSE_SELF_HIT
 	if !Game.is_hit_valid(_hitInfo.teamId, teamId):
 		return Game.HIT_RESPONSE_WHIFF
 	if _dead:
@@ -69,6 +71,9 @@ func get_launch_info() -> MobLaunchInfo:
 	return _launchInfo
 
 func launch() -> void:
+	pass
+
+func receive_taunt() -> void:
 	pass
 
 func _refresh_think_info() -> void:
@@ -154,15 +159,6 @@ func _tick_idle(_delta:float) -> void:
 
 func _tick_hunt(_delta:float) -> void:
 	pass
-	# if !_thinkInfo.hasTarget:
-	# 	_change_base_state(MobBaseState.Idle)
-	# 	return
-	
-	# if _thinkInfo.distToTargetSqrFlat < 12:
-	# 	_look_toward_flat(_thinkInfo.targetInfo.footPosition)
-	# 	return
-	
-	# _approach_move_target(_delta)
 
 #################################################################################
 # Tock
@@ -176,10 +172,4 @@ func _tock_idle() -> void:
 	_mobBaseThinkTimer.paused = false
 
 func _tock_hunt() -> void:
-	#_mobBaseThinkTimer.start(0.5)
-	#_mobBaseThinkTimer.paused = false
-	#if !_attackSource.is_colliding():
-	#	print("Mob can see player")
-	#else:
-	#	print("Mob cannot see player")
 	pass

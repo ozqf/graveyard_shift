@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc0x3k1h852nw"]
+
+[ext_resource type="Script" path="res://projectiles/aoe/aoe_hit.gd" id="1_bujad"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qnf50"]
+
+[node name="AoeHit" type="Area3D"]
+script = ExtResource("1_bujad")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_qnf50")

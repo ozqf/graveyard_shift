@@ -16,7 +16,8 @@ func _ready():
 	off()
 
 func run(duration:float) -> void:
-	_shape.disabled = false
+	#_shape.disabled = false
+	call_deferred("_shape_on")
 	_duration = duration
 	_tick = 0.0
 	self.visible = true
@@ -34,13 +35,20 @@ func hit(hitInfo:HitInfo) -> int:
 	if !Game.is_hit_valid(hitInfo.teamId, teamId):
 		return Game.HIT_RESPONSE_WHIFF
 	off()
-	self.emit_signal("WindUpHit", self, _tick / _duration)
+	self.emit_signal("WindUpHit", self, hitInfo, _tick / _duration)
 	return hitInfo.damage
 
 func off() -> void:
-	_shape.disabled = true
+	#_shape.disabled = true
+	call_deferred("_shape_off")
 	self.visible = false
 	self.set_process(false)
+
+func _shape_on() -> void:
+	_shape.disabled = false
+
+func _shape_off() -> void:
+	_shape.disabled = true
 
 func _process(delta):
 	_tick += delta

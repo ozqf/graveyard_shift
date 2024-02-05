@@ -8,6 +8,7 @@ var _sndPistolFire = preload("res://shared/sounds/weapons/pistol_fire.wav")
 var _prjThrownCard = preload("res://projectiles/thrown_card/prj_thrown_card.tscn")
 
 @onready var _aimRay:RayCast3D = $aim_ray
+@onready var _tauntRay:RayCast3D = $taunt_ray
 @onready var _leftTimer:Timer = $left_timer
 @onready var _rightTimer:Timer = $right_timer
 @onready var _revolver = $hands/right/revolver
@@ -41,8 +42,19 @@ func _on_round_was_chambered() -> void:
 	if shots < 6:
 		shots += 1
 
+func _taunt_at_aim_target() -> void:
+	var victim = _tauntRay.get_collider()
+	if victim != null && victim.has_method("receive_taunt"):
+		victim.receive_taunt()
+
 func _tick_revolver(_delta:float, input:PlayerInput) -> void:
 	if input.attack1Tap && shots > 0:
+		if _superShotWeight > 0.0:
+			_revolverHit.damage = 15
+			_revolverHit.isQuickShot = true
+		else:
+			_revolverHit.damage = 10
+			_revolverHit.isQuickShot = false
 		shots -= 1
 		GameAudio.play_pistol_fire(self.global_position)
 		_revolver.play_fire(_superShotWeight)
@@ -59,6 +71,8 @@ func _tick_revolver(_delta:float, input:PlayerInput) -> void:
 		return
 	
 	if _revolver.is_ready() && (input.style || shots < 6):
+		if shots == 6:
+			_taunt_at_aim_target()
 		_revolver.play_spin_forward()
 		return
 
