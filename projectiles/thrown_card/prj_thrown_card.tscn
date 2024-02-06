@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://daaixbr1fhqqe"]
+[gd_scene load_steps=11 format=3 uid="uid://daaixbr1fhqqe"]
 
 [ext_resource type="PackedScene" uid="uid://d0cf3w4to35r6" path="res://shared/primitives/card_mesh.tscn" id="1_65ip2"]
 [ext_resource type="Script" path="res://projectiles/thrown_card/prj_thrown_card.gd" id="1_wb27a"]
 [ext_resource type="Script" path="res://projectiles/projectile_launch_info.gd" id="3_ygm70"]
+[ext_resource type="Script" path="res://actors/hit_info.gd" id="4_bmb03"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bae0p"]
 emission_enabled = true
@@ -24,7 +25,7 @@ scale_curve = SubResource("CurveTexture_jdm0t")
 size = Vector3(0.2, 0.02, 0.3)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mejad"]
-radius = 0.3
+radius = 0.2
 
 [node name="PrjThrownCard" type="Node3D"]
 script = ExtResource("1_wb27a")
@@ -45,7 +46,9 @@ collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_mejad")
-disabled = true
 
 [node name="projectile_launch_info" type="Node" parent="."]
 script = ExtResource("3_ygm70")
+
+[node name="HitInfo" type="Node" parent="."]
+script = ExtResource("4_bmb03")

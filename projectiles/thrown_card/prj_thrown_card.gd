@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var _launchInfo = $projectile_launch_info
+@onready var _hitInfo:HitInfo = $HitInfo
 
 var velocity:Vector3 = Vector3()
 var _time:float = 0.0
@@ -8,12 +9,16 @@ var _time:float = 0.0
 func _ready():
 	$Area3D.connect("area_entered", _on_touched_area)
 	$Area3D.connect("body_entered", _on_touched_body)
-	pass
 
 func _on_touched_body(_body:Node3D) -> void:
+	Game.gfx_spawn_quickdraw_cancel(global_position)
 	queue_free()
 
 func _on_touched_area(_area:Area3D) -> void:
+	var result:int = Game.try_hit(_area, _hitInfo)
+	if result == Game.HIT_RESPONSE_SELF_HIT:
+		return
+	Game.gfx_spawn_quickdraw_cancel(global_position)
 	queue_free()
 
 func get_launch_info() -> ProjectileLaunchInfo:
@@ -21,6 +26,8 @@ func get_launch_info() -> ProjectileLaunchInfo:
 
 func launch() -> void:
 	global_position = _launchInfo.origin
+	_hitInfo.teamId = _launchInfo.teamId
+	_hitInfo.sourceId = _launchInfo.sourceId
 	ZqfUtils.look_at_safe(self, _launchInfo.origin + _launchInfo.forward)
 	velocity = _launchInfo.forward.normalized() * 25.0
 

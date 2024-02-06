@@ -24,6 +24,7 @@ var uuid:String = ""
 
 func _ready():
 	uuid = UUID.v4()
+	_head.uuid = uuid
 	self.add_to_group(Game.GROUP_PLAYER_ACTORS)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_interactArea.connect("area_entered", _on_interactable_area_entered)

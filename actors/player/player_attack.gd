@@ -27,6 +27,8 @@ var _inChain:bool = false
 var _focusTime:float = 0.0
 var _inFocus:bool = true
 
+var uuid:String = ""
+
 func _ready() -> void:
 	_revolverHit.teamId = Game.TEAM_ID_PLAYER
 	_revolver.connect("round_was_chambered", _on_round_was_chambered)
@@ -41,6 +43,8 @@ func _throw_card() -> void:
 	var info:ProjectileLaunchInfo = prj.get_launch_info()
 	info.origin = _leftHand.global_position
 	info.forward = -_leftHand.global_transform.basis.z
+	info.teamId = Game.TEAM_ID_PLAYER
+	info.sourceId = uuid
 	prj.launch()
 
 func _on_round_was_chambered() -> void:
