@@ -9,6 +9,7 @@ func _ready() -> void:
 	super._ready()
 	_health = 40
 	_shotWindUp.connect("WindUpHit", _on_windup_hit)
+	_shotWindUp.sourceId = uuid
 
 func receive_taunt() -> void:
 	print("Mob taunted!")
@@ -20,17 +21,25 @@ func receive_taunt() -> void:
 	print("Mob fuming!")
 	_shotWindUp.run(0.5)
 
+func _detonate_gun() -> void:
+	var aoe:AOE = Game.spawn_aoe(_attackSource.global_position)
+	aoe.get_hit_info().damage = 100
+	aoe.get_hit_info().teamId = Game.TEAM_ID_PLAYER
+	#aoe.scale = Vector3(12, 12, 12)
+
 func _on_windup_hit(_windUpInstance, _attack:HitInfo, _weight:float) -> void:
 	if _huntState == MobBase.MobHuntState.WindUp:
 		print("Interupt weight " + str(_weight))
 		var popGfx:Node3D = Game.gfx_spawn_quickdraw_cancel(_windUpInstance.global_position)
 		_huntState = MobBase.MobHuntState.WindDown
 		_mobBaseThinkTimer.start(1.0)
+		_detonate_gun()
 		if _weight >= 0.75:
 			GameAudio.play_snappy_explosion(_attackSource.global_position)
 			if _attack.isQuickShot:
 				GameAudio.play_headshot(_attackSource.global_position)
 				popGfx.scale = Vector3(3, 3, 3)
+				#_detonate_gun()
 			else:
 				popGfx.scale = Vector3(2, 2, 2)
 			Game.gfx_spawn_pop_blood_impact(_windUpInstance.global_position, _windUpInstance.global_transform.basis.x)
@@ -42,6 +51,7 @@ func _fire_bullet(origin:Node3D) -> void:
 	Game.get_actor_root().add_child(prj)
 	var info:ProjectileLaunchInfo = prj.get_launch_info()
 	info.sourceId = uuid
+	info.teamId = Game.TEAM_ID_ENEMY
 	info.origin = origin.global_position
 	info.forward = -origin.global_transform.basis.z
 	prj.launch()
@@ -67,7 +77,6 @@ func _tock_hunt() -> void:
 			if !_attackSource.is_colliding():
 				# begin windup
 				_huntState = MobBase.MobHuntState.WindUp
-				print("Mob can see player")
 				thinkTime = 0.5
 				_shotWindUp.run(thinkTime)
 			_mobBaseThinkTimer.start(thinkTime)
@@ -83,4 +92,3 @@ func _tock_hunt() -> void:
 		MobBase.MobHuntState.WindDown:
 			_mobBaseThinkTimer.start(1.0)
 			_huntState = MobBase.MobHuntState.Chase
-

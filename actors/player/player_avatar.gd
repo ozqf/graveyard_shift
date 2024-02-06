@@ -20,7 +20,10 @@ var _health:float = 100.0
 
 var _cheatNoTarget:bool = false
 
+var uuid:String = ""
+
 func _ready():
+	uuid = UUID.v4()
 	self.add_to_group(Game.GROUP_PLAYER_ACTORS)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_interactArea.connect("area_entered", _on_interactable_area_entered)
@@ -37,6 +40,15 @@ func _on_interactable_body_entered(node:Node) -> void:
 			Game.goto_select_hand()
 		if node.has_method("interactable_used"):
 			node.interactable_used()
+
+
+func hit(_info) -> int:
+	if _info.sourceId == uuid:
+		return Game.HIT_RESPONSE_SELF_HIT
+	if !Game.is_hit_valid(_info.teamId, Game.TEAM_ID_PLAYER):
+		return Game.HIT_RESPONSE_TEAM_MATE
+	print("Player hit for " + str(_info.damage))
+	return 1
 
 func get_target_info() -> TargetInfo:
 	return _selfTargetingInfo
@@ -132,8 +144,9 @@ func _input(event):
 	# motion.relative is movement from last cursor position.
 	# value is in pixels and thus not resolution dependent!
 	# sensitivity will go down as resolution goes up here.
-	var yawRadians:float = -motion.relative.x * MOUSE_RELATIVE_SENSITIVITY
+	var ratio:Vector2 = ZqfUtils.get_window_to_screen_ratio()
+	var yawRadians:float = (-motion.relative.x * ratio.x) * MOUSE_RELATIVE_SENSITIVITY
 	self.rotate(Vector3.UP, yawRadians)
 	
-	var pitchRadians:float = motion.relative.y * MOUSE_RELATIVE_SENSITIVITY
+	var pitchRadians:float = (motion.relative.y * ratio.y) * MOUSE_RELATIVE_SENSITIVITY
 	_head.rotate(Vector3.RIGHT, pitchRadians)

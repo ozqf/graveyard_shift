@@ -8,6 +8,7 @@ signal WindUpHit(shotWindUpInstance, weight)
 @onready var _shape:CollisionShape3D = $CollisionShape3D
 
 var teamId:int = Game.TEAM_ID_ENEMY
+var sourceId:String = ""
 
 var _tick:float = 0.0
 var _duration:float = 0.5
@@ -32,8 +33,10 @@ func _refresh(weight:float) -> void:
 	pass
 
 func hit(hitInfo:HitInfo) -> int:
+	if hitInfo.sourceId == sourceId:
+		return Game.HIT_RESPONSE_SELF_HIT
 	if !Game.is_hit_valid(hitInfo.teamId, teamId):
-		return Game.HIT_RESPONSE_WHIFF
+		return Game.HIT_RESPONSE_TEAM_MATE
 	off()
 	self.emit_signal("WindUpHit", self, hitInfo, _tick / _duration)
 	return hitInfo.damage

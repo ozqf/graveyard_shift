@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://crwqrfv1anvfu"]
+[gd_scene load_steps=15 format=3 uid="uid://crwqrfv1anvfu"]
 
 [ext_resource type="Script" path="res://actors/player/weapons/revolver/revolver_model.gd" id="1_8i5ss"]
 [ext_resource type="Script" path="res://zqf/zqf_timed_hide.gd" id="2_w8vps"]
@@ -121,9 +121,62 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.35, 1, 1, 1, 1)
 
+[sub_resource type="Animation" id="Animation_k0j56"]
+resource_name = "holster"
+step = 0.05
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("root")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.05, 1, 0, -0.0971076, -0.0717857, 0.1, 1, 5.96046e-08, 0.149945, 0.248375, 0.15, 1, 5.96046e-08, 0.287696, 0.275072, 0.75, 1, 5.96046e-08, 0.231539, 0.314438, 0.8, 1, 5.96046e-08, 0.122117, 0.42107, 0.85, 1, 5.96046e-08, -0.0492659, 0.540582, 0.9, 1, 1.19209e-07, -0.445141, 0.805905, 1, 1, 1.19209e-07, -0.445141, 0.805905)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("root")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.05, 1, -0.180519, 0, 0, 0.983571, 0.1, 1, 0.320201, 0, 0, 0.94735, 0.15, 1, 0.999869, 0, 0, 0.0161689, 0.2, 1, -0.719951, 0, 0, 0.694025, 0.25, 1, 0.0045473, 0, 0, 0.99999, 0.3, 1, 0.716266, 0, 0, 0.697827, 0.35, 1, 0.999995, 0, 0, -0.00310735, 0.4, 1, -0.71113, 0, 0, 0.70306, 0.45, 1, 0.00300264, 0, 0, 0.999996, 0.5, 1, 0.69405, 0, 0, 0.719927, 0.55, 1, 0.999998, 0, 0, 0.00179686, 0.6, 1, -0.699407, 0, 0, 0.714724, 0.65, 1, 0.0245027, 0, 0, 0.9997, 0.7, 1, 0.712174, 0, 0, 0.702003, 0.75, 1, 0.999577, 0, 0, 0.0290985, 0.8, 1, -0.735109, 0, 0, 0.677949, 0.85, 1, -0.735109, 0, 0, 0.677949, 0.9, 1, -0.735109, 0, 0, 0.677949, 1, 1, -0.735109, 0, 0, 0.677949)
+tracks/2/type = "scale_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("root")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_yvkfq"]
+resource_name = "holstered"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("root")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1.19209e-07, -0.445141, 0.805905)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("root")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.735109, 0, 0, 0.677949)
+tracks/2/type = "scale_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("root")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array()
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k8tuk"]
 _data = {
 "fire": SubResource("Animation_i3ibh"),
+"holster": SubResource("Animation_k0j56"),
+"holstered": SubResource("Animation_yvkfq"),
 "idle": SubResource("Animation_srjlu"),
 "style_spin": SubResource("Animation_a1vnl"),
 "style_spin_back": SubResource("Animation_p0sg6")
@@ -133,6 +186,7 @@ _data = {
 script = ExtResource("1_8i5ss")
 
 [node name="root" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0807716, 0.996733, 0, -0.996733, -0.0807716, 1.19209e-07, -0.445141, 0.805905)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="root"]
 transform = Transform3D(-0.05, 0, 0, 0, 0.05, -7.54979e-08, 0, 7.54979e-09, 0.5, 0, 0.161141, -0.3)

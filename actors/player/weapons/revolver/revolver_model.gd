@@ -1,6 +1,7 @@
 extends Node
 
 signal round_was_chambered()
+signal holster_finished()
 
 @onready var _animator:AnimationPlayer = $AnimationPlayer
 @onready var _muzzleFlashSmall:ZqfTimedHide3D = $root/muzzle_flash_small
@@ -27,6 +28,9 @@ func play_spin_forward() -> void:
 	else:
 		_animator.play("style_spin_back")
 
+func play_holster() -> void:
+	_animator.play("holster")
+
 func play_fire(superShotWeight) -> void:
 	
 	_animator.play("fire")
@@ -40,8 +44,17 @@ func _on_anim_finished(_animName:String) -> void:
 	if _animProps.has(_animName):
 		if _animProps[_animName].flags & FLAG_CHAMBER_ROUND_AFTER != 0:
 			self.emit_signal("round_was_chambered")
+	if _animName == "holstered":
+		return
+	if _animName == "holster":
+		self.emit_signal("holster_finished")
+		_animator.play("holstered")
+		return
 	if _animName != "idle":
 		_animator.play("idle")
 
 func is_ready() -> bool:
 	return _animator.current_animation == "idle"
+
+func is_holstered() -> bool:
+	return _animator.current_animation == "holstered"

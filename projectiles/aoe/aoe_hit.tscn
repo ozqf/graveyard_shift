@@ -1,11 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://bc0x3k1h852nw"]
+[gd_scene load_steps=7 format=3 uid="uid://bc0x3k1h852nw"]
 
 [ext_resource type="Script" path="res://projectiles/aoe/aoe_hit.gd" id="1_bujad"]
+[ext_resource type="Script" path="res://actors/hit_info.gd" id="2_lyjgk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qnf50"]
 
+[sub_resource type="SphereMesh" id="SphereMesh_xwyow"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4rt6"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.258824)
+
+[sub_resource type="SphereMesh" id="SphereMesh_y2e2r"]
+flip_faces = true
+
 [node name="AoeHit" type="Area3D"]
+collision_layer = 128
+collision_mask = 4
 script = ExtResource("1_bujad")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, 0, 0, 0)
 shape = SubResource("SphereShape3D_qnf50")
+
+[node name="HitInfo" type="Node" parent="."]
+script = ExtResource("2_lyjgk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, 0, 0, 0)
+mesh = SubResource("SphereMesh_xwyow")
+surface_material_override/0 = SubResource("StandardMaterial3D_g4rt6")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, 0, 0, 0)
+mesh = SubResource("SphereMesh_y2e2r")
+surface_material_override/0 = SubResource("StandardMaterial3D_g4rt6")

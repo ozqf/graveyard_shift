@@ -45,6 +45,9 @@ enum GameState {
 var _cemeteryHillScene = preload("res://worlds/cemetery_hill/cemetery_hill.tscn")
 var _titleScene = preload("res://worlds/title/title.tscn")
 
+# aoe
+var _aoeScene = preload("res://projectiles/aoe/aoe_hit.tscn")
+
 # gfx
 var _impactBulletWall = preload("res://gfx/impacts/gfx_impact_bullet_wall.tscn")
 var _impactBulletBlood = preload("res://gfx/impacts/gfx_impact_bullet_blood.tscn")
@@ -218,6 +221,12 @@ func get_player_target() -> TargetInfo:
 	if node == null:
 		return _emptyTargetInfo
 	return node.get_target_info() as TargetInfo
+
+func spawn_aoe(pos:Vector3) -> AOE:
+	var aoe = _aoeScene.instantiate()
+	_worldRoot.add_child(aoe)
+	aoe.global_position = pos
+	return aoe
 
 ###################################################################
 # gfx

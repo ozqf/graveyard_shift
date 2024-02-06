@@ -7,6 +7,8 @@ var _sndPistolFire = preload("res://shared/sounds/weapons/pistol_fire.wav")
 # projectiles
 var _prjThrownCard = preload("res://projectiles/thrown_card/prj_thrown_card.tscn")
 
+const MAX_SUPER_SHOT_DURATION:float = 2.0
+
 @onready var _aimRay:RayCast3D = $aim_ray
 @onready var _tauntRay:RayCast3D = $taunt_ray
 @onready var _leftTimer:Timer = $left_timer
@@ -20,6 +22,7 @@ var _prjThrownCard = preload("res://projectiles/thrown_card/prj_thrown_card.tscn
 
 var shots:int = 6
 var _superShotWeight:float = 0.0
+var _inChain:bool = false
 
 func _ready() -> void:
 	_revolverHit.teamId = Game.TEAM_ID_PLAYER
@@ -38,7 +41,7 @@ func _throw_card() -> void:
 	prj.launch()
 
 func _on_round_was_chambered() -> void:
-	_superShotWeight = 1
+	#_superShotWeight = 1
 	if shots < 6:
 		shots += 1
 
@@ -66,20 +69,45 @@ func _tick_revolver(_delta:float, input:PlayerInput) -> void:
 			var result:int = Game.try_hit(victim, _revolverHit)
 			if result == Game.HIT_RESPONSE_WHIFF:
 				Game.gfx_spawn_bullet_wall_impact(_revolverHit.position, normal)
-			else:
-				_superShotWeight = 1
+			elif result > 0:
+				if _superShotWeight > 0.0:
+					_inChain = true
+			elif result < 0:
+				_superShotWeight = 0.0
+				_inChain = false
+			#else:
+			#	_superShotWeight = 1
+		else:
+			_superShotWeight = 0.0
+			_inChain = false
 		return
 	
-	if _revolver.is_ready() && (input.style || shots < 6):
-		if shots == 6:
-			_taunt_at_aim_target()
+	if (input.style && shots >= 6 && _revolver.is_ready()):
+		_revolver.play_holster()
+		return
+	
+	if _revolver.is_ready() && (shots < 6):
+		#if shots == 6:
+		#	_taunt_at_aim_target()
 		_revolver.play_spin_forward()
+		#_revolver.play_holster()
 		return
 
 func tick(_delta:float, input:PlayerInput) -> void:
-	_superShotWeight -= _delta
-	if _superShotWeight < 0.0:
-		_superShotWeight = 0.0
+	if _inChain:
+		Engine.time_scale = 0.25
+	else:
+		Engine.time_scale = 1.0
+	
+	if _revolver.is_holstered():
+		_superShotWeight = MAX_SUPER_SHOT_DURATION
+	else:
+		#if _superShotWeight > 0.0 && shots > 0 && _inChain:
+		#	Engine.time_scale = 0.25
+		_superShotWeight -= _delta
+		if _superShotWeight < 0.0:
+			_superShotWeight = 0.0
+			_inChain = false
 	
 	_tick_revolver(_delta, input)
 	

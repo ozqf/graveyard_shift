@@ -8,7 +8,7 @@ var _fodderType = preload("res://actors/mobs/fodder/mob_fodder.tscn")
 var _spawnNodes = []
 var _spawnIndex:int = 0
 var _activeMobs:Dictionary = {}
-var _maxActive:int = 3
+var _maxActive:int = 7
 
 func _ready():
 	set_physics_process(false)
@@ -18,12 +18,12 @@ func _ready():
 
 func game_event_mob_died(_mob, _tag:String) -> void:
 	if !_activeMobs.has(_tag):
-		print("Mob death not of interest to arena")
+		#print("Mob death not of interest to arena")
 		return
 	
 	_activeMobs.erase(_tag)
 	var s:int = _activeMobs.size()
-	print("Arena has " + str(s) + " mobs active")
+	#print("Arena has " + str(s) + " mobs active")
 	pass
 
 func _physics_process(_delta:float) -> void:
@@ -50,7 +50,7 @@ func _spawn_mob() -> void:
 	var info:MobLaunchInfo = mob.get_launch_info()
 	info.tag = UUID.v4()
 	_activeMobs[info.tag] = mob
-	print("active mobs " + str(_activeMobs.size()))
+	#print("active mobs " + str(_activeMobs.size()))
 
 func start() -> void:
 	# TODO: cannnot use all children, would include point widget and Timer node too

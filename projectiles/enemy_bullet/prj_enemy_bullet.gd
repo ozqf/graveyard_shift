@@ -16,9 +16,19 @@ func _on_touched_body(_body:Node3D) -> void:
 
 func _on_touched_area(_area:Area3D) -> void:
 	var result:int = Game.try_hit(_area, _hitInfo)
-	if result != Game.HIT_RESPONSE_SELF_HIT:
+	if result == Game.HIT_RESPONSE_SELF_HIT:
 		return
 	queue_free()
+
+func hit(_incomingHit:HitInfo) -> int:
+	if _incomingHit.sourceId == _hitInfo.sourceId:
+		return Game.HIT_RESPONSE_SELF_HIT
+	if !Game.is_hit_valid(_incomingHit.teamId, _hitInfo.teamId):
+		return Game.HIT_RESPONSE_TEAM_MATE
+	
+	Game.gfx_spawn_quickdraw_cancel(self.global_position)
+	queue_free()
+	return _incomingHit.damage
 
 func get_launch_info() -> ProjectileLaunchInfo:
 	return _launchInfo
@@ -28,7 +38,7 @@ func launch() -> void:
 	_hitInfo.sourceId = _launchInfo.sourceId
 	global_position = _launchInfo.origin
 	ZqfUtils.look_at_safe(self, _launchInfo.origin + _launchInfo.forward)
-	velocity = _launchInfo.forward.normalized() * 25.0
+	velocity = _launchInfo.forward.normalized() * 40.0
 
 func _physics_process(_delta:float):
 	_time += _delta
