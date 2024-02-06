@@ -77,7 +77,7 @@ func _tick_revolver(_delta:float, input:PlayerInput) -> void:
 				Game.gfx_spawn_bullet_wall_impact(_revolverHit.position, normal)
 			elif result > 0:
 				if _superShotWeight > 0.0:
-					#GameTime.run(0.25, 2.0)
+					GameTime.add_effect("quick_shot", 0.15, 2.0)
 					_inChain = true
 			elif result < 0:
 				_superShotWeight = 0.0

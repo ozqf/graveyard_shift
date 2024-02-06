@@ -1,7 +1,6 @@
 extends Node
 class_name ZqfServiceGameTime
 
-#var _seconds:float = 0.0
 var _effects:Dictionary = {}
 
 func add_effect(newName:String, newTimeScale:float, newDurationSeconds:float) -> void:
@@ -26,11 +25,6 @@ func remove_effect(newName:String) -> void:
 	if !_effects.has(newName):
 		return
 	_effects.erase(newName)
-
-#func run(_scale:float, durationSeconds:float) -> void:
-#	print("Slowmo " + str(_scale) + " for " + str(durationSeconds))
-#	Engine.time_scale = _scale
-#	_seconds = durationSeconds
 
 func _refresh() -> void:
 	if _effects.is_empty():
@@ -63,17 +57,3 @@ func _process(_delta:float) -> void:
 	_delta = _calc_scaled_delta(_delta)
 	_decrement_effects(_delta)
 	_refresh()
-
-	# if _seconds <= 0.0:
-	# 	return
-	
-	#var timeScale = Engine.time_scale
-	#if timeScale == 1.0:
-	#	_seconds -= _delta
-	#elif timeScale <= 0.0:
-	#	_seconds -= _delta
-	#elif timeScale <= 1.0:
-	#	_delta *= (1.0 / timeScale)
-	#	_seconds -= _delta
-	#if _seconds <= 0.0:
-	#	Engine.time_scale = 1.0
