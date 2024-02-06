@@ -20,7 +20,7 @@ func _on_touched_area(_area:Area3D) -> void:
 		return
 	queue_free()
 
-func hit(_incomingHit:HitInfo) -> int:
+func hit(_incomingHit:HitInfo, _victimNode:Node) -> int:
 	if _incomingHit.sourceId == _hitInfo.sourceId:
 		return Game.HIT_RESPONSE_SELF_HIT
 	if !Game.is_hit_valid(_incomingHit.teamId, _hitInfo.teamId):

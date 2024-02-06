@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwqvibpxgfwk8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8rptx"]
+albedo_color = Color(0.266667, 0.266667, 0.266667, 1)
+metallic_specular = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4c3fu"]
+height = 1.6
+radial_segments = 16
+rings = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_0iv33"]
+radius = 0.05
+height = 0.1
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dfocm"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 2.0
+
+[node name="model" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+material_override = SubResource("StandardMaterial3D_8rptx")
+mesh = SubResource("CapsuleMesh_4c3fu")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.223782, 1.32115, -0.303917)
+mesh = SubResource("SphereMesh_0iv33")
+surface_material_override/0 = SubResource("StandardMaterial3D_dfocm")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.245828, 1.32115, -0.303917)
+mesh = SubResource("SphereMesh_0iv33")
+surface_material_override/0 = SubResource("StandardMaterial3D_dfocm")

@@ -42,8 +42,7 @@ func _on_interactable_body_entered(node:Node) -> void:
 		if node.has_method("interactable_used"):
 			node.interactable_used()
 
-
-func hit(_info) -> int:
+func hit(_info:HitInfo, _victimNode:Node) -> int:
 	if _info.sourceId == uuid:
 		return Game.HIT_RESPONSE_SELF_HIT
 	if !Game.is_hit_valid(_info.teamId, Game.TEAM_ID_PLAYER):
@@ -63,7 +62,18 @@ func _refresh_self_target_info() -> void:
 	_selfTargetingInfo.footPosition = self.global_position
 	_selfTargetingInfo.headPosition = self._head.global_position
 
+func _scan_for_items() -> void:
+	for body in _interactArea.get_overlapping_bodies():
+		if body.has_method("took_item"):
+			var type:String = body.itemType
+			var amount:float = body.amount
+			if type == "bullets":
+				var taken:float = _head.add_revolver_bullets(amount)
+				body.took_item(taken)
+
 func _physics_process(_delta:float) -> void:
+	_scan_for_items()
+	
 	_hudStatus.health = _health
 	_head.write_hud_status(_hudStatus)
 	var grp:String = Game.GROUP_PLAYER_EVENTS

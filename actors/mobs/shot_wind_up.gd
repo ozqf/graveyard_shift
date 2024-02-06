@@ -32,7 +32,7 @@ func _refresh(weight:float) -> void:
 	_timingAura.scale = timingScale
 	pass
 
-func hit(hitInfo:HitInfo) -> int:
+func hit(hitInfo:HitInfo, _victimNode:Node) -> int:
 	if hitInfo.sourceId == sourceId:
 		return Game.HIT_RESPONSE_SELF_HIT
 	if !Game.is_hit_valid(hitInfo.teamId, teamId):

@@ -85,6 +85,12 @@ static func count_bits_set(i:int) -> int:
 	i = (i + (i >> 4)) & 0x0F0F0F0F;        # groups of 8
 	return (i * 0x01010101) >> 24;          # horizontal sum of bytes
 
+static func create_node3d_instance(prefab:PackedScene, parent:Node3D, pos:Vector3) -> Node3D:
+	var node:Node3D = prefab.instantiate() as Node3D
+	parent.add_child(node)
+	node.global_position = pos
+	return node
+
 #####################################
 # geometry stuff
 #####################################

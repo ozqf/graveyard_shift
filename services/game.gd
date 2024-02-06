@@ -45,6 +45,9 @@ enum GameState {
 var _cemeteryHillScene = preload("res://worlds/cemetery_hill/cemetery_hill.tscn")
 var _titleScene = preload("res://worlds/title/title.tscn")
 
+# items
+var _itemRevolverScene = preload("res://actors/items/item_revolver.tscn")
+
 # aoe
 var _aoeScene = preload("res://projectiles/aoe/aoe_hit.tscn")
 
@@ -213,7 +216,7 @@ func is_hit_valid(attackerTeam:int, defenderTeam:int) -> bool:
 
 func try_hit(victim, _hitInfo:HitInfo) -> int:
 	if victim.has_method("hit"):
-		return victim.hit(_hitInfo)
+		return victim.hit(_hitInfo, victim)
 	return HIT_RESPONSE_WHIFF
 
 func get_player_target() -> TargetInfo:
@@ -227,6 +230,9 @@ func spawn_aoe(pos:Vector3) -> AOE:
 	_worldRoot.add_child(aoe)
 	aoe.global_position = pos
 	return aoe
+
+func spawn_item_revolver(pos:Vector3) -> Node3D:
+	return ZqfUtils.create_node3d_instance(_itemRevolverScene, get_actor_root(), pos)
 
 ###################################################################
 # gfx

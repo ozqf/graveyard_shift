@@ -122,6 +122,8 @@ reload={
 3d_physics/layer_6="player_barrier"
 3d_physics/layer_7="interactable"
 3d_physics/layer_8="sensor"
+3d_physics/layer_9="debris"
+3d_physics/layer_10="item_body"
 
 [physics]
 

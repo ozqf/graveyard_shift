@@ -7,6 +7,7 @@ var velocity:Vector3 = Vector3()
 var _time:float = 0.0
 
 func _ready():
+	self.visible = false
 	$Area3D.connect("area_entered", _on_touched_area)
 	$Area3D.connect("body_entered", _on_touched_body)
 
@@ -30,6 +31,10 @@ func launch() -> void:
 	_hitInfo.sourceId = _launchInfo.sourceId
 	ZqfUtils.look_at_safe(self, _launchInfo.origin + _launchInfo.forward)
 	velocity = _launchInfo.forward.normalized() * 25.0
+
+func _process(_delta:float) -> void:
+	if _time > 0.03:
+		self.visible = true
 
 func _physics_process(_delta:float):
 	_time += _delta

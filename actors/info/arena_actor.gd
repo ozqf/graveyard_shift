@@ -30,7 +30,7 @@ func _physics_process(_delta:float) -> void:
 	if _timer.time_left != 0.0:
 		return
 	if _activeMobs.size() < _maxActive:
-		_timer.start(3.0)
+		_timer.start(1.5)
 		_timer.paused = false
 		_spawn_mob()
 

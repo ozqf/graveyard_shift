@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://b60hqda3w8pr2"]
+
+[ext_resource type="PackedScene" uid="uid://bwqvibpxgfwk8" path="res://actors/mobs/fodder/mob_fodder_body.tscn" id="1_hyofl"]
+[ext_resource type="Material" uid="uid://ycwuvkfi45tb" path="res://shared/materials/dead_eye.tres" id="2_40wyx"]
+[ext_resource type="Script" path="res://zqf/zqf_timed_cull.gd" id="3_hhecw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7c8fr"]
+height = 1.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pi7v0"]
+albedo_color = Color(0.223529, 0.160784, 0.2, 1)
+metallic_specular = 0.0
+
+[node name="MobFodderCorpse" type="RigidBody3D"]
+collision_layer = 260
+collision_mask = 257
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("CapsuleShape3D_7c8fr")
+
+[node name="model" parent="." instance=ExtResource("1_hyofl")]
+
+[node name="MeshInstance3D" parent="model" index="0"]
+material_override = SubResource("StandardMaterial3D_pi7v0")
+
+[node name="MeshInstance3D2" parent="model" index="1"]
+surface_material_override/0 = ExtResource("2_40wyx")
+
+[node name="MeshInstance3D3" parent="model" index="2"]
+surface_material_override/0 = ExtResource("2_40wyx")
+
+[node name="ZqfTimedCull" type="Node" parent="."]
+script = ExtResource("3_hhecw")
+tick = 8.0
+cullParent = true
+
+[editable path="model"]

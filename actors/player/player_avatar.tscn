@@ -36,7 +36,7 @@ script = ExtResource("1_6id4k")
 
 [node name="interactable_sensor" type="Area3D" parent="."]
 collision_layer = 128
-collision_mask = 64
+collision_mask = 576
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="interactable_sensor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)

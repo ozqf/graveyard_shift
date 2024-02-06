@@ -48,7 +48,7 @@ func die() -> void:
 	self.queue_free()
 	pass
 
-func hit(_hitInfo:HitInfo) -> int:
+func hit(_hitInfo:HitInfo, _victimNode:Node) -> int:
 	if _hitInfo.sourceId == uuid:
 		return Game.HIT_RESPONSE_SELF_HIT
 	if !Game.is_hit_valid(_hitInfo.teamId, teamId):
@@ -56,16 +56,30 @@ func hit(_hitInfo:HitInfo) -> int:
 	if _dead:
 		return Game.HIT_RESPONSE_WHIFF
 	
-	_health -= _hitInfo.damage
+	var inflicted:float = _hitInfo.damage
+	var headShot:bool = false
+	if _victimNode.name == "hitbox2":
+		headShot = true
+		inflicted *= 2
+	_health -= inflicted
 	
 	if _health <= 0.0:
+		if headShot:
+			print("Headshot!")
+			var p:Vector3 = _victimNode.global_position
+			Game.gfx_spawn_pop_blood_impact(p, _hitInfo.direction)
+			Game.gfx_spawn_pop_blood_impact(p, -_hitInfo.direction)
+		_spawn_corpse()
 		die()
-		return _hitInfo.damage
+		return inflicted
 	else:
 		var gfxForward:Vector3 = -_hitInfo.direction
 		Game.gfx_spawn_bullet_blood_impact(_hitInfo.position, gfxForward)
 	
-	return _hitInfo.damage
+	return inflicted
+
+func _spawn_corpse() -> void:
+	pass
 
 func get_launch_info() -> MobLaunchInfo:
 	return _launchInfo

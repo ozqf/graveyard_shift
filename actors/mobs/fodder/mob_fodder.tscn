@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://d2bjr3e6k6btu"]
+[gd_scene load_steps=11 format=3 uid="uid://d2bjr3e6k6btu"]
 
 [ext_resource type="Script" path="res://actors/mobs/fodder/mob_fodder.gd" id="1_3q3jo"]
 [ext_resource type="Script" path="res://actors/hit_delegate.gd" id="2_ejt4b"]
+[ext_resource type="PackedScene" uid="uid://bwqvibpxgfwk8" path="res://actors/mobs/fodder/mob_fodder_body.tscn" id="2_maqi5"]
 [ext_resource type="PackedScene" uid="uid://b4nspvk6vbpi4" path="res://actors/mobs/shot_wind_up.tscn" id="2_p3pju"]
 [ext_resource type="Script" path="res://actors/mobs/mob_launch_info.gd" id="3_7xpdg"]
 [ext_resource type="Script" path="res://zqf/zqf_nav_agent.gd" id="5_v7rfw"]
@@ -10,29 +11,11 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8eudg"]
 height = 1.6
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8rptx"]
-albedo_color = Color(0.266667, 0.266667, 0.266667, 1)
-metallic_specular = 0.0
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_4c3fu"]
-height = 1.6
-radial_segments = 16
-rings = 1
-
-[sub_resource type="SphereMesh" id="SphereMesh_0iv33"]
-radius = 0.05
-height = 0.1
-radial_segments = 8
-rings = 4
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dfocm"]
-albedo_color = Color(1, 0, 0, 1)
-emission_enabled = true
-emission = Color(1, 0, 0, 1)
-emission_energy_multiplier = 2.0
-
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_54hq1"]
-height = 1.6
+height = 1.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0ru67"]
+height = 0.4
 
 [node name="MobFodder" type="CharacterBody3D"]
 collision_layer = 2
@@ -42,23 +25,7 @@ script = ExtResource("1_3q3jo")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("CapsuleShape3D_8eudg")
 
-[node name="model" type="Node3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-material_override = SubResource("StandardMaterial3D_8rptx")
-mesh = SubResource("CapsuleMesh_4c3fu")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.223782, 1.32115, -0.303917)
-mesh = SubResource("SphereMesh_0iv33")
-surface_material_override/0 = SubResource("StandardMaterial3D_dfocm")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.245828, 1.32115, -0.303917)
-mesh = SubResource("SphereMesh_0iv33")
-surface_material_override/0 = SubResource("StandardMaterial3D_dfocm")
+[node name="model" parent="." instance=ExtResource("2_maqi5")]
 
 [node name="attack_source" type="RayCast3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474152, 0.861788, -0.318139)
@@ -72,8 +39,17 @@ collision_mask = 4
 script = ExtResource("2_ejt4b")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="hitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("CylinderShape3D_54hq1")
+
+[node name="hitbox2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("2_ejt4b")
+
+[node name="head" type="CollisionShape3D" parent="hitbox2"]
+shape = SubResource("CylinderShape3D_0ru67")
 
 [node name="MobLaunchInfo" type="Node" parent="."]
 script = ExtResource("3_7xpdg")

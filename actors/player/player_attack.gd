@@ -33,6 +33,14 @@ func _ready() -> void:
 	_revolverHit.teamId = Game.TEAM_ID_PLAYER
 	_revolver.connect("round_was_chambered", _on_round_was_chambered)
 
+func add_revolver_bullets(amount:float) -> float:
+	if shots < 6:
+		shots += int(amount)
+		if shots > 6:
+			shots = 6
+		return amount
+	return 0
+
 func write_hud_status(target:HudStatus) -> void:
 	target.bullets = shots
 	target.superShotWeight = _superShotWeight

@@ -1,6 +1,7 @@
 extends MobBase
 
 var _prjEnemyBullet = preload("res://projectiles/enemy_bullet/prj_enemy_bullet.tscn")
+var _corpseType = preload("res://actors/mobs/fodder/mob_fodder_corpse.tscn")
 
 @onready var _attackSource:RayCast3D = $model/attack_source
 @onready var _shotWindUp = $model/attack_source/ShotWindUp
@@ -11,8 +12,16 @@ func _ready() -> void:
 	_shotWindUp.connect("WindUpHit", _on_windup_hit)
 	_shotWindUp.sourceId = uuid
 
+func _spawn_corpse() -> void:
+	var corpse = _corpseType.instantiate()
+	Game.get_actor_root().add_child(corpse)
+	corpse.global_position = self.global_position
+	corpse.rotation_degrees = Vector3(10, 0, 10)
+
+	Game.spawn_item_revolver(_shotWindUp.global_position)
+
 func receive_taunt() -> void:
-	print("Mob taunted!")
+	#print("Mob taunted!")
 	if !_baseState == MobBase.MobBaseState.Hunting:
 		return
 	if _huntState != MobHuntState.Chase:

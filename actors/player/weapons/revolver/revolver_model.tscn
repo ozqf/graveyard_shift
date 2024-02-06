@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://baocfsdvm434w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_eim0y"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oenwy"]
+
+[node name="revolver_model" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.05, 0, 0, 0, 0.05, -7.54979e-08, 0, 7.54979e-09, 0.5, 0, 0.161141, -0.3)
+mesh = SubResource("BoxMesh_eim0y")
+skeleton = NodePath("../../..")
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.025, 0, 0, 0, 0.025, -7.54979e-08, 0, 3.7749e-09, 0.5, 0, 0.124553, -0.162116)
+mesh = SubResource("BoxMesh_eim0y")
+skeleton = NodePath("../../..")
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.16, 0, 0, 0, 4.01408e-09, 0.16, 0, -0.0918314, 6.99382e-09, 0, 0.109911, -1.49012e-08)
+mesh = SubResource("CylinderMesh_oenwy")
+skeleton = NodePath("../../..")
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.05, 0, 0, 0, 0.237554, 0.0573576, 0, -0.166337, 0.0819152, 0, 0.0338088, 0.132261)
+mesh = SubResource("BoxMesh_eim0y")
+skeleton = NodePath("../../..")
+metadata/_edit_lock_ = true

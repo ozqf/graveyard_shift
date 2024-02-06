@@ -1,12 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://crwqrfv1anvfu"]
+[gd_scene load_steps=14 format=3 uid="uid://crwqrfv1anvfu"]
 
 [ext_resource type="Script" path="res://actors/player/weapons/revolver/revolver_model.gd" id="1_8i5ss"]
+[ext_resource type="PackedScene" uid="uid://baocfsdvm434w" path="res://actors/player/weapons/revolver/revolver_model.tscn" id="2_cx3fd"]
 [ext_resource type="Script" path="res://zqf/zqf_timed_hide.gd" id="2_w8vps"]
 [ext_resource type="Material" uid="uid://bliret7l6ulxi" path="res://actors/player/weapons/revolver/muzzle_flash_mat.tres" id="3_inxsq"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_eim0y"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_oenwy"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_jp6cu"]
 radius = 0.1
@@ -186,31 +183,8 @@ _data = {
 script = ExtResource("1_8i5ss")
 
 [node name="root" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.0807716, 0.996733, 0, -0.996733, -0.0807716, 1.19209e-07, -0.445141, 0.805905)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="root"]
-transform = Transform3D(-0.05, 0, 0, 0, 0.05, -7.54979e-08, 0, 7.54979e-09, 0.5, 0, 0.161141, -0.3)
-mesh = SubResource("BoxMesh_eim0y")
-skeleton = NodePath("../..")
-metadata/_edit_lock_ = true
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="root"]
-transform = Transform3D(-0.025, 0, 0, 0, 0.025, -7.54979e-08, 0, 3.7749e-09, 0.5, 0, 0.124553, -0.162116)
-mesh = SubResource("BoxMesh_eim0y")
-skeleton = NodePath("../..")
-metadata/_edit_lock_ = true
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="root"]
-transform = Transform3D(-0.16, 0, 0, 0, 4.01408e-09, 0.16, 0, -0.0918314, 6.99382e-09, 0, 0.109911, -1.49012e-08)
-mesh = SubResource("CylinderMesh_oenwy")
-skeleton = NodePath("../..")
-metadata/_edit_lock_ = true
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="root"]
-transform = Transform3D(-0.05, 0, 0, 0, 0.237554, 0.0573576, 0, -0.166337, 0.0819152, 0, 0.0338088, 0.132261)
-mesh = SubResource("BoxMesh_eim0y")
-skeleton = NodePath("../..")
-metadata/_edit_lock_ = true
+[node name="revolver_model" parent="root" instance=ExtResource("2_cx3fd")]
 
 [node name="muzzle_flash_small" type="Node3D" parent="root"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.159446, -0.546004)
