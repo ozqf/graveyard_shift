@@ -8,3 +8,4 @@ var attack1Tap:bool = false
 var attack2Tap:bool = false
 var moveSpecial:bool = false
 var style:bool = false
+var moveSpecialTap:bool = false

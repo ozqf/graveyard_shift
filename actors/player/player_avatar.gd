@@ -81,12 +81,18 @@ func _process(delta):
 	_playerInput.attack1Tap = Input.is_action_just_pressed("attack_1")
 	_playerInput.attack2Tap = Input.is_action_just_pressed("attack_2")
 	_playerInput.style = Input.is_action_pressed("style")
-	_head.tick(delta, _playerInput)
+	_playerInput.moveSpecialTap = Input.is_action_just_pressed("move_special")
+	
 	
 	var inputDir:Vector3 = Vector3()
 	inputDir.x = Input.get_axis("move_left", "move_right")
 	inputDir.y = Input.get_axis("move_down", "move_up")
 	inputDir.z = Input.get_axis("move_forward", "move_backward")
+	
+	#################################################
+	# call head, do attacks and stuff
+	_playerInput.inputDir = inputDir
+	_head.tick(delta, _playerInput)
 	
 	# horizontal movement (X and Z)
 	# translate input axes to axes of object

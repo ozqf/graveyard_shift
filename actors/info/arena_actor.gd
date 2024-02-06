@@ -8,7 +8,7 @@ var _fodderType = preload("res://actors/mobs/fodder/mob_fodder.tscn")
 var _spawnNodes = []
 var _spawnIndex:int = 0
 var _activeMobs:Dictionary = {}
-var _maxActive:int = 7
+var _maxActive:int = 10
 
 func _ready():
 	set_physics_process(false)

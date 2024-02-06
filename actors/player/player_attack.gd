@@ -24,6 +24,9 @@ var shots:int = 6
 var _superShotWeight:float = 0.0
 var _inChain:bool = false
 
+var _focusTime:float = 0.0
+var _inFocus:bool = true
+
 func _ready() -> void:
 	_revolverHit.teamId = Game.TEAM_ID_PLAYER
 	_revolver.connect("round_was_chambered", _on_round_was_chambered)
@@ -51,9 +54,12 @@ func _taunt_at_aim_target() -> void:
 		victim.receive_taunt()
 
 func _tick_revolver(_delta:float, input:PlayerInput) -> void:
+	if _revolver.is_holstered():
+		_taunt_at_aim_target()
+	
 	if input.attack1Tap && shots > 0:
 		if _superShotWeight > 0.0:
-			_revolverHit.damage = 15
+			_revolverHit.damage = 20
 			_revolverHit.isQuickShot = true
 		else:
 			_revolverHit.damage = 10
@@ -71,7 +77,7 @@ func _tick_revolver(_delta:float, input:PlayerInput) -> void:
 				Game.gfx_spawn_bullet_wall_impact(_revolverHit.position, normal)
 			elif result > 0:
 				if _superShotWeight > 0.0:
-					GameTime.run(0.25, 2.0)
+					#GameTime.run(0.25, 2.0)
 					_inChain = true
 			elif result < 0:
 				_superShotWeight = 0.0
@@ -99,6 +105,21 @@ func tick(_delta:float, input:PlayerInput) -> void:
 	#	Engine.time_scale = 0.25
 	#else:
 	#	Engine.time_scale = 1.0
+	
+	if input.inputDir.y < 0.0:
+		GameTime.add_effect("player", 0.25, 999)
+	else:
+		GameTime.remove_effect("player")
+	#if _focusTime > 0.0 && input.inputDir.y < 0.0:
+	#	_focusTime -= _delta
+	#	if _focusTime > 0.0:
+	#		GameTime.run(0.25, 1)
+	#if _inFocus == true:
+	#	_focusTime -= _delta
+	#
+	#	GameTime.run(0.25, _focusTime)
+	#	pass
+	
 	
 	if _revolver.is_holstered():
 		_superShotWeight = MAX_SUPER_SHOT_DURATION

@@ -15,7 +15,7 @@ func receive_taunt() -> void:
 	print("Mob taunted!")
 	if !_baseState == MobBase.MobBaseState.Hunting:
 		return
-	if _huntState != MobHuntState.WindUp:
+	if _huntState != MobHuntState.Chase:
 		return
 	_huntState = MobBase.MobHuntState.WindUp
 	print("Mob fuming!")
