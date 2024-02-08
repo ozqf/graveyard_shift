@@ -12,6 +12,7 @@ const MOUSE_RELATIVE_SENSITIVITY:float = 0.003
 @onready var _hudStatus:HudStatus = $HudStatus
 @onready var _interactArea:Area3D = $interactable_sensor
 @onready var _selfTargetingInfo:TargetInfo = $TargetInfo
+@onready var _hitbox:Area3D = $hitbox
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var _gravity:float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -25,6 +26,8 @@ var uuid:String = ""
 func _ready():
 	uuid = UUID.v4()
 	_head.uuid = uuid
+	_head.add_attack_ignore_node(self)
+	_head.add_attack_ignore_node(_hitbox)
 	self.add_to_group(Game.GROUP_PLAYER_ACTORS)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_interactArea.connect("area_entered", _on_interactable_area_entered)

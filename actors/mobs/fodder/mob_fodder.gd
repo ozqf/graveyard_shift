@@ -43,14 +43,14 @@ func _on_windup_hit(_windUpInstance, _attack:HitInfo, _weight:float) -> void:
 		_huntState = MobBase.MobHuntState.WindDown
 		_mobBaseThinkTimer.start(1.0)
 		_detonate_gun()
-		if _weight >= 0.75:
+		if _weight >= 0.4:
 			GameAudio.play_snappy_explosion(_attackSource.global_position)
 			if _attack.isQuickShot:
 				GameAudio.play_headshot(_attackSource.global_position)
-				popGfx.scale = Vector3(3, 3, 3)
+				popGfx.scale = Vector3(5, 5, 5)
 				#_detonate_gun()
 			else:
-				popGfx.scale = Vector3(2, 2, 2)
+				popGfx.scale = Vector3(3, 3, 3)
 			Game.gfx_spawn_pop_blood_impact(_windUpInstance.global_position, _windUpInstance.global_transform.basis.x)
 			die()
 

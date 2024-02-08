@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://s5w1nn2xwltf"]
+
+[ext_resource type="Script" path="res://actors/player/weapons/ricochet_shot.gd" id="1_6ay57"]
+[ext_resource type="Script" path="res://actors/hit_info.gd" id="2_xol72"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_sldam"]
+size = Vector3(0.1, 0.1, 1)
+
+[node name="RicochetShot" type="RayCast3D"]
+target_position = Vector3(0, 0, -1000)
+collision_mask = 5
+collide_with_areas = true
+script = ExtResource("1_6ay57")
+
+[node name="HitInfo" type="Node" parent="."]
+script = ExtResource("2_xol72")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+mesh = SubResource("BoxMesh_sldam")

@@ -364,7 +364,6 @@ static func create_default_hitscan_params(
 	params.hit_from_inside = true
 	params.hit_back_faces = true
 	params.collision_mask = _mask
-	# params.collision_layer = _mask
 	params.collide_with_areas = true
 	params.collide_with_bodies = true
 	return params
