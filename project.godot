@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Game="*res://services/Game.tscn"
 GameAudio="*res://services/audio/audio_service.tscn"
 GameTime="*res://zqf/zqf_service_game_time.gd"
+Spells="*res://services/spells/spells.tscn"
 
 [display]
 

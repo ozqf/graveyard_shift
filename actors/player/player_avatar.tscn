@@ -1,16 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://jxhx2nsd1txk"]
+[gd_scene load_steps=18 format=3 uid="uid://jxhx2nsd1txk"]
 
 [ext_resource type="Script" path="res://actors/player/player_avatar.gd" id="1_6id4k"]
 [ext_resource type="Script" path="res://actors/player/actor_input.gd" id="2_3pek4"]
 [ext_resource type="Script" path="res://actors/player/player_attack.gd" id="2_flvnq"]
 [ext_resource type="PackedScene" uid="uid://crwqrfv1anvfu" path="res://actors/player/weapons/revolver/revolver.tscn" id="3_b7idq"]
-[ext_resource type="PackedScene" uid="uid://dhh8b27hcce7e" path="res://actors/player/card_hand_models.tscn" id="3_w477c"]
+[ext_resource type="PackedScene" uid="uid://dhh8b27hcce7e" path="res://actors/player/weapons/cards/card_hand_models.tscn" id="3_dvrpj"]
 [ext_resource type="Script" path="res://actors/hit_info.gd" id="5_1as3p"]
 [ext_resource type="Script" path="res://actors/player/player_input.gd" id="7_64av8"]
 [ext_resource type="Script" path="res://actors/player/hud.gd" id="7_wrhai"]
 [ext_resource type="Script" path="res://actors/player/hud_status.gd" id="9_e0ene"]
 [ext_resource type="Script" path="res://actors/target_info.gd" id="10_bklb5"]
 [ext_resource type="Script" path="res://actors/hit_delegate.gd" id="11_3lyf5"]
+[ext_resource type="Script" path="res://services/spells/spell.gd" id="12_e2ecg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_reovu"]
 size = Vector3(1.2, 1.8, 1.2)
@@ -76,11 +77,9 @@ collide_with_areas = true
 [node name="hands" type="Node3D" parent="body/head"]
 
 [node name="left" type="Node3D" parent="body/head/hands"]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.17, -0.1, -0.143)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.17, -0.0894604, -0.143)
 
-[node name="cards" parent="body/head/hands/left" instance=ExtResource("3_w477c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0441046, 0)
-visible = false
+[node name="cards" parent="body/head/hands/left" instance=ExtResource("3_dvrpj")]
 
 [node name="right" type="Node3D" parent="body/head/hands"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.128109, -0.1, -0.129188)
@@ -232,3 +231,17 @@ script = ExtResource("11_3lyf5")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="hitbox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_ww4l5")
+
+[node name="spells" type="Node" parent="."]
+
+[node name="Spell1" type="Node" parent="spells"]
+script = ExtResource("12_e2ecg")
+
+[node name="Spell2" type="Node" parent="spells"]
+script = ExtResource("12_e2ecg")
+
+[node name="Spell3" type="Node" parent="spells"]
+script = ExtResource("12_e2ecg")
+
+[node name="Spell4" type="Node" parent="spells"]
+script = ExtResource("12_e2ecg")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhh8b27hcce7e"]
+
+[ext_resource type="PackedScene" uid="uid://d0cf3w4to35r6" path="res://shared/primitives/card_mesh.tscn" id="1_jghi1"]
+
+[node name="cards" type="Node3D"]
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" parent="." instance=ExtResource("1_jghi1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0090183)
+
+[node name="MeshInstance3D2" parent="." instance=ExtResource("1_jghi1")]
+transform = Transform3D(0.831634, -0.555323, 0, 0.555323, 0.831634, 0, 0, 0, 1, -0.10628, -0.0433133, -0.020388)
+
+[node name="MeshInstance3D4" parent="." instance=ExtResource("1_jghi1")]
+transform = Transform3D(0.470103, -0.882611, 0, 0.882611, 0.470103, 0, 0, 0, 1, -0.18285, -0.145491, -0.0326992)
+
+[node name="MeshInstance3D3" parent="." instance=ExtResource("1_jghi1")]
+transform = Transform3D(0.751564, 0.659661, 0, -0.659661, 0.751564, 0, 0, 0, 1, 0.0808061, -0.0239804, 0)
+
+[node name="MeshInstance3D5" parent="." instance=ExtResource("1_jghi1")]
+transform = Transform3D(0.40621, 0.91378, 0, -0.91378, 0.40621, 0, 0, 0, 1, 0.16275, -0.12194, 0.00941157)

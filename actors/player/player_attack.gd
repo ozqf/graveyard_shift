@@ -25,9 +25,6 @@ var _superShotWeight:float = 0.0
 var _inChain:bool = false
 var _ignore = []
 
-#var _focusTime:float = 0.0
-#var _inFocus:bool = true
-
 var uuid:String = ""
 
 func _ready() -> void:
@@ -93,7 +90,10 @@ func _fire_revolver() -> void:
 	GameAudio.play_pistol_fire(self.global_position)
 	_revolver.play_fire(_superShotWeight)
 	
-	# ew copy
+	# it seems that we can assign the ignore array but cannot insert to it
+	# via the ray params. So maintain another list we will apply each iteration
+	# Exclude must be mutable too so we can't use the original
+	# also, ew copy
 	var excludeList = _ignore.duplicate()
 	
 	var t:Transform3D = _aimRay.global_transform
@@ -105,16 +105,17 @@ func _fire_revolver() -> void:
 	while scanning:
 		escape += 1
 		if escape > 100:
+			# I'm great at while loops
 			push_warning("Revolver raycast ran away!")
 			break
 
 		_rayParams.exclude = excludeList
 		# _aimRay is passed just because we need a node3d to get world from
+		# we don't actually use it for casting here
 		var hit:Dictionary = ZqfUtils.hitscan(_aimRay, _rayParams)
 		if hit.is_empty():
 			# missed!
-			scanning = false
-			continue
+			break
 		
 		var response:int = Game.try_hit(hit.collider, _revolverHit)
 		if response > 0 || Game.HIT_RESPONSE_IS_DEAD:
@@ -124,14 +125,12 @@ func _fire_revolver() -> void:
 				_rayParams.from = hit.position
 				_rayParams.to = _rayParams.from + (forward * 1000.0)
 				continue
-			scanning = false
-			continue
+			break
 		
 		if response == Game.HIT_RESPONSE_WHIFF:
 			Game.gfx_spawn_bullet_wall_impact(hit.position, hit.normal)
 			if ricochets <= 0:
-				scanning = false
-				continue
+				break
 			# reset record of actors we've hit as we've changed direction
 			# also, ew copy again :(
 			excludeList = _ignore.duplicate()
@@ -154,9 +153,9 @@ func _fire_revolver() -> void:
 			_rayParams.from = hit.position
 			_rayParams.to = _rayParams.from + (forward * 1000.0)
 			continue
-		else:
-			scanning = false
-			continue
+		
+		scanning = false
+	
 	#var victim = _aimRay.get_collider()
 	#if victim !=  null:
 	#	_revolverHit.direction = -_aimRay.global_transform.basis.z
