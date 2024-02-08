@@ -1,9 +1,6 @@
 extends Node
 class_name PlayerAttack
 
-# sounds
-var _sndPistolFire = preload("res://shared/sounds/weapons/pistol_fire.wav")
-
 # projectiles
 var _prjThrownCard = preload("res://projectiles/thrown_card/prj_thrown_card.tscn")
 var _ricochetScene = preload("res://actors/player/weapons/ricochet_shot.tscn")
@@ -12,11 +9,11 @@ const MAX_SUPER_SHOT_DURATION:float = 2.0
 
 @onready var _aimRay:RayCast3D = $aim_ray
 @onready var _tauntRay:RayCast3D = $taunt_ray
-@onready var _leftTimer:Timer = $left_timer
+#@onready var _leftTimer:Timer = $left_timer
 @onready var _rightTimer:Timer = $right_timer
 @onready var _revolver = $hands/right/revolver
 
-@onready var _rightHand:Node3D = $hands/right
+#@onready var _rightHand:Node3D = $hands/right
 @onready var _leftHand:Node3D = $hands/left
 
 @onready var _revolverHit:HitInfo = $revolver_hit
@@ -38,8 +35,9 @@ func _ready() -> void:
 	_revolver.connect("round_was_chambered", _on_round_was_chambered)
 	_rayParams = ZqfUtils.create_default_hitscan_params([], _aimRay.collision_mask)
 
-func add_attack_ignore_node(node) -> void:
-	_ignore.push_back(node)
+func add_attack_ignore_node(node:Node) -> void:
+	
+	_ignore.push_back(node.get_rid())
 
 func add_revolver_bullets(amount:float) -> float:
 	if shots < 6:
@@ -87,18 +85,16 @@ func _fire_revolver() -> void:
 	_revolverHit.sourceId = uuid
 	var ricochets:int = 0
 	if _superShotWeight > 0.0:
-		_revolverHit.damage = 20
 		_revolverHit.isQuickShot = true
 		ricochets = 3
 	else:
-		_revolverHit.damage = 20
 		_revolverHit.isQuickShot = false
 	shots -= 1
 	GameAudio.play_pistol_fire(self.global_position)
 	_revolver.play_fire(_superShotWeight)
 	
 	# ew copy
-	_rayParams.exclude = _ignore.duplicate()
+	var excludeList = _ignore.duplicate()
 	
 	var t:Transform3D = _aimRay.global_transform
 	var forward:Vector3 = -t.basis.z
@@ -109,15 +105,28 @@ func _fire_revolver() -> void:
 	while scanning:
 		escape += 1
 		if escape > 100:
-			print("Revolver raycast ran away!")
-			break;
+			push_warning("Revolver raycast ran away!")
+			break
+
+		_rayParams.exclude = excludeList
 		# _aimRay is passed just because we need a node3d to get world from
 		var hit:Dictionary = ZqfUtils.hitscan(_aimRay, _rayParams)
 		if hit.is_empty():
 			# missed!
 			scanning = false
 			continue
+		
 		var response:int = Game.try_hit(hit.collider, _revolverHit)
+		if response > 0 || Game.HIT_RESPONSE_IS_DEAD:
+			if _revolverHit.isQuickShot:
+				# penetrate
+				excludeList.push_back(hit.rid)
+				_rayParams.from = hit.position
+				_rayParams.to = _rayParams.from + (forward * 1000.0)
+				continue
+			scanning = false
+			continue
+		
 		if response == Game.HIT_RESPONSE_WHIFF:
 			Game.gfx_spawn_bullet_wall_impact(hit.position, hit.normal)
 			if ricochets <= 0:
@@ -125,29 +134,26 @@ func _fire_revolver() -> void:
 				continue
 			# reset record of actors we've hit as we've changed direction
 			# also, ew copy again :(
-			_rayParams.exclude = _ignore.duplicate()
-			
+			excludeList = _ignore.duplicate()
 			ricochets -= 1
-			# ...the normal isn't necessarily normalised...
-			forward = (forward).bounce(hit.normal.normalized())
+			var n:Vector3 = hit.normal
+			if !n.is_equal_approx(Vector3.ZERO):
+				forward = (forward).bounce(n)	
+			else:
+				# this occassionally happens for some reason...
+				# ...just reflect straight back I guess
+				forward = -forward
 			_rayParams.from = hit.position
 			_rayParams.to = forward * 1000.0
 			_spawn_ricochet(_rayParams.from, forward, 0)
 			continue
-		elif response > 0:
-			if _revolverHit.isQuickShot:
-				# penetrate
-				_rayParams.exclude.push_back(hit.rid)
-				_rayParams.from = hit.position
-				_rayParams.to = _rayParams.from + (forward * 1000.0)
-				continue
-			scanning = false
-			continue
-		elif response == Game.HIT_RESPONSE_TEAM_MATE:
-			# continue
-			_rayParams.exclude.push_back(hit.rid)
+		
+		if response == Game.HIT_RESPONSE_TEAM_MATE:
+			# penetrate and continue
+			excludeList.push_back(hit.rid)
 			_rayParams.from = hit.position
 			_rayParams.to = _rayParams.from + (forward * 1000.0)
+			continue
 		else:
 			scanning = false
 			continue

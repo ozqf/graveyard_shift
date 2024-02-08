@@ -22,7 +22,7 @@ func game_event_mob_died(_mob, _tag:String) -> void:
 		return
 	
 	_activeMobs.erase(_tag)
-	var s:int = _activeMobs.size()
+	#var s:int = _activeMobs.size()
 	#print("Arena has " + str(s) + " mobs active")
 	pass
 

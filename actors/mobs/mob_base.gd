@@ -54,7 +54,7 @@ func hit(_hitInfo:HitInfo, _victimNode:Node) -> int:
 	if !Game.is_hit_valid(_hitInfo.teamId, teamId):
 		return Game.HIT_RESPONSE_WHIFF
 	if _dead:
-		return Game.HIT_RESPONSE_WHIFF
+		return Game.HIT_RESPONSE_IS_DEAD
 	
 	var inflicted:float = _hitInfo.damage
 	var headShot:bool = false
@@ -71,12 +71,12 @@ func hit(_hitInfo:HitInfo, _victimNode:Node) -> int:
 			Game.gfx_spawn_pop_blood_impact(p, -_hitInfo.direction)
 		_spawn_corpse()
 		die()
-		return inflicted
+		return int(inflicted)
 	else:
 		var gfxForward:Vector3 = -_hitInfo.direction
 		Game.gfx_spawn_bullet_blood_impact(_hitInfo.position, gfxForward)
 	
-	return inflicted
+	return int(inflicted)
 
 func _spawn_corpse() -> void:
 	pass
