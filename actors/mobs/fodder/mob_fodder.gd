@@ -18,7 +18,7 @@ func _spawn_corpse() -> void:
 	corpse.global_position = self.global_position
 	corpse.rotation_degrees = Vector3(10, 0, 10)
 
-	Game.spawn_item_revolver(_shotWindUp.global_position)
+	#Game.spawn_item_revolver(_shotWindUp.global_position)
 
 func receive_taunt() -> void:
 	#print("Mob taunted!")

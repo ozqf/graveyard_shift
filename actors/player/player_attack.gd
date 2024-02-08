@@ -81,6 +81,7 @@ func _ray_cast() -> Dictionary:
 func _fire_revolver() -> void:
 	_revolverHit.sourceId = uuid
 	var ricochets:int = 0
+	_revolverHit.damage = 20
 	if _superShotWeight > 0.0:
 		_revolverHit.isQuickShot = true
 		ricochets = 3
@@ -117,8 +118,12 @@ func _fire_revolver() -> void:
 			# missed!
 			break
 		
+		_revolverHit.position = hit.position
+		_revolverHit.direction = forward
 		var response:int = Game.try_hit(hit.collider, _revolverHit)
-		if response > 0 || Game.HIT_RESPONSE_IS_DEAD:
+		if response > 0 || response == Game.HIT_RESPONSE_IS_DEAD:
+			if _superShotWeight > 0.0:
+				_superShotWeight = MAX_SUPER_SHOT_DURATION
 			if _revolverHit.isQuickShot:
 				# penetrate
 				excludeList.push_back(hit.rid)

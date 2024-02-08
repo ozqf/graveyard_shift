@@ -63,17 +63,19 @@ func hit(_hitInfo:HitInfo, _victimNode:Node) -> int:
 		inflicted *= 2
 	_health -= inflicted
 	
+	var gfxForward:Vector3 = -_hitInfo.direction
 	if _health <= 0.0:
 		if headShot:
 			print("Headshot!")
 			var p:Vector3 = _victimNode.global_position
-			Game.gfx_spawn_pop_blood_impact(p, _hitInfo.direction)
-			Game.gfx_spawn_pop_blood_impact(p, -_hitInfo.direction)
+			Game.gfx_spawn_pop_blood_impact(p, gfxForward)
+			Game.gfx_spawn_pop_blood_impact(p, -gfxForward)
+		else:
+			Game.gfx_spawn_bullet_blood_impact(_hitInfo.position, gfxForward)
 		_spawn_corpse()
 		die()
 		return int(inflicted)
 	else:
-		var gfxForward:Vector3 = -_hitInfo.direction
 		Game.gfx_spawn_bullet_blood_impact(_hitInfo.position, gfxForward)
 	
 	return int(inflicted)
