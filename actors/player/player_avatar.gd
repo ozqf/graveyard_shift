@@ -28,6 +28,7 @@ func _ready():
 	_head.uuid = uuid
 	_head.add_attack_ignore_node(self)
 	_head.add_attack_ignore_node(_hitbox)
+	_head.set_spells_node($spells)
 	self.add_to_group(Game.GROUP_PLAYER_ACTORS)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_interactArea.connect("area_entered", _on_interactable_area_entered)

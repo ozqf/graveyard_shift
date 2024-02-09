@@ -18,6 +18,8 @@ const MAX_SUPER_SHOT_DURATION:float = 2.0
 
 @onready var _revolverHit:HitInfo = $revolver_hit
 
+var _spellsNode:Node = null
+var _spellSlots = []
 var _rayParams:PhysicsRayQueryParameters3D
 
 var shots:int = 6
@@ -32,8 +34,14 @@ func _ready() -> void:
 	_revolver.connect("round_was_chambered", _on_round_was_chambered)
 	_rayParams = ZqfUtils.create_default_hitscan_params([], _aimRay.collision_mask)
 
+func set_spells_node(spellsNode:Node) -> void:
+	_spellsNode = spellsNode
+	_spellSlots.push_back(spellsNode.get_node("Spell1"))
+	_spellSlots.push_back(spellsNode.get_node("Spell2"))
+	_spellSlots.push_back(spellsNode.get_node("Spell3"))
+	_spellSlots.push_back(spellsNode.get_node("Spell4"))
+
 func add_attack_ignore_node(node:Node) -> void:
-	
 	_ignore.push_back(node.get_rid())
 
 func add_revolver_bullets(amount:float) -> float:
@@ -239,6 +247,8 @@ func tick(_delta:float, input:PlayerInput) -> void:
 			_inChain = false
 	
 	_tick_revolver(_delta, input)
+	
+	
 	
 	if input.attack2 && _rightTimer.is_stopped():
 		_rightTimer.start(0.1)
