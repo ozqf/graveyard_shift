@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://jxhx2nsd1txk"]
+[gd_scene load_steps=19 format=3 uid="uid://jxhx2nsd1txk"]
 
 [ext_resource type="Script" path="res://actors/player/player_avatar.gd" id="1_6id4k"]
 [ext_resource type="Script" path="res://actors/player/actor_input.gd" id="2_3pek4"]
@@ -6,12 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://crwqrfv1anvfu" path="res://actors/player/weapons/revolver/revolver.tscn" id="3_b7idq"]
 [ext_resource type="PackedScene" uid="uid://dhh8b27hcce7e" path="res://actors/player/weapons/cards/card_hand_models.tscn" id="3_dvrpj"]
 [ext_resource type="Script" path="res://actors/hit_info.gd" id="5_1as3p"]
+[ext_resource type="Script" path="res://services/spells/spell_user_info.gd" id="6_kh5uf"]
 [ext_resource type="Script" path="res://actors/player/player_input.gd" id="7_64av8"]
 [ext_resource type="Script" path="res://actors/player/hud.gd" id="7_wrhai"]
 [ext_resource type="Script" path="res://actors/player/hud_status.gd" id="9_e0ene"]
 [ext_resource type="Script" path="res://actors/target_info.gd" id="10_bklb5"]
 [ext_resource type="Script" path="res://actors/hit_delegate.gd" id="11_3lyf5"]
-[ext_resource type="Script" path="res://services/spells/spell.gd" id="12_e2ecg"]
+[ext_resource type="Script" path="res://services/spells/castable/fan_of_cards.gd" id="13_61k8g"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_reovu"]
 size = Vector3(1.2, 1.8, 1.2)
@@ -77,9 +78,13 @@ collide_with_areas = true
 [node name="hands" type="Node3D" parent="body/head"]
 
 [node name="left" type="Node3D" parent="body/head/hands"]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.17, -0.0894604, -0.143)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.128, -0.1, -0.129)
 
 [node name="cards" parent="body/head/hands/left" instance=ExtResource("3_dvrpj")]
+visible = false
+
+[node name="revolver" parent="body/head/hands/left" instance=ExtResource("3_b7idq")]
+visible = false
 
 [node name="right" type="Node3D" parent="body/head/hands"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.128109, -0.1, -0.129188)
@@ -89,6 +94,9 @@ metadata/_edit_lock_ = true
 
 [node name="revolver_hit" type="Node" parent="body/head"]
 script = ExtResource("5_1as3p")
+
+[node name="SpellUserInfo" type="Node" parent="body/head"]
+script = ExtResource("6_kh5uf")
 
 [node name="input" type="Node" parent="."]
 script = ExtResource("2_3pek4")
@@ -235,13 +243,13 @@ shape = SubResource("CapsuleShape3D_ww4l5")
 [node name="spells" type="Node" parent="."]
 
 [node name="Spell1" type="Node" parent="spells"]
-script = ExtResource("12_e2ecg")
+script = ExtResource("13_61k8g")
 
 [node name="Spell2" type="Node" parent="spells"]
-script = ExtResource("12_e2ecg")
+script = ExtResource("13_61k8g")
 
 [node name="Spell3" type="Node" parent="spells"]
-script = ExtResource("12_e2ecg")
+script = ExtResource("13_61k8g")
 
 [node name="Spell4" type="Node" parent="spells"]
-script = ExtResource("12_e2ecg")
+script = ExtResource("13_61k8g")

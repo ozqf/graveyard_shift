@@ -25,7 +25,7 @@ var uuid:String = ""
 
 func _ready():
 	uuid = UUID.v4()
-	_head.uuid = uuid
+	_head.set_uuid(uuid)
 	_head.add_attack_ignore_node(self)
 	_head.add_attack_ignore_node(_hitbox)
 	_head.set_spells_node($spells)
@@ -98,6 +98,11 @@ func _process(delta):
 	_playerInput.style = Input.is_action_pressed("style")
 	_playerInput.moveSpecialTap = Input.is_action_just_pressed("move_special")
 	
+	_playerInput.slot1Tap = Input.is_action_just_pressed("slot_1")
+	_playerInput.slot2Tap = Input.is_action_just_pressed("slot_2")
+	_playerInput.slot3Tap = Input.is_action_just_pressed("slot_3")
+	_playerInput.slot4Tap = Input.is_action_just_pressed("slot_4")
+	_playerInput.slot5Tap = Input.is_action_just_pressed("slot_5")
 	
 	var inputDir:Vector3 = Vector3()
 	inputDir.x = Input.get_axis("move_left", "move_right")

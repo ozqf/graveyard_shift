@@ -16,10 +16,14 @@ const MAX_SUPER_SHOT_DURATION:float = 2.0
 #@onready var _rightHand:Node3D = $hands/right
 @onready var _leftHand:Node3D = $hands/left
 
+@onready var _spellUser:SpellUserInfo = $SpellUserInfo
+
 @onready var _revolverHit:HitInfo = $revolver_hit
 
 var _spellsNode:Node = null
 var _spellSlots = []
+var _spellSlotIndex:int = 0
+var _pendingSpellSlotIndex:int = -1
 var _rayParams:PhysicsRayQueryParameters3D
 
 var shots:int = 6
@@ -27,12 +31,17 @@ var _superShotWeight:float = 0.0
 var _inChain:bool = false
 var _ignore = []
 
-var uuid:String = ""
+var _uuid:String = ""
 
 func _ready() -> void:
 	_revolverHit.teamId = Game.TEAM_ID_PLAYER
 	_revolver.connect("round_was_chambered", _on_round_was_chambered)
 	_rayParams = ZqfUtils.create_default_hitscan_params([], _aimRay.collision_mask)
+	_spellUser.aimNode = _aimRay as Node3D
+	_spellUser.leftHand = _leftHand as Node3D
+
+func set_uuid(newUUID:String) -> void:
+	_uuid = newUUID
 
 func set_spells_node(spellsNode:Node) -> void:
 	_spellsNode = spellsNode
@@ -40,6 +49,10 @@ func set_spells_node(spellsNode:Node) -> void:
 	_spellSlots.push_back(spellsNode.get_node("Spell2"))
 	_spellSlots.push_back(spellsNode.get_node("Spell3"))
 	_spellSlots.push_back(spellsNode.get_node("Spell4"))
+	_spellSlots[0].attach(_spellUser)
+	_spellSlots[1].attach(_spellUser)
+	_spellSlots[2].attach(_spellUser)
+	_spellSlots[3].attach(_spellUser)
 
 func add_attack_ignore_node(node:Node) -> void:
 	_ignore.push_back(node.get_rid())
@@ -63,7 +76,7 @@ func _throw_card() -> void:
 	info.origin = _leftHand.global_position
 	info.forward = -_leftHand.global_transform.basis.z
 	info.teamId = Game.TEAM_ID_PLAYER
-	info.sourceId = uuid
+	info.sourceId = _uuid
 	prj.launch()
 
 func _on_round_was_chambered() -> void:
@@ -87,7 +100,7 @@ func _ray_cast() -> Dictionary:
 	return {}
 
 func _fire_revolver() -> void:
-	_revolverHit.sourceId = uuid
+	_revolverHit.sourceId = _uuid
 	var ricochets:int = 0
 	_revolverHit.damage = 20
 	if _superShotWeight > 0.0:
@@ -168,37 +181,18 @@ func _fire_revolver() -> void:
 			continue
 		
 		scanning = false
-	
-	#var victim = _aimRay.get_collider()
-	#if victim !=  null:
-	#	_revolverHit.direction = -_aimRay.global_transform.basis.z
-	#	_revolverHit.position = _aimRay.get_collision_point()
-	#	var normal:Vector3 = _aimRay.get_collision_normal()
-	#	var result:int = Game.try_hit(victim, _revolverHit)
-	#	if result == Game.HIT_RESPONSE_WHIFF:
-	#		Game.gfx_spawn_bullet_wall_impact(_revolverHit.position, normal)
-	#		# ricochet?
-	#		if _revolverHit.isQuickShot:
-	#			var bounceForward:Vector3 = _revolverHit.direction
-	#			var reflectV:Vector3 = normal.normalized()
-	#			bounceForward = _revolverHit.direction.bounce(reflectV)
-	#			_spawn_ricochet(_revolverHit.position, bounceForward, ricochets)
-	#	elif result > 0:
-	#		if _superShotWeight > 0.0:
-	#			#GameTime.add_effect("quick_shot", 0.15, 2.0)
-	#			_inChain = true
-	#	elif result < 0:
-	#		_superShotWeight = 0.0
-	#		_inChain = false
-	#	#else:
-	#	#	_superShotWeight = 1
-	#else:
-	#	_superShotWeight = 0.0
-	#	_inChain = false
 
 func _tick_revolver(_delta:float, input:PlayerInput) -> void:
 	if _revolver.is_holstered():
 		_taunt_at_aim_target()
+		_superShotWeight = MAX_SUPER_SHOT_DURATION
+	else:
+		#if _superShotWeight > 0.0 && shots > 0 && _inChain:
+		#	Engine.time_scale = 0.25
+		_superShotWeight -= _delta
+		if _superShotWeight < 0.0:
+			_superShotWeight = 0.0
+			_inChain = false
 	
 	if input.attack1Tap && shots > 0:
 		_fire_revolver()
@@ -215,44 +209,33 @@ func _tick_revolver(_delta:float, input:PlayerInput) -> void:
 		#_revolver.play_holster()
 		return
 
-func tick(_delta:float, input:PlayerInput) -> void:
-	#if _inChain:
-	#	Engine.time_scale = 0.25
-	#else:
-	#	Engine.time_scale = 1.0
+func _tick_cards(_delta:float, input:PlayerInput) -> void:
+	if input.slot1Tap:
+		_pendingSpellSlotIndex = 0
+	if input.slot2Tap:
+		_pendingSpellSlotIndex = 1
+	if input.slot3Tap:
+		_pendingSpellSlotIndex = 2
+	if input.slot4Tap:
+		_pendingSpellSlotIndex = 3
 	
-	if input.inputDir.y < 0.0:
-		GameTime.add_effect("player", 0.25, 999)
-	else:
-		GameTime.remove_effect("player")
-	#if _focusTime > 0.0 && input.inputDir.y < 0.0:
-	#	_focusTime -= _delta
-	#	if _focusTime > 0.0:
-	#		GameTime.run(0.25, 1)
-	#if _inFocus == true:
-	#	_focusTime -= _delta
-	#
-	#	GameTime.run(0.25, _focusTime)
-	#	pass
-	
-	
-	if _revolver.is_holstered():
-		_superShotWeight = MAX_SUPER_SHOT_DURATION
-	else:
-		#if _superShotWeight > 0.0 && shots > 0 && _inChain:
-		#	Engine.time_scale = 0.25
-		_superShotWeight -= _delta
-		if _superShotWeight < 0.0:
-			_superShotWeight = 0.0
-			_inChain = false
-	
-	_tick_revolver(_delta, input)
-	
-	
-	
+	if _pendingSpellSlotIndex != -1:
+		_spellSlotIndex = _pendingSpellSlotIndex
+		_pendingSpellSlotIndex = -1
+
 	if input.attack2 && _rightTimer.is_stopped():
 		_rightTimer.start(0.1)
 		_rightTimer.paused = false
-		_throw_card()
+		_spellUser.sourceId = _uuid
+		_spellSlots[_spellSlotIndex].cast(_spellUser)
+		#_throw_card()
 		return
+
+func tick(_delta:float, input:PlayerInput) -> void:
+	#if input.inputDir.y < 0.0:
+	#	GameTime.add_effect("player", 0.25, 999)
+	#else:
+	#	GameTime.remove_effect("player")
 	
+	_tick_revolver(_delta, input)
+	_tick_cards(_delta, input)
