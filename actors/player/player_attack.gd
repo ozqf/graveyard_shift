@@ -68,6 +68,8 @@ func add_revolver_bullets(amount:float) -> float:
 func write_hud_status(target:HudStatus) -> void:
 	target.bullets = shots
 	target.superShotWeight = _superShotWeight
+	target.spellSlotIndex = _spellSlotIndex
+	target.spellName = _spellSlots[_spellSlotIndex].hud_name()
 
 func _throw_card() -> void:
 	var prj = _prjThrownCard.instantiate()
@@ -96,8 +98,8 @@ func _spawn_ricochet(pos:Vector3, forward:Vector3, numRicochets:int = 0) -> void
 	node.hitInfo.copy_from(_revolverHit)
 	node.scale = Vector3(1, 1, 100)
 
-func _ray_cast() -> Dictionary:
-	return {}
+# func _ray_cast() -> Dictionary:
+# 	return {}
 
 func _fire_revolver() -> void:
 	_revolverHit.sourceId = _uuid
@@ -222,6 +224,7 @@ func _tick_cards(_delta:float, input:PlayerInput) -> void:
 	if _pendingSpellSlotIndex != -1:
 		_spellSlotIndex = _pendingSpellSlotIndex
 		_pendingSpellSlotIndex = -1
+		print("Spell slot " + str(_spellSlotIndex))
 
 	if input.attack2 && _rightTimer.is_stopped():
 		_rightTimer.start(0.1)

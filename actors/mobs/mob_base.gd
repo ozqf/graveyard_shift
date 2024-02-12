@@ -136,6 +136,7 @@ func _approach_move_target(_delta:float) -> void:
 	_look_toward_flat(_thinkInfo.targetInfo.footPosition)
 	_navAgent.physics_tick(_delta)
 	self.velocity = _navAgent.velocity
+	var vel = self.velocity
 	move_and_slide()
 
 func _update_targeting_ray(ray:RayCast3D, target:Vector3) -> void:

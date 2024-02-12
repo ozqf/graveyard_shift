@@ -43,7 +43,8 @@ func _spawn_mob() -> void:
 		spawnTransform = node.global_transform
 	else:
 		spawnTransform = self.global_transform
-	
+	spawnTransform.origin.x += randf_range(-1, 1)
+	spawnTransform.origin.z += randf_range(-1, 1)
 	var mob = _fodderType.instantiate()
 	Game.get_actor_root().add_child(mob)
 	mob.global_transform = spawnTransform

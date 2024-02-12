@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://jxhx2nsd1txk"]
+[gd_scene load_steps=20 format=3 uid="uid://jxhx2nsd1txk"]
 
 [ext_resource type="Script" path="res://actors/player/player_avatar.gd" id="1_6id4k"]
 [ext_resource type="Script" path="res://actors/player/actor_input.gd" id="2_3pek4"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://actors/target_info.gd" id="10_bklb5"]
 [ext_resource type="Script" path="res://actors/hit_delegate.gd" id="11_3lyf5"]
 [ext_resource type="Script" path="res://services/spells/castable/fan_of_cards.gd" id="13_61k8g"]
+[ext_resource type="Script" path="res://services/spells/castable/spell_bullet_time.gd" id="14_jn8dh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_reovu"]
 size = Vector3(1.2, 1.8, 1.2)
@@ -246,7 +247,7 @@ shape = SubResource("CapsuleShape3D_ww4l5")
 script = ExtResource("13_61k8g")
 
 [node name="Spell2" type="Node" parent="spells"]
-script = ExtResource("13_61k8g")
+script = ExtResource("14_jn8dh")
 
 [node name="Spell3" type="Node" parent="spells"]
 script = ExtResource("13_61k8g")

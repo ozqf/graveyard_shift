@@ -8,6 +8,9 @@ var _tick:float = 0.0
 func attach(__userInfo:SpellUserInfo) -> void:
 	pass
 
+func hud_name() -> String:
+	return "oops"
+
 func cast(__userInfo:SpellUserInfo) -> void:
 	print(self.name + " cast")
 	pass
