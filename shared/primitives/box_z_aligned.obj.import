@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://botu2favi3ged"
+path="res://.godot/imported/box_z_aligned.obj-5c00b6d96b9e8bd1ec9ab7906d04b221.mesh"
+
+[deps]
+
+files=["res://.godot/imported/box_z_aligned.obj-5c00b6d96b9e8bd1ec9ab7906d04b221.mesh"]
+
+source_file="res://shared/primitives/box_z_aligned.obj"
+dest_files=["res://.godot/imported/box_z_aligned.obj-5c00b6d96b9e8bd1ec9ab7906d04b221.mesh", "res://.godot/imported/box_z_aligned.obj-5c00b6d96b9e8bd1ec9ab7906d04b221.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

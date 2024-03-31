@@ -31,6 +31,7 @@ func _set_to_magic_hour() -> void:
 func game_event_state_change(newState:GameService.GameState, _prevState:GameService.GameState) -> void:
 	match newState:
 		GameService.GameState.Play:
-			_set_to_magic_hour()
+			#_set_to_magic_hour()
+			_set_to_night()
 		_:
 			_set_to_magic_hour()

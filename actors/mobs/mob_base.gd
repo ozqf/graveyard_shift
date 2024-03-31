@@ -1,6 +1,9 @@
 extends CharacterBody3D
 class_name MobBase
 
+signal MobBaseStateChanged(newMobState:MobBaseState)
+signal MobHuntStateChanged(newHuntState:MobHuntState)
+
 enum MobBaseState {
 	Idle,
 	Hunting,
@@ -159,6 +162,11 @@ func _change_base_state(newBaseState:MobBaseState) -> void:
 		MobBaseState.Idle:
 			_mobBaseThinkTimer.start(0.5)
 			_mobBaseThinkTimer.paused = false
+	self.emit_signal("MobBaseStateChanged", _baseState)
+
+func _change_hunt_state(newHuntState:MobHuntState) -> void:
+	_huntState = newHuntState
+	self.emit_signal("MobHuntStateChanged", _huntState)
 
 func _on_think_timout() -> void:
 	match _baseState:

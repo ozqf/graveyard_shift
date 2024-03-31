@@ -26,7 +26,8 @@ func receive_taunt() -> void:
 		return
 	if _huntState != MobHuntState.Chase:
 		return
-	_huntState = MobBase.MobHuntState.WindUp
+	
+	_change_hunt_state(MobBase.MobHuntState.WindUp)
 	print("Mob fuming!")
 	_shotWindUp.run(0.5)
 
@@ -40,7 +41,7 @@ func _on_windup_hit(_windUpInstance, _attack:HitInfo, _weight:float) -> void:
 	if _huntState == MobBase.MobHuntState.WindUp:
 		print("Interupt weight " + str(_weight))
 		var popGfx:Node3D = Game.gfx_spawn_quickdraw_cancel(_windUpInstance.global_position)
-		_huntState = MobBase.MobHuntState.WindDown
+		_change_hunt_state(MobBase.MobHuntState.WindDown)
 		_mobBaseThinkTimer.start(1.0)
 		_detonate_gun()
 		if _weight >= 0.4:
@@ -85,19 +86,19 @@ func _tock_hunt() -> void:
 			var thinkTime:float = 0.25
 			if !_attackSource.is_colliding():
 				# begin windup
-				_huntState = MobBase.MobHuntState.WindUp
+				_change_hunt_state(MobBase.MobHuntState.WindUp)
 				thinkTime = 0.5
 				_shotWindUp.run(thinkTime)
 			_mobBaseThinkTimer.start(thinkTime)
 		MobBase.MobHuntState.WindUp:
 			# perform action
 			_fire_bullet(_attackSource)
-			_huntState = MobBase.MobHuntState.Action
+			_change_hunt_state(MobBase.MobHuntState.Action)
 			_mobBaseThinkTimer.start(0.5)
 		MobBase.MobHuntState.Action:
 			# completed action, enter recovery
-			_huntState = MobBase.MobHuntState.WindDown
+			_change_hunt_state(MobBase.MobHuntState.WindDown)
 			_mobBaseThinkTimer.start(0.5)
 		MobBase.MobHuntState.WindDown:
 			_mobBaseThinkTimer.start(1.0)
-			_huntState = MobBase.MobHuntState.Chase
+			_change_hunt_state(MobBase.MobHuntState.Chase)

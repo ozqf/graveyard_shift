@@ -235,10 +235,10 @@ func _tick_cards(_delta:float, input:PlayerInput) -> void:
 		return
 
 func tick(_delta:float, input:PlayerInput) -> void:
-	#if input.inputDir.y < 0.0:
-	#	GameTime.add_effect("player", 0.25, 999)
-	#else:
-	#	GameTime.remove_effect("player")
+	if input.inputDir.y < 0.0:
+		GameTime.add_effect("player", 0.25, 999)
+	else:
+		GameTime.remove_effect("player")
 	
 	_tick_revolver(_delta, input)
 	_tick_cards(_delta, input)

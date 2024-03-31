@@ -28,7 +28,7 @@ shape = SubResource("CapsuleShape3D_8eudg")
 [node name="model" parent="." instance=ExtResource("2_maqi5")]
 
 [node name="attack_source" type="RayCast3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474152, 0.861788, -0.318139)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.274152, 0.961788, -0.118139)
 target_position = Vector3(0, 0, -10)
 
 [node name="ShotWindUp" parent="model/attack_source" instance=ExtResource("2_p3pju")]
@@ -55,7 +55,6 @@ shape = SubResource("CylinderShape3D_0ru67")
 script = ExtResource("3_7xpdg")
 
 [node name="ZqfNavAgent" type="NavigationAgent3D" parent="."]
-path_height_offset = 0.1
 script = ExtResource("5_v7rfw")
 moveSpeed = 3.0
 
