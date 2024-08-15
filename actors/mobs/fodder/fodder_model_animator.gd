@@ -1,6 +1,6 @@
 extends MobModelAnimator
 
-@onready var _neck:Node3D = $torso/neck
+@onready var _neck:Node3D = %neck
 
 func play_idle() -> void:
 	_neck.rotation_degrees = Vector3(-45, 0, 0)

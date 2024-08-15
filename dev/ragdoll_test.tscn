@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhh4a7uduep7h"]
+
+[ext_resource type="PackedScene" uid="uid://dk4b0g6gge5g4" path="res://dev/ragdoll_test_limb.tscn" id="1_3t6bj"]
+
+[node name="RagdollTest" type="Node3D"]
+
+[node name="Skeleton3D" type="Skeleton3D" parent="."]
+
+[node name="RagdollTestLimb" parent="Skeleton3D" instance=ExtResource("1_3t6bj")]
+
+[node name="RagdollTestLimb2" parent="Skeleton3D/RagdollTestLimb" instance=ExtResource("1_3t6bj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+body_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
